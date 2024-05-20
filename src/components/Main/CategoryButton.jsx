@@ -23,6 +23,7 @@ const CategoryButton = styled.button`
   font-weight: 600;
   line-height: normal;
   background: none;
+  cursor: pointer;
 
   ${({checked}) => 
     checked && 
