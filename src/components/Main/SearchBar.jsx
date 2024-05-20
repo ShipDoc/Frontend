@@ -6,6 +6,8 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 10;
 `
 
 const SearchInput = styled.input`

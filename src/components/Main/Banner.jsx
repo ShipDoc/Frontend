@@ -2,9 +2,11 @@ import styled from "styled-components"
 
 const BannerContainer = styled.div`
   margin: 0 auto;
-  width: 80vw;
+  width: 60vw;
   height: 20vh;
   margin-top: 2vh;
+  z-index: 10;
+  position: relative;
 `
 
 const BannerBox = styled.div `

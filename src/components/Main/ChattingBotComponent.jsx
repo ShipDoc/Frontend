@@ -7,11 +7,13 @@ const ChattingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 10;
 `
 
 const ChattingBox = styled.div`
   width:40vw;
-  height: 15vh;
+  height: 18vh;
   border-radius: 1.48319rem;
   background: linear-gradient(180deg, #488EF5 0%, #7AB7F0 100%);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.50);
