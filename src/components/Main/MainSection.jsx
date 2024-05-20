@@ -2,6 +2,7 @@ import styled from "styled-components";
 import CategoryButton from "./CategoryButton";
 import ChattingBotComponent from "./ChattingBotComponent";
 import SearchBar from "./SearchBar";
+import SearchHospitalComponent from "./SearchHospitalComponent";
 
 const WrapperDiv = styled.div`
   position: relative;
@@ -40,6 +41,7 @@ export default function MainSection() {
         <ChattingBotComponent />
         <BlueCircle />
       </WrapperDiv>
+      <SearchHospitalComponent />
     </>
   )
 }
