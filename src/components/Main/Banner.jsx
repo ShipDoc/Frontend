@@ -8,7 +8,8 @@ const BannerContainer = styled.div`
 `
 
 const BannerBox = styled.div `
-  background: #A8A8A8;
+  border: 1px solid #A8A8A8;
+  background: #E4E4E4;
   width: 100%;
   height: 100%;
 `

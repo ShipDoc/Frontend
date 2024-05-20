@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import profileImg from "../assets/images/profile.svg";
+import profileImg from "../../assets/images/profile.svg";
 
 const HeaderContainer = styled.div`
   display: flex;
