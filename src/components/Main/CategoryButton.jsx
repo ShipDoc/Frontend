@@ -5,8 +5,15 @@ const CategoryButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 3vh;
+`
+
+const CategoryButtonBox = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   gap: 4vw;
-  margin-top: 2vh;
+  width: 40vw;
 `
 
 const CategoryButton = styled.button`
@@ -36,10 +43,12 @@ export default function Category() {
 
   return (
     <CategoryButtonContainer>
-      <CategoryButton onClick={()=>handleClick("홈")} checked={selectedButton === "홈"} nonChecked={selectedButton !== "홈"} >홈</CategoryButton>
-      <CategoryButton onClick={()=>handleClick("건강검진")} checked={selectedButton === "건강검진"} nonChecked={selectedButton !== "건강검진"} >건강검진</CategoryButton>
-      <CategoryButton onClick={()=>handleClick("보험청구")} checked={selectedButton === "보험청구"} nonChecked={selectedButton !== "보험청구"} >보험청구</CategoryButton>
-      <CategoryButton onClick={()=>handleClick("커뮤니티")} checked={selectedButton === "커뮤니티"} nonChecked={selectedButton !== "커뮤니티"} >커뮤니티</CategoryButton>
+      <CategoryButtonBox>
+        <CategoryButton onClick={()=>handleClick("홈")} checked={selectedButton === "홈"} nonChecked={selectedButton !== "홈"} >홈</CategoryButton>
+        <CategoryButton onClick={()=>handleClick("건강검진")} checked={selectedButton === "건강검진"} nonChecked={selectedButton !== "건강검진"} >건강검진</CategoryButton>
+        <CategoryButton onClick={()=>handleClick("보험청구")} checked={selectedButton === "보험청구"} nonChecked={selectedButton !== "보험청구"} >보험청구</CategoryButton>
+        <CategoryButton onClick={()=>handleClick("커뮤니티")} checked={selectedButton === "커뮤니티"} nonChecked={selectedButton !== "커뮤니티"} >커뮤니티</CategoryButton>
+      </CategoryButtonBox>
     </CategoryButtonContainer>
   )
 }
