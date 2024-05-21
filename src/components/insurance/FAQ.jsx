@@ -1,18 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 import FAQItem from './FAQItem';
-import { Link } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 const FAQ = () => {
+  const navigate = useNavigate();
+
+  const handleFAQ1 = () => {
+    navigate("FAQ1");
+  };
+
   return (
     <FAQContainer>
-      <Link to="/insurance/qna1">
+      <ClickableFAQItem onClick={handleFAQ1}>
         <FAQItem
           question="실손보험 청구는 어디서 할 수 있나요?"
           answer="실손보험 간단하게 청구하는 방법 알려드려요!"
         />
-      </Link>
+      </ClickableFAQItem>
+      
       <FAQItem
         question="실손보험 청구는 어떻게 하나요?"
         answer="실손보험 청구 이렇게 하면 된다!"
@@ -31,22 +37,10 @@ const FAQ = () => {
 
 const FAQContainer = styled.div`
   font-family: Pretendard;
-  .faq-item {
-    background-color: #fff;
-    border: 2px solid #1371FF;
-    padding: 2rem;
-    margin-bottom: 10px;
-    border-radius: 37px;
-  }
-  .faq-item h3 {
-    margin-top: 0;
-  }
-  .faq-item p {
-    margin: 5px 0 0 0;
-  }
-  a {
-    text-decoration: none;
-  }
+`;
+
+const ClickableFAQItem = styled.div`
+  cursor: pointer;
 `;
 
 export default FAQ;

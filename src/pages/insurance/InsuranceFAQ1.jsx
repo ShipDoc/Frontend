@@ -3,7 +3,7 @@ import NavBar from '../../components/insurance/NavBar';
 import Content from '../../components/insurance/WhereContent';
 import styled from 'styled-components';
 
-const InsuranceWhere = () => {
+const InsuranceQna1 = () => {
   return (
     <PageContainer>
       <NavBar />
@@ -20,4 +20,4 @@ const PageContainer = styled.div`
   background-color: #fff;
 `;
 
-export default InsuranceWhere;
+export default InsuranceQna1;

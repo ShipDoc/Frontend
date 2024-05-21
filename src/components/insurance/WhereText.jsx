@@ -48,7 +48,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  letter-spacing: -0.1rem;
 `;
 
 const Subject = styled.h1`
