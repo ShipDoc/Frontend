@@ -62,11 +62,15 @@ const SignIn = () => {
                     type="text"
                     placeholder="아이디(이메일)를 입력하세요."
                     handling={handleChangeId}
+                    border="60px"
+                    marginTop="0.8rem"
                 ></Input>
                 <Input
                     type="password"
                     placeholder="비밀번호를 입력하세요."
                     handling={handleChangePw}
+                    border="60px"
+                    marginTop="0.8rem"
                 ></Input>
                 <SignInBtn
                     text="로그인"
