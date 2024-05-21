@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import FAQItem from './FAQItem';
+import { Link } from 'react-router-dom';
+
 
 const FAQ = () => {
   return (
     <FAQContainer>
-      <FAQItem
-        question="실손보험 청구는 어디서 할 수 있나요?"
-        answer="실손보험 간단하게 청구하는 방법 알려드려요!"
-      />
+      <Link to="/insuranceWhere">
+        <FAQItem
+          question="실손보험 청구는 어디서 할 수 있나요?"
+          answer="실손보험 간단하게 청구하는 방법 알려드려요!"
+        />
+      </Link>
       <FAQItem
         question="실손보험 청구는 어떻게 하나요?"
         answer="실손보험 청구 이렇게 하면 된다!"
@@ -29,7 +33,7 @@ const FAQContainer = styled.div`
   font-family: Pretendard;
   .faq-item {
     background-color: #fff;
-    border: 2px solid var(--Primary-color, #1371FF);
+    border: 2px solid #1371FF;
     padding: 2rem;
     margin-bottom: 10px;
     border-radius: 37px;
@@ -39,6 +43,9 @@ const FAQContainer = styled.div`
   }
   .faq-item p {
     margin: 5px 0 0 0;
+  }
+  a {
+    text-decoration: none;
   }
 `;
 

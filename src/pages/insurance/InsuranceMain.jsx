@@ -1,13 +1,15 @@
 import React from 'react';
 import NavBar from '../../components/insurance/NavBar';
-import Content from '../../components/insurance/Content';
+import Content from '../../components/insurance/MainContent';
+import Banner from '../../components/insurance/Banner';
 import styled from 'styled-components';
 
-const Insurance = () => {
+const InsuranceMain = () => {
   return (
     <PageContainer>
       <NavBar />
       <Content />
+      <Banner />
     </PageContainer>
   );
 };
@@ -20,4 +22,4 @@ const PageContainer = styled.div`
   background-color: #fff;
 `;
 
-export default Insurance;
+export default InsuranceMain;
