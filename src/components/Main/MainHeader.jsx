@@ -54,7 +54,7 @@ const UserText = styled.p`
   margin-right: 2vw;
 `
 
-export default function Header({user}) {
+export default function MainHeader({user}) {
   return (
     <HeaderContainer>
       <ButtonBox>
