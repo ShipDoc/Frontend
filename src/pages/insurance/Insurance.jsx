@@ -1,4 +1,3 @@
-// src/pages/Insurance/Insurance.js
 import React from 'react';
 import NavBar from '../../components/insurance/NavBar';
 import Content from '../../components/insurance/Content';

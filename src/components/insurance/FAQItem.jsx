@@ -1,4 +1,3 @@
-// src/components/insurance/FAQItem.js
 import React from 'react';
 import styled from 'styled-components';
 

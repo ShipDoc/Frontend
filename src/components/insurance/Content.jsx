@@ -1,4 +1,3 @@
-// src/components/insurance/Content.js
 import React from 'react';
 import styled from 'styled-components';
 import FAQ from './FAQ';

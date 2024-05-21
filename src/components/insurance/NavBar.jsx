@@ -13,9 +13,9 @@ const NavBar = () => {
       <BackgroundCircle />
       <TopContainer>
         <Auth>
-          <a href="#">로그인</a>
+          <Link to="/signin">로그인</Link>
           <img src={loginBar} alt="login bar" />
-          <a href="#">회원가입</a>
+          <Link to="/signup">회원가입</Link>
         </Auth>
         <LogoDiv>
           <Logo>쉽닥</Logo>
