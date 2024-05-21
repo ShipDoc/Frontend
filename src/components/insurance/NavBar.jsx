@@ -31,7 +31,7 @@ const NavBar = () => {
           <ul>
             <li><Link to="/">홈</Link></li>
             <li><Link to="/health-check">건강검진</Link></li>
-            <li><StyledLink to="/insuranceMain">보험청구</StyledLink></li>
+            <li><StyledLink to="/insurance">보험청구</StyledLink></li>
             <li><Link to="/community">커뮤니티</Link></li>
           </ul>
         </Nav>

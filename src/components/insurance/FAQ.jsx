@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const FAQ = () => {
   return (
     <FAQContainer>
-      <Link to="/insuranceWhere">
+      <Link to="/insurance/qna1">
         <FAQItem
           question="실손보험 청구는 어디서 할 수 있나요?"
           answer="실손보험 간단하게 청구하는 방법 알려드려요!"
