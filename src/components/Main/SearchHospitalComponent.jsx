@@ -19,6 +19,7 @@ const SearchHospitalButtonBox = styled.div`
   border-radius: 1.5rem;
   background: #1371FF;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 ` 
 
 const SearchHospitalBoldText = styled.p`
