@@ -4,6 +4,7 @@ import hamburger from "../../assets/images/hamburger.svg";
 import locationBoxImg from "../../assets/images/locationBox.svg";
 import locationImg from "../../assets/images/locationImg.svg";
 import { useState } from "react";
+import HospitalComponent from "./HospitalComponent";
 
 const FooterWrapper = styled.div`
   width: 100%;
@@ -52,7 +53,7 @@ export default function MainFooter() {
   return (
     <FooterWrapper>
       <FooterContainer>
-        <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+        <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "2vh"}}>
           <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "1vw"}}>
             <NearHospitalText>내 주변 병원</NearHospitalText>
             <HamburgerContainer>
@@ -67,6 +68,10 @@ export default function MainFooter() {
               <LocationText>{location}</LocationText>
             </div>
           </LocationDiv>
+        </div>
+        <div>
+        <HospitalComponent />
+        {/* <HospitalComponent /> */}
         </div>
       </FooterContainer>
     </FooterWrapper>
