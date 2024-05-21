@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const FAQItem = ({ question, answer }) => {
   return (
-    <FAQItemContainer className="faq-item">
+    <FAQItemContainer>
       <Question>{question}</Question>
       <Answer>{answer}</Answer>
     </FAQItemContainer>
@@ -16,17 +16,26 @@ const FAQItemContainer = styled.div`
   width: 100%;
   height: 20vh;
   border-radius: 37px;
-  border: 2px solid var(--Primary-color, #1371FF);
+  border: 2px solid #1371FF;
   box-shadow: 6px 6px 9px 0px rgba(0, 0, 0, 0.25);
-  background: var(--Sub-color, #FFF);
+  background: white;
   flex-shrink: 0;
   justify-content: center;
   margin-top: 2rem;
   letter-spacing: -0.1rem;
+
+  &:hover {
+    background-color: #1371FF;
+
+    h3, p {
+      color: white;
+    }
+  }
 `;
 
 const Question = styled.h3`
-  color: var(--Primary-color, #1371FF);
+  margin-left: 2rem;
+  color: #1371FF;
   font-family: Pretendard;
   font-size: 1.2rem;
   font-style: normal;
@@ -36,7 +45,8 @@ const Question = styled.h3`
 `;
 
 const Answer = styled.p`
-  color: var(--Primary-color, #1371FF);
+  margin-left: 2rem;
+  color: #1371FF;
   font-family: Pretendard;
   font-size: 0.8rem;
   font-style: normal;
