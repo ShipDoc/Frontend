@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import profileImg from "../../assets/images/profile.svg";
+import { useNavigate } from "react-router-dom";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -10,7 +11,7 @@ const HeaderContainer = styled.div`
 
 const ButtonBox = styled.div `
   display: flex;
-  justify-contetnt: center;
+  justify-content: center;
   align-items: center;
   gap: 0.56rem;
 `
@@ -55,11 +56,21 @@ const UserText = styled.p`
 `
 
 export default function MainHeader({user}) {
+  const navigate = useNavigate();
+
+  const goLogin = () => {
+    navigate("/");
+  }
+
+  const goSignUp = () => {
+    navigate("/SignUp");
+  }
+  
   return (
     <HeaderContainer>
       <ButtonBox>
-        <Button>로그인</Button>
-        <Button>회원가입</Button>
+        <Button onClick={goLogin}>로그인</Button>
+        <Button onClick={goSignUp}>회원가입</Button>
       </ButtonBox>
       <LogoText>쉽닥</LogoText>
       <UserText>{user}(님)</UserText>
