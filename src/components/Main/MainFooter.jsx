@@ -10,6 +10,7 @@ const FooterWrapper = styled.div`
   width: 100%;
   background: linear-gradient(180deg, rgba(46, 126, 243, 0.88) 0%, #7BB8F0 100%);
   margin-top: 3vh;
+  margin-bottom: 10vh;
 `
 
 const FooterContainer = styled.div`
@@ -48,13 +49,21 @@ const LocationText = styled.p`
   line-height: normal;  
 `
 
+const PartitionComponent = styled.div`
+  height: 0.3vh;
+  stroke-width: 2px;
+  stroke: #FFF;
+  width: 100%;
+  background: #FFF;
+`
+
 export default function MainFooter() {
   const [location, setLocation] = useState("지역");
   return (
     <FooterWrapper>
       <FooterContainer>
-        <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "2vh"}}>
-          <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "1vw"}}>
+        <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "2vh", width: "40vw"}}>
+          <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "0.5vw"}}>
             <NearHospitalText>내 주변 병원</NearHospitalText>
             <HamburgerContainer>
               <img src={HamburgerDiv} alt="hamburgerDiv" />
@@ -71,7 +80,8 @@ export default function MainFooter() {
         </div>
         <div>
         <HospitalComponent />
-        {/* <HospitalComponent /> */}
+        <PartitionComponent />
+        <HospitalComponent />
         </div>
       </FooterContainer>
     </FooterWrapper>
