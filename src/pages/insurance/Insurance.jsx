@@ -18,7 +18,7 @@ const PageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: #f8f9fa;
+  background-color: #fff;
 `;
 
 export default Insurance;

@@ -20,6 +20,8 @@ const MainContainer = styled.main`
   padding: 20px 0;
   width: 40%;
   max-width: 1200px;
+  background: var(--Sub-color, #FFF);
+  
 `;
 
 const Container = styled.div`
