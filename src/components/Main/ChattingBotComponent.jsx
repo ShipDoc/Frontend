@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import characterImg from "../../assets/images/ShipDocCharacter.png";
 import chatImg from "../../assets/images/chatImg.svg";
+import whiteHalfCircleImg from "../../assets/images/whiteHalfCircle.svg";
 
 const ChattingContainer = styled.div`
   margin-top: 3vh;
@@ -18,7 +19,7 @@ const ChattingBox = styled.div`
   background: linear-gradient(180deg, #488EF5 0%, #7AB7F0 100%);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.50);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 `
 
@@ -57,12 +58,34 @@ const ChatText = styled.p`
   line-height: 175%; /* 1.09375rem */
 `
 
+const CharacterImgContainer = styled.div`
+  position: relative;
+  // width: max-content;
+  width: 25%;
+  height: 100%;
+`
+
+const CharacterBackground = styled.img`
+  position: absolute;
+  bottom: 0;
+`
+
+const CharacterImg = styled.img`
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  // transform: translateX(-30%);
+`
+
 export default function ChattingBotComponent() {
   return (
     <>
       <ChattingContainer>
         <ChattingBox>
-          <img src={characterImg} alt="characterImg" />
+          <CharacterImgContainer>
+            <CharacterBackground src={whiteHalfCircleImg} alt="whiteHalfCircleImg" />
+            <CharacterImg src={characterImg} alt="characterImg" />
+          </CharacterImgContainer>
           <TextContainer>
             <HelpText>무엇이든지 물어보세요! <br/> 도와줘요 쉽닥!</HelpText>
             <GoChatButtonBox>
