@@ -59,6 +59,7 @@ const PartitionComponent = styled.div`
 
 export default function MainFooter() {
   const [location, setLocation] = useState("지역");
+  
   return (
     <FooterWrapper>
       <FooterContainer>

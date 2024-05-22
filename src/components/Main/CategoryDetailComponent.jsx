@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import stethoscopeImg from "../../assets/images/stethoscope.svg";
 import coldImg from "../../assets/images/cold.svg";
+import healthCareListImg from "../../assets/images/healthCareList.svg";
+import reservationImg from "../../assets/images/reservation.svg";
 
-const CategoryDetailButtonConatiner = styled.div`
+const CategoryDetailButtonContainer = styled.div`
   margin-top: 4vh;
   display: flex;
   justify-content: center;
@@ -50,13 +52,24 @@ const SearchHospitalText = styled.p`
   display: inline;
 `
 
+const HealthCareText = styled.p`
+  color: #FFF;
+  text-align: center;
+  text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  font-family: Pretendard;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+`
+
 // const 
 
 export default function CategoryDetailComponent({home, checkup}) {
   return (
     <>
       {home && (
-        <CategoryDetailButtonConatiner>
+        <CategoryDetailButtonContainer>
           <CategoryDetailButtonBox home={home}>
             <img src={stethoscopeImg} alt="stethoscopeImg" />
             <SearchHospitalBoldText>진료과목<SearchHospitalText>으로 <br />병원찾기</SearchHospitalText></SearchHospitalBoldText>
@@ -66,12 +79,20 @@ export default function CategoryDetailComponent({home, checkup}) {
             <img src={coldImg} alt="coldImg" />
             <SearchHospitalBoldText>증상<SearchHospitalText>으로 <br />병원찾기</SearchHospitalText></SearchHospitalBoldText>
           </CategoryDetailButtonBox>
-        </CategoryDetailButtonConatiner>
+        </CategoryDetailButtonContainer>
       )}
       {checkup && (
-        <CategoryDetailComponent>
-          <CategoryDetailButtonBox></CategoryDetailButtonBox>
-        </CategoryDetailComponent>
+        <CategoryDetailButtonContainer>
+          <CategoryDetailButtonBox checkup={checkup}>
+            <img src={healthCareListImg} alt="healthCareListImg" />
+            <HealthCareText>건강검진<br />내역보기</HealthCareText>
+          </CategoryDetailButtonBox>
+
+          <CategoryDetailButtonBox checkup={checkup}>
+            <img src={reservationImg} alt="healthCareListImg" />
+            <HealthCareText>건강검진<br />예약하기</HealthCareText>
+          </CategoryDetailButtonBox>
+        </CategoryDetailButtonContainer>
       )}
     </>
   )

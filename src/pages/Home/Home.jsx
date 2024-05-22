@@ -6,6 +6,7 @@ import MainFooter from "../../components/Main/MainFooter";
 
 export default function Home() {
   const [user, setUser] = useState("User");
+  
   return (
     <>
       <MainHeader user={user} />

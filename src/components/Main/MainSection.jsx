@@ -1,6 +1,6 @@
-import ChattingBotComponent from "./CategoryComponent";
+import CategoryComponent from "./CategoryComponent";
 import SearchBar from "./SearchBar";
-import SearchHospitalComponent from "./CategoryDetailComponent";
+import CategoryDetailComponent from "./CategoryDetailComponent";
 import styled, {css} from "styled-components";
 import { useState } from "react";
 
@@ -46,7 +46,7 @@ const BlueCircle = styled.div`
   flex-shrink: 0;
   border-radius: 16.625rem;
   background: #E7F3FF;
-  z-index; -10;
+  z-index: -10;
   position: absolute;
   top: -5vh;
   left: 25vw;
@@ -83,10 +83,10 @@ export default function MainSection() {
         </CategoryButtonBox>
         </CategoryButtonContainer>
         <SearchBar />
-        <ChattingBotComponent home={selectedButton === "홈"} checkup={selectedButton === "건강검진"} />
+        <CategoryComponent home={selectedButton === "홈"} checkup={selectedButton === "건강검진"} />
         <BlueCircle />
       </WrapperDiv>
-      <SearchHospitalComponent home={selectedButton === "홈"} checkup={selectedButton === "건강검진"} />
+      <CategoryDetailComponent home={selectedButton === "홈"} checkup={selectedButton === "건강검진"} />
     </>
   )
 }
