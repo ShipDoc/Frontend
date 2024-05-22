@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import NullText from "../../MyPage/Appointment/NullText";
+import NullText from "../NullText";
 
 const Content = () => {
   return (
@@ -8,7 +8,11 @@ const Content = () => {
       <Container>
         <Section>
           <Title>마이페이지 &gt; 병원 예약내역 보기</Title>
-          <NullText />
+          <NullText
+            subject="병원 예약내역 보기"
+            subSubject=""
+            noText="예약된 병원이 없어요"
+          />
         </Section>
       </Container>
     </MainContainer>

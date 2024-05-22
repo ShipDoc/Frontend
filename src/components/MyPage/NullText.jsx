@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import fileImg from "../../../assets/images/fileImg.svg";
-import searchImg from "../../../assets/images/search.svg";
+import fileImg from "../../assets/images/fileImg.svg";
+import searchImg from "../../assets/images/search.svg";
 
-const NullText = () => {
+const NullText = ({ subject, subSubject, noText}) => {
   return (
     <Container>
       <SubjectContainer>
-        <Subject>진료내역 보기</Subject>
-        <SubSubject>*최근 2년이내 받은 진료내역</SubSubject>
+        <Subject>{ subject }</Subject>
+        <SubSubject>{ subSubject }</SubSubject>
       </SubjectContainer>
       
       <Main>
@@ -19,7 +19,7 @@ const NullText = () => {
           <img src={searchImg} alt="searchImg" />
         </SearchImg>
       </Main>
-      <Text>진료내역이 없어요</Text>
+      <Text>{noText}</Text>
     </Container>
   );
 };
