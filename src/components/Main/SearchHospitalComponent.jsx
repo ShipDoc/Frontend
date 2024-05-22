@@ -43,18 +43,22 @@ const SearchHospitalText = styled.p`
   display: inline;
 `
 
-export default function SearchHospitalComponent() {
+export default function SearchHospitalComponent({home, checkup}) {
   return (
-    <SearchHospitalButtonConatiner>
-      <SearchHospitalButtonBox>
-        <img src={stethoscopeImg} alt="stethoscopeImg" />
-        <SearchHospitalBoldText>진료과목<SearchHospitalText>으로 <br />병원찾기</SearchHospitalText></SearchHospitalBoldText>
-      </SearchHospitalButtonBox>
-
-      <SearchHospitalButtonBox>
-        <img src={coldImg} alt="coldImg" />
-        <SearchHospitalBoldText>증상<SearchHospitalText>으로 <br />병원찾기</SearchHospitalText></SearchHospitalBoldText>
-      </SearchHospitalButtonBox>
-    </SearchHospitalButtonConatiner>
+    <>
+      {home && (
+        <SearchHospitalButtonConatiner>
+          <SearchHospitalButtonBox>
+            <img src={stethoscopeImg} alt="stethoscopeImg" />
+            <SearchHospitalBoldText>진료과목<SearchHospitalText>으로 <br />병원찾기</SearchHospitalText></SearchHospitalBoldText>
+          </SearchHospitalButtonBox>
+    
+          <SearchHospitalButtonBox>
+            <img src={coldImg} alt="coldImg" />
+            <SearchHospitalBoldText>증상<SearchHospitalText>으로 <br />병원찾기</SearchHospitalText></SearchHospitalBoldText>
+          </SearchHospitalButtonBox>
+        </SearchHospitalButtonConatiner>
+      )}
+    </>
   )
 }
