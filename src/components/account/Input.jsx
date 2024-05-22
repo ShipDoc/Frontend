@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const Input = ({ type, placeholder, handling, border, margintop }) => {
+const Input = ({ type, placeholder, handling, border, marginTop }) => {
     return (
-        <InputDiv border={border} margintop={margintop}>
+        <InputDiv border={border} marginTop={marginTop}>
             <InputComp
                 type={`${type}`}
                 placeholder={`${placeholder}`}
@@ -22,7 +22,7 @@ const InputDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: ${(props) => props.margintop} auto 0 auto;
+    margin: ${(props) => props.marginTop} auto 0 auto;
 `;
 
 const InputComp = styled.input`

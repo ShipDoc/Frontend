@@ -123,7 +123,7 @@ const SignUpInfo = () => {
                             placeholder="아이디(이메일)를 입력하세요."
                             handling={handleChangeId}
                             border="20px"
-                            margintop="0.2rem"
+                            marginTop="0.2rem"
                         ></Input>
                         {!signUpValid.id && signUpVal.id && (
                             <ErrorMessage>
@@ -144,7 +144,7 @@ const SignUpInfo = () => {
                             placeholder="영문,숫자를 포함한 8~20자리 이내"
                             handling={handleChangePw}
                             border="20px"
-                            margintop="0.2rem"
+                            marginTop="0.2rem"
                         ></Input>
                         {!signUpValid.password && signUpVal.password && (
                             <ErrorMessage>
@@ -166,7 +166,7 @@ const SignUpInfo = () => {
                             placeholder="비밀번호 확인"
                             handling={handleCheckPw}
                             border="20px"
-                            margintop="0.2rem"
+                            marginTop="0.2rem"
                         ></Input>
                         {!signUpValid.checkPwd && signUpVal.checkPwd && (
                             <ErrorMessage>
@@ -189,7 +189,7 @@ const SignUpInfo = () => {
                                 placeholder="전화번호를 입력하세요."
                                 handling={handleAuth}
                                 border="20px"
-                                margintop="0.2rem"
+                                marginTop="0.2rem"
                             ></Input>
                             <AuthBtn onClick={onClickAuth}>인증하기</AuthBtn>
                         </AuthFrame>
@@ -216,7 +216,6 @@ const SignUpInfo = () => {
 };
 
 const Frame = styled.div`
-    font-family: Pretendard;
     width: 100%;
     height: 100vh;
     display: flex;

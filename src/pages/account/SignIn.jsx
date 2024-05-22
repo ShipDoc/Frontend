@@ -63,14 +63,14 @@ const SignIn = () => {
                     placeholder="아이디(이메일)를 입력하세요."
                     handling={handleChangeId}
                     border="60px"
-                    margintop="0.8rem"
+                    marginTop="0.8rem"
                 ></Input>
                 <Input
                     type="password"
                     placeholder="비밀번호를 입력하세요."
                     handling={handleChangePw}
                     border="60px"
-                    margintop="0.8rem"
+                    marginTop="0.8rem"
                 ></Input>
                 <SignInBtn
                     text="로그인"
@@ -94,7 +94,6 @@ const SignIn = () => {
 };
 
 const Frame = styled.div`
-    font-family: Pretendard;
     width: 100%;
     height: 100vh;
     display: flex;
