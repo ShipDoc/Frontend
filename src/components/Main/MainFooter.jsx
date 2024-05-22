@@ -5,11 +5,12 @@ import locationBoxImg from "../../assets/images/locationBox.svg";
 import locationImg from "../../assets/images/locationImg.svg";
 import { useState } from "react";
 import HospitalComponent from "./HospitalComponent";
+import SearchBar from "./SearchBar";
 
 const FooterWrapper = styled.div`
   width: 100%;
   background: linear-gradient(180deg, rgba(46, 126, 243, 0.88) 0%, #7BB8F0 100%);
-  margin-top: 3vh;
+  margin-top: 7vh;
   margin-bottom: 10vh;
 `
 
@@ -57,12 +58,13 @@ const PartitionComponent = styled.div`
   background: #FFF;
 `
 
-export default function MainFooter() {
+export default function MainFooter({checkup}) {
   const [location, setLocation] = useState("지역");
-  
+
   return (
     <FooterWrapper>
       <FooterContainer>
+        {checkup && <SearchBar placeholder="건강검진 병원 찾기" />}
         <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "2vh", width: "40vw"}}>
           <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "0.5vw"}}>
             <NearHospitalText>내 주변 병원</NearHospitalText>

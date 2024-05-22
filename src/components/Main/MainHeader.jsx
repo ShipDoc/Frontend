@@ -66,6 +66,10 @@ export default function MainHeader({user}) {
     navigate("/SignUp");
   }
   
+  const goMyPage = () => {
+    navigate("/mypage");
+  }
+
   return (
     <HeaderContainer>
       <ButtonBox>
@@ -74,8 +78,8 @@ export default function MainHeader({user}) {
       </ButtonBox>
       <LogoText>쉽닥</LogoText>
       <UserText>{user}(님)</UserText>
-      <div>
-        <img src={profileImg} alt="profileImg" />
+      <div onClick={goMyPage}>
+        <img src={profileImg} alt="profileImg" style={{cursor: "pointer"}} />
       </div>
     </HeaderContainer>
   )

@@ -1,6 +1,7 @@
 import CategoryComponent from "./CategoryComponent";
 import SearchBar from "./SearchBar";
 import CategoryDetailComponent from "./CategoryDetailComponent";
+import MainFooter from "../../components/Main/MainFooter";
 import styled, {css} from "styled-components";
 import { useState } from "react";
 
@@ -75,18 +76,19 @@ export default function MainSection() {
     <>
       <WrapperDiv>
         <CategoryButtonContainer>
-        <CategoryButtonBox>
-          <CategoryButton onClick={()=>handleClick("홈")} checked={selectedButton === "홈"} >홈</CategoryButton>
-          <CategoryButton onClick={()=>handleClick("건강검진")} checked={selectedButton === "건강검진"} >건강검진</CategoryButton>
-          <CategoryButton onClick={()=>handleClick("보험청구")} checked={selectedButton === "보험청구"} >보험청구</CategoryButton>
-          <CategoryButton onClick={()=>handleClick("커뮤니티")} checked={selectedButton === "커뮤니티"} >커뮤니티</CategoryButton>
-        </CategoryButtonBox>
+          <CategoryButtonBox>
+            <CategoryButton onClick={()=>handleClick("홈")} checked={selectedButton === "홈"} >홈</CategoryButton>
+            <CategoryButton onClick={()=>handleClick("건강검진")} checked={selectedButton === "건강검진"} >건강검진</CategoryButton>
+            <CategoryButton onClick={()=>handleClick("보험청구")} checked={selectedButton === "보험청구"} >보험청구</CategoryButton>
+            <CategoryButton onClick={()=>handleClick("커뮤니티")} checked={selectedButton === "커뮤니티"} >커뮤니티</CategoryButton>
+          </CategoryButtonBox>
         </CategoryButtonContainer>
-        <SearchBar />
+        <SearchBar placeholder="어디가 아프신가요?" />
         <CategoryComponent home={selectedButton === "홈"} checkup={selectedButton === "건강검진"} />
         <BlueCircle />
       </WrapperDiv>
       <CategoryDetailComponent home={selectedButton === "홈"} checkup={selectedButton === "건강검진"} />
+      <MainFooter checkup={selectedButton === "건강검진"} />
     </>
   )
 }
