@@ -137,7 +137,7 @@ const BoldHealthInsuranceText = styled.p`
   display: inline;
 `
 
-export default function ChattingBotComponent({home, checkup}) {
+export default function CategoryComponent({home, checkup}) {
   return (
     <>
       {home && (

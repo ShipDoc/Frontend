@@ -2,7 +2,7 @@ import styled from "styled-components";
 import stethoscopeImg from "../../assets/images/stethoscope.svg";
 import coldImg from "../../assets/images/cold.svg";
 
-const SearchHospitalButtonConatiner = styled.div`
+const CategoryDetailButtonConatiner = styled.div`
   margin-top: 4vh;
   display: flex;
   justify-content: center;
@@ -10,16 +10,23 @@ const SearchHospitalButtonConatiner = styled.div`
   gap: 1vw;
 `
 
-const SearchHospitalButtonBox = styled.div`
+const CategoryDetailButtonBox = styled.div`
   width: 19vw;
   height: 15vh;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   border-radius: 1.5rem;
-  background: #1371FF;
+  background: ${({home, checkup}) => {
+    return (
+      home ? "#1371FF" :
+      checkup ? "#7BB8F0" :
+      "none"
+    )
+  }};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   cursor: pointer;
+
 ` 
 
 const SearchHospitalBoldText = styled.p`
@@ -43,21 +50,28 @@ const SearchHospitalText = styled.p`
   display: inline;
 `
 
-export default function SearchHospitalComponent({home, checkup}) {
+// const 
+
+export default function CategoryDetailComponent({home, checkup}) {
   return (
     <>
       {home && (
-        <SearchHospitalButtonConatiner>
-          <SearchHospitalButtonBox>
+        <CategoryDetailButtonConatiner>
+          <CategoryDetailButtonBox home={home}>
             <img src={stethoscopeImg} alt="stethoscopeImg" />
             <SearchHospitalBoldText>진료과목<SearchHospitalText>으로 <br />병원찾기</SearchHospitalText></SearchHospitalBoldText>
-          </SearchHospitalButtonBox>
+          </CategoryDetailButtonBox>
     
-          <SearchHospitalButtonBox>
+          <CategoryDetailButtonBox home={home}>
             <img src={coldImg} alt="coldImg" />
             <SearchHospitalBoldText>증상<SearchHospitalText>으로 <br />병원찾기</SearchHospitalText></SearchHospitalBoldText>
-          </SearchHospitalButtonBox>
-        </SearchHospitalButtonConatiner>
+          </CategoryDetailButtonBox>
+        </CategoryDetailButtonConatiner>
+      )}
+      {checkup && (
+        <CategoryDetailComponent>
+          <CategoryDetailButtonBox></CategoryDetailButtonBox>
+        </CategoryDetailComponent>
       )}
     </>
   )

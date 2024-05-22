@@ -1,6 +1,6 @@
-import ChattingBotComponent from "./ChattingBotComponent";
+import ChattingBotComponent from "./CategoryComponent";
 import SearchBar from "./SearchBar";
-import SearchHospitalComponent from "./SearchHospitalComponent";
+import SearchHospitalComponent from "./CategoryDetailComponent";
 import styled, {css} from "styled-components";
 import { useState } from "react";
 
