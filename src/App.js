@@ -7,6 +7,7 @@ import SignUpInfo from "./pages/account/SignUpInfo";
 import SignUpSuccess from "./pages/account/SignUpSuccess";
 import Insurance from "./pages/insurance/Insurance";
 import InsuranceFAQ1 from "./pages/insurance/InsuranceFAQ1";
+import MyPage from "./pages/MyPage/MyPage";
 
 
 function App() {
@@ -19,8 +20,11 @@ function App() {
             <Route path="/SignUp/success" element={<SignUpSuccess />}></Route>
 
             <Route path="/Home" element={<Home />}></Route>
+
             <Route path="/insurance" element={<Insurance />}></Route>
             <Route path="/insurance/FAQ1" element={<InsuranceFAQ1 />}></Route>
+
+            <Route path="/mypage" element={<MyPage />}></Route>
         </Routes>
     );
 }

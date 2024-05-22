@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import WhereText from './WhereText';
+import WhereText from './TextFAQ1';
 
 const Content = () => {
   return (

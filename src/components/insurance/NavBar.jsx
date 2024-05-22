@@ -3,10 +3,15 @@ import profileWhite from "../../assets/images/profileWhite.svg";
 import loginBar from "../../assets/images/loginBar.svg";
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
   const [user, setUser] = useState("User");
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    navigate("/mypage");
+  };
 
   return (
     <HeaderContainer>
@@ -23,7 +28,7 @@ const NavBar = () => {
         </LogoDiv>
         <UserDiv>
           <User>{user}(님)</User>
-          <img src={profileWhite} alt="profile" />
+          <ProfileImage src={profileWhite} alt="profile" onClick={handleProfileClick} />
         </UserDiv>
       </TopContainer>
       <BottomContainer>
@@ -184,6 +189,10 @@ const User = styled.div`
   text-align: center;
   flex-grow: 1;
   margin-right: 1rem;
+`;
+
+const ProfileImage = styled.img`
+  cursor: pointer;
 `;
 
 export default NavBar;

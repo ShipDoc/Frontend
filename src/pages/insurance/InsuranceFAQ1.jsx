@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from '../../components/insurance/NavBar';
-import Content from '../../components/insurance/WhereContent';
+import Content from '../../components/insurance/ContentFAQ1';
 import styled from 'styled-components';
 
 const InsuranceQna1 = () => {
