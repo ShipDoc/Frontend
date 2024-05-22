@@ -8,8 +8,10 @@ import SignUpSuccess from "./pages/account/SignUpSuccess";
 import Insurance from "./pages/insurance/Insurance";
 import InsuranceFAQ1 from "./pages/insurance/InsuranceFAQ1";
 import MyPage from "./pages/MyPage/MyPage";
-import MyPageApointment from "./pages/MyPage/ApointmentNull";
-import MyPageHistory from "./pages/MyPage/HistoryNull";
+import MyPageApointment from "./pages/MyPage/Apionment";
+import MyPageApointmentNull from "./pages/MyPage/ApointmentNull";
+import MyPageHistory from "./pages/MyPage/History";
+import MyPageHistoryNull from "./pages/MyPage/HistoryNull";
 
 
 function App() {
@@ -28,7 +30,9 @@ function App() {
 
             <Route path="/mypage" element={<MyPage />}></Route>
             <Route path="/mypage/apointment" element={<MyPageApointment />}></Route>
+            <Route path="/mypage/apointmentNull" element={<MyPageApointmentNull />}></Route>
             <Route path="/mypage/history" element={<MyPageHistory />}></Route>
+            <Route path="/mypage/historyNull" element={<MyPageHistoryNull />}></Route>
 
         </Routes>
     );

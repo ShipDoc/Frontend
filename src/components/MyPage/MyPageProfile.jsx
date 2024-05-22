@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -7,6 +7,9 @@ import camera from "../../assets/images/camera.svg";
 import pencil from "../../assets/images/pencil.svg";
 
 const MyPageProfile = () => {
+
+  const [user, setUser] = useState("User");
+
   return (
     <ProfileContainer>
       <ProfileImage>
@@ -14,7 +17,7 @@ const MyPageProfile = () => {
         <CameraEditIcon><img src={camera} alt='camera' /></CameraEditIcon>
       </ProfileImage>
       <User>
-        <UserName>김아현</UserName>
+        <UserName>{user}</UserName>
         <EditIcon src={pencil} alt="pencil" />
       </User>
       <ButtonsContainer>

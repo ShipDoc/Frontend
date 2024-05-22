@@ -1,9 +1,9 @@
 import React from 'react';
 import NavBar from '../../components/NavBar/NavBar';
 import styled from 'styled-components';
-import Content from "../../components/MyPage/History/NullContent";
+import Content from "../../components/MyPage/History/Content";
 
-const HistoryNull = () => {
+const History = () => {
   return (
     <PageContainer>
       <NavBar />
@@ -20,4 +20,4 @@ const PageContainer = styled.div`
   background-color: #fff;
 `;
 
-export default HistoryNull;
+export default History;

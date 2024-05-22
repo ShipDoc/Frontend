@@ -6,7 +6,7 @@ import logoImg from "../../assets/images/logoImgBlue.svg";
 const MyPageHeader = () => {
   return (
     <Header>
-      <BackLink to="/Home">&lt; 마이페이지</BackLink>
+      <BackLink to="/Home">&lt; 홈</BackLink>
       <LogoDiv>
         <Logo>쉽닥</Logo>
         <img src={logoImg} alt="logoImg" />
@@ -32,7 +32,7 @@ const BackLink = styled(Link)`
   font-style: normal;
   line-height: normal;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 2rem;
   display: flex;
   align-items: center;
   position: absolute;

@@ -2,15 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import fileImg from "../../assets/images/fileImg.svg";
 import searchImg from "../../assets/images/search.svg";
+import SubjectContainer from './SubjectContainer';
 
 const NullText = ({ subject, subSubject, noText}) => {
   return (
     <Container>
-      <SubjectContainer>
-        <Subject>{ subject }</Subject>
-        <SubSubject>{ subSubject }</SubSubject>
-      </SubjectContainer>
-      
+      <SubjectContainer subject={subject} subSubject={subSubject} />
       <Main>
         <FileImg>
           <img src={fileImg} alt="fileImg" />
@@ -33,16 +30,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-`;
-
-const SubjectContainer = styled.h1`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 8rem;
-
 `;
 
 const Subject = styled.h1`

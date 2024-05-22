@@ -1,19 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import NullText from "../NullText";
+import SubjectContainer from '../SubjectContainer';
+import Button from '../History/Button';
 
 const Content = () => {
   return (
     <MainContainer>
       <Container>
         <Section>
-          <Title>마이페이지 &gt; 진료내역 보기</Title>
-          <NullText 
+          <Title>마이페이지 &gt; 병원 예약내역 보기</Title>
+          <SubjectContainer
             subject="진료내역 보기"
             subSubject="*최근 2년이내 받은 진료내역"
-            noText="진료내역이 없어요"
           />
         </Section>
+        <Button />
       </Container>
     </MainContainer>
   );
