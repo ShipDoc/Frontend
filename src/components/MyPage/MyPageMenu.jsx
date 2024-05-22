@@ -7,7 +7,7 @@ import hospitalWhite from "../../assets/images/hospitalWhite.svg";
 import pencilblue from "../../assets/images/pencilblue.svg";
 import pencilWhite from "../../assets/images/pencilWhite.svg";
 
-const MenuSection = () => {
+const MyPageMenu = () => {
   const [hoveredMenuItem, setHoveredMenuItem] = useState(null);
 
   const handleMouseEnter = (item) => {
@@ -20,7 +20,7 @@ const MenuSection = () => {
 
   return (
     <Menu>
-      <MenuItem 
+      <MenuItem
         onMouseEnter={() => handleMouseEnter('family')}
         onMouseLeave={handleMouseLeave}
       >
@@ -29,21 +29,21 @@ const MenuSection = () => {
         </MenuIcon>
         가족관리
       </MenuItem>
-      <MenuItem 
+      <MenuItem
         onMouseEnter={() => handleMouseEnter('hospital')}
         onMouseLeave={handleMouseLeave}
       >
         <MenuIcon>
-          <img src={hoveredMenuItem === 'hospital' ? hospitalWhite : hospital} alt="hospital"/>
+          <img src={hoveredMenuItem === 'hospital' ? hospitalWhite : hospital} alt="hospital" />
         </MenuIcon>
         찜한 병원
       </MenuItem>
-      <MenuItem 
+      <MenuItem
         onMouseEnter={() => handleMouseEnter('pencil')}
         onMouseLeave={handleMouseLeave}
       >
         <MenuIcon>
-          <img src={hoveredMenuItem === 'pencil' ? pencilWhite : pencilblue} alt="pencil"/>
+          <img src={hoveredMenuItem === 'pencil' ? pencilWhite : pencilblue} alt="pencil" />
         </MenuIcon>
         나의 글 보기
       </MenuItem>
@@ -58,12 +58,12 @@ const Menu = styled.div`
   align-items: center;
   margin-top: 2rem;
   background: linear-gradient(180deg, #2E7EF3 0%, #7BB8F0 100%);
-  padding: 4rem;
+  padding: 2rem;
   box-shadow: 0px -8px 22.7px 0px rgba(0, 91, 226, 0.17) inset;
 `;
 
 const MenuItem = styled.div`
-  width: 35vw;
+  width: 35%;
   height: 10vh;
   background-color: #fff;
   padding: 1rem 2rem;
@@ -90,4 +90,4 @@ const MenuIcon = styled.div`
   margin-right: 1.5rem;
 `;
 
-export default MenuSection;
+export default MyPageMenu;

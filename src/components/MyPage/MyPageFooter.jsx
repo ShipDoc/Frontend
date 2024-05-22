@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const Footer = () => {
+const MyPageFooter = () => {
   return (
-    <FooterContainer>
+    <Footer>
       <FooterLink to="/logout">로그아웃</FooterLink>
-    </FooterContainer>
+    </Footer>
   );
 };
 
-const FooterContainer = styled.div`
+const Footer = styled.div`
   margin-top: auto;
   width: 100%;
   padding: 2rem;
@@ -27,4 +27,4 @@ const FooterLink = styled(Link)`
   font-weight: 600;
 `;
 
-export default Footer;
+export default MyPageFooter;

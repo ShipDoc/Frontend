@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import Header from '../../components/MyPage/Header'
-import ProfileSection from '../../components/MyPage/ProfileSection';
-import MenuSection from '../../components/MyPage/MenuSection';
-import Footer from '../../components/MyPage/Footer';
+import MyPageHeader from '../../components/MyPage/MyPageHeader'
+import MyPageProfile from '../../components/MyPage/MyPageProfile';
+import MyPageMenu from '../../components/MyPage/MyPageMenu';
+import MyPageFooter from '../../components/MyPage/MyPageFooter';
 
 const MyPage = () => {
   return (
     <Container>
-      <Header />
-      <ProfileSection />
-      <MenuSection />
-      <Footer />
+      <MyPageHeader />
+      <MyPageProfile />
+      <MyPageMenu />
+      <MyPageFooter />
     </Container>
   );
 };

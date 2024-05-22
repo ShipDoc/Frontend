@@ -6,7 +6,7 @@ import logoImg from "../../assets/images/logoImgBlue.svg";
 const MyPageHeader = () => {
   return (
     <Header>
-      <BackLink to="/">&lt; 마이페이지</BackLink>
+      <BackLink to="/Home">&lt; 마이페이지</BackLink>
       <LogoDiv>
         <Logo>쉽닥</Logo>
         <img src={logoImg} alt="logoImg" />
@@ -20,7 +20,7 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem;
+  padding: 4rem;
   background-color: white;
   color: #2E7EF3;
   position: relative;
@@ -36,23 +36,22 @@ const BackLink = styled(Link)`
   display: flex;
   align-items: center;
   position: absolute;
-  left: 20vw;
+  left: 25%;
+  font-weight: 600;
 `;
 
 const LogoDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
   margin: 0 auto;
 `;
 
 const Logo = styled.div`
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
   text-shadow: 0px 0.326px 0.326px rgba(0, 0, 0, 0.25);
-  flex-grow: 1;
   font-family: ChangwonDangamAsac;
   color: #1371FF;
 `;

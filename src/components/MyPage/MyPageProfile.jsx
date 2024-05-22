@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
 import profileImage from '../../assets/images/profile.svg';
 import camera from "../../assets/images/camera.svg";
 import pencil from "../../assets/images/pencil.svg";
 
-const ProfileSection = () => {
+const MyPageProfile = () => {
   return (
     <ProfileContainer>
       <ProfileImage>
@@ -16,8 +18,8 @@ const ProfileSection = () => {
         <EditIcon src={pencil} alt="pencil" />
       </User>
       <ButtonsContainer>
-        <ProfileButton>병원 예약내역</ProfileButton>
-        <ProfileButton>진료내역</ProfileButton>
+        <ProfileButton to="/mypage/apointment">병원 예약내역</ProfileButton>
+        <ProfileButton to="/mypage/history">진료내역</ProfileButton>
       </ButtonsContainer>
     </ProfileContainer>
   );
@@ -84,7 +86,16 @@ const ButtonsContainer = styled.div`
   margin-top: 4rem;
 `;
 
-const ProfileButton = styled.button`
+const ProfileButton = styled(Link)`
+  font-family: Pretendard;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 16px;
+  font-style: normal;
+  text-align: center;
+  text-decoration: none;
   width: 17vw;
   height: 14vh;
   background-color: #1371ff;
@@ -100,4 +111,4 @@ const ProfileButton = styled.button`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
-export default ProfileSection;
+export default MyPageProfile;

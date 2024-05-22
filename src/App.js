@@ -8,6 +8,7 @@ import SignUpSuccess from "./pages/account/SignUpSuccess";
 import Insurance from "./pages/insurance/Insurance";
 import InsuranceFAQ1 from "./pages/insurance/InsuranceFAQ1";
 import MyPage from "./pages/MyPage/MyPage";
+import MyPageApointment from "./pages/MyPage/ApointmentNull";
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
             <Route path="/insurance/FAQ1" element={<InsuranceFAQ1 />}></Route>
 
             <Route path="/mypage" element={<MyPage />}></Route>
+            <Route path="/mypage/apointment" element={<MyPageApointment />}></Route>
+
         </Routes>
     );
 }

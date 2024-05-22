@@ -37,6 +37,7 @@ const Section = styled.section`
 `;
 
 const Title = styled.h2`
+  margin-top: 2rem;
   color: #A3A3A3;
   font-family: Pretendard;
   font-size: 12px;
