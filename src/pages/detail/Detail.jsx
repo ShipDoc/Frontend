@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavBar from "../../components/insurance/NavBar";
+import NavBar from "../../components/NavBar/NavBar";
 import HospitalComponent from "../../components/detail/HospitalComponent";
 import styled from "styled-components";
 import HospitalMap from "../../components/detail/HospitalMap";

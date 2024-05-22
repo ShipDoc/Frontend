@@ -8,7 +8,7 @@ const Content = () => {
     <MainContainer>
       <Container>
         <Section>
-          <Title>마이페이지 &gt; 병원 예약내역 보기</Title>
+          <Title>마이페이지 &gt; 진료내역 보기</Title>
           <SubjectContainer
             subject="진료내역 보기"
             subSubject="*최근 2년이내 받은 진료내역"
