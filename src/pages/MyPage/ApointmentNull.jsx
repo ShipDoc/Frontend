@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from '../../components/MyPage/Appointment/NavBar';
+import NavBar from '../../components/NavBar/NavBar';
 import styled from 'styled-components';
 import Content from "../../components/MyPage/Appointment/Content";
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from '../../components/insurance/NavBar';
+import NavBar from '../../components/NavBar/NavBar';
 import Content from '../../components/insurance/MainContent';
 import Banner from '../../components/insurance/Banner';
 import styled from 'styled-components';

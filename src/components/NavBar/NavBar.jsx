@@ -36,7 +36,7 @@ const NavBar = () => {
           <ul>
             <li><Link to="/">홈</Link></li>
             <li><Link to="/health-check">건강검진</Link></li>
-            <li><StyledLink to="/insurance">보험청구</StyledLink></li>
+            <li><Link to="/insurance">보험청구</Link></li>
             <li><Link to="/community">커뮤니티</Link></li>
           </ul>
         </Nav>
@@ -130,14 +130,6 @@ const Nav = styled.nav`
     text-decoration: none;
   }
   margin-bottom: 0;
-`;
-
-const StyledLink = styled(Link)`
-  background-color: white;
-  color: #2E7EF3 !important;
-  padding: 0.5rem 1rem 3rem 1rem;
-  border-radius: 25px 25px 0 0;
-  text-decoration: none;
 `;
 
 const Auth = styled.div`
