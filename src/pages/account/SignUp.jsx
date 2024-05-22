@@ -229,6 +229,7 @@ const SignUp = () => {
 };
 
 const Frame = styled.div`
+    font-family: Pretendard;
     width: 100%;
     height: 100vh;
     display: flex;
