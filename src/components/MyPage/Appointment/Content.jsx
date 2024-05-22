@@ -1,15 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import FAQ from './FAQ';
+import SubjectContainer from '../SubjectContainer';
+import Button from './Button';
 
 const Content = () => {
   return (
     <MainContainer>
       <Container>
         <Section>
-          <Title>보험청구</Title>
-          <FAQ />
+          <Title>마이페이지 &gt; 병원 예약내역 보기</Title>
+          <SubjectContainer
+            subject="병원 예약내역 보기"
+            subSubject=""
+          />
         </Section>
+        <Button />
       </Container>
     </MainContainer>
   );
@@ -31,7 +36,8 @@ const Container = styled.div`
 
 const Section = styled.section`
   h2 {
-    margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 2rem;
   }
 `;
 

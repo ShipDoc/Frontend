@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import FAQ from './FAQ';
+import NullText from "../NullText";
 
 const Content = () => {
   return (
     <MainContainer>
       <Container>
         <Section>
-          <Title>보험청구</Title>
-          <FAQ />
+          <Title>마이페이지 &gt; 병원 예약내역 보기</Title>
+          <NullText
+            subject="병원 예약내역 보기"
+            subSubject=""
+            noText="예약된 병원이 없어요"
+          />
         </Section>
       </Container>
     </MainContainer>
@@ -31,7 +35,8 @@ const Container = styled.div`
 
 const Section = styled.section`
   h2 {
-    margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 2rem;
   }
 `;
 

@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import WhereText from './WhereText';
+import NullText from "../NullText";
 
 const Content = () => {
   return (
     <MainContainer>
       <Container>
         <Section>
-          <Title>보험청구 &gt; 실손보험 청구는 어디서 할 수 있나요?</Title>
-          <WhereText />
+          <Title>마이페이지 &gt; 진료내역 보기</Title>
+          <NullText 
+            subject="진료내역 보기"
+            subSubject="*최근 2년이내 받은 진료내역"
+            noText="진료내역이 없어요"
+          />
         </Section>
       </Container>
     </MainContainer>
@@ -37,6 +41,7 @@ const Section = styled.section`
 `;
 
 const Title = styled.h2`
+  margin-top: 2rem;
   color: #A3A3A3;
   font-family: Pretendard;
   font-size: 12px;

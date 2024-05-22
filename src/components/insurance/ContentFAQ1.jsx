@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import FAQ from './FAQ';
+import WhereText from './TextFAQ1';
 
 const Content = () => {
   return (
     <MainContainer>
       <Container>
         <Section>
-          <Title>보험청구</Title>
-          <FAQ />
+          <Title>보험청구 &gt; 실손보험 청구는 어디서 할 수 있나요?</Title>
+          <WhereText />
         </Section>
       </Container>
     </MainContainer>
@@ -31,7 +31,8 @@ const Container = styled.div`
 
 const Section = styled.section`
   h2 {
-    margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 2rem;
   }
 `;
 

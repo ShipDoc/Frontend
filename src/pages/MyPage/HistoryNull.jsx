@@ -1,9 +1,9 @@
 import React from 'react';
 import NavBar from '../../components/NavBar/NavBar';
-import Content from '../../components/insurance/ContentFAQ1';
 import styled from 'styled-components';
+import Content from "../../components/MyPage/History/NullContent";
 
-const InsuranceQna1 = () => {
+const HistoryNull = () => {
   return (
     <PageContainer>
       <NavBar />
@@ -20,4 +20,4 @@ const PageContainer = styled.div`
   background-color: #fff;
 `;
 
-export default InsuranceQna1;
+export default HistoryNull;
