@@ -6,7 +6,11 @@ import searchImg from "../../../assets/images/search.svg";
 const NullText = () => {
   return (
     <Container>
-      <Subject>병원 예약내역 보기</Subject>
+      <SubjectContainer>
+        <Subject>진료내역 보기</Subject>
+        <SubSubject>*최근 2년이내 받은 진료내역</SubSubject>
+      </SubjectContainer>
+      
       <Main>
         <FileImg>
           <img src={fileImg} alt="fileImg" />
@@ -15,7 +19,7 @@ const NullText = () => {
           <img src={searchImg} alt="searchImg" />
         </SearchImg>
       </Main>
-      <Text>예약된 병원이 없어요</Text>
+      <Text>진료내역이 없어요</Text>
     </Container>
   );
 };
@@ -31,6 +35,16 @@ const Container = styled.div`
   text-align: center;
 `;
 
+const SubjectContainer = styled.h1`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 8rem;
+
+`;
+
 const Subject = styled.h1`
   width: 100%;
   color: #000;
@@ -39,7 +53,17 @@ const Subject = styled.h1`
   font-style: normal;
   font-weight: 800;
   line-height: normal;
-  margin: 1rem 0 10rem 0;
+  margin: 1rem 0;
+`;
+
+const SubSubject = styled.h1`
+  width: 100%;
+  color: #808080;
+  font-family: Pretendard;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 `;
 
 const Main = styled.div`
