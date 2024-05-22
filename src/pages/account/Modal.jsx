@@ -26,6 +26,7 @@ const ModalOverlay = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: Pretendard;
 `;
 
 const ModalContainer = styled.div`
