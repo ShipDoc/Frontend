@@ -283,6 +283,18 @@ const CheckBoxFrame = styled.div`
     box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.1), -6px 6px 6px rgba(0, 0, 0, 0.1);
 `;
 
+const CheckBoxTitle = styled.div`
+    margin: 2rem 0 1rem 2rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+`;
+
+const CheckBoxStyle = styled.div`
+    margin: 2rem 0 2rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+`;
+
 const StyledHr = styled.hr`
     width: 100%;
     border: none;
@@ -300,18 +312,6 @@ const Btn = styled.button`
     height: 3rem;
     margin-top: 0.8rem;
     cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
-`;
-
-const CheckBoxTitle = styled.div`
-    margin: 2rem 0 1rem 2rem;
-    font-size: 1.4rem;
-    font-weight: 700;
-`;
-
-const CheckBoxStyle = styled.div`
-    margin: 2rem 0 2rem 2rem;
-    font-size: 1rem;
-    font-weight: 500;
 `;
 
 const FaCheckStyle = {
