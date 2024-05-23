@@ -3,27 +3,35 @@ import NavBar from "../../components/NavBar/NavBar";
 import HospitalComponent from "../../components/MyPage/Apointment/ApointmentHospital";
 import styled from "styled-components";
 import HospitalMap from "../../components/detail/HospitalMap";
+import Modal from "../../components/MyPage/Apointment/Modal";
 import { useNavigate } from "react-router-dom";
 
 const Detail = () => {
     const navigate = useNavigate();
-
     const [peopleNum, setPeopleNum] = useState(0);
+    const [showModal, setShowModal] = useState(false);
 
     const handleBtn = () => {
-        // 예약 버튼 클릭 시 동작
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleConfirmModal = () => {
+        setShowModal(false);
+        // 예약 취소 처리 로직 추가
     };
 
     return (
         <>
-            <NavBar
-                title="마이페이지 &gt; 병원 예약내역 보기 &gt; 연세이빈후과의원"
-            />
+            <NavBar title="마이페이지 &gt; 병원 예약내역 보기 &gt; 연세이빈후과의원" />
             <Frame>
                 <Div>
-                    <HospitalComponent name="연세이빈후과의원"></HospitalComponent>
+                    <HospitalComponent name="연세이빈후과의원" />
                     <StyledHr />
-                    <HospitalMap></HospitalMap>
+                    <HospitalMap />
                     <StyledHr />
                     <MainContainer>
                         <GeneralContainer>
@@ -48,6 +56,11 @@ const Detail = () => {
                     </MainContainer>
                 </Div>
             </Frame>
+            <Modal 
+                show={showModal} 
+                handleClose={handleCloseModal} 
+                handleConfirm={handleConfirmModal} 
+            />
         </>
     );
 };
