@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from '../../components/NavBar/NavBar';
 import styled from 'styled-components';
-import Content from "../../components/MyPage/Appointment/Content";
+import Content from "../../components/MyPage/Apointment/Content";
 
 const Appointment = () => {
   return (

@@ -207,7 +207,7 @@ const Section = styled.section`
 `;
 
 const Title = styled.h2`
-  margin-left: clamp(10rem, 30vw, 40rem);
+  margin-left: clamp(10rem, 20vw, 40rem);
   width: 50vw;
   padding: 2rem 2rem;
   color: #A3A3A3;

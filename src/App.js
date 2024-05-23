@@ -9,10 +9,12 @@ import Insurance from "./pages/insurance/Insurance";
 import InsuranceFAQ1 from "./pages/insurance/InsuranceFAQ1";
 import Detail from "./pages/detail/Detail";
 import MyPage from "./pages/MyPage/MyPage";
-import MyPageApointment from "./pages/MyPage/Apionment";
+import MyPageApointment from "./pages/MyPage/Apointment";
 import MyPageApointmentNull from "./pages/MyPage/ApointmentNull";
+import MyPageApointmentDetail from "./pages/MyPage/ApointmentDetail";
 import MyPageHistory from "./pages/MyPage/History";
 import MyPageHistoryNull from "./pages/MyPage/HistoryNull";
+import MyPageHistoryDetail from "./pages/MyPage/HistoryDetail";
 
 function App() {
     return (
@@ -34,8 +36,12 @@ function App() {
             <Route path="/mypage" element={<MyPage />}></Route>
             <Route path="/mypage/apointment" element={<MyPageApointment />}></Route>
             <Route path="/mypage/apointmentNull" element={<MyPageApointmentNull />}></Route>
+            <Route path="/mypage/apointment/detail" element={<MyPageApointmentDetail />}></Route>
+
             <Route path="/mypage/history" element={<MyPageHistory />}></Route>
             <Route path="/mypage/historyNull" element={<MyPageHistoryNull />}></Route>
+            <Route path="/mypage/history/detail" element={<MyPageHistoryDetail />}></Route>
+
 
         </Routes>
     );
