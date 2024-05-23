@@ -6,7 +6,9 @@ import Content from "../../components/MyPage/History/Content";
 const History = () => {
   return (
     <PageContainer>
-      <NavBar />
+      <NavBar 
+      title="마이페이지 &gt; 진료내역 보기"
+      />
       <Content />
     </PageContainer>
   );

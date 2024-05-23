@@ -7,7 +7,9 @@ import styled from 'styled-components';
 const InsuranceMain = () => {
   return (
     <PageContainer>
-      <NavBar />
+      <NavBar 
+      title="보험 청구"
+      />
       <Content />
       <Banner />
     </PageContainer>

@@ -6,7 +6,9 @@ import styled from 'styled-components';
 const InsuranceQna1 = () => {
   return (
     <PageContainer>
-      <NavBar />
+      <NavBar 
+      title="보험청구 &gt; 실손보험 청구는 어디서 할 수 있나요?"
+      />
       <Content />
     </PageContainer>
   );

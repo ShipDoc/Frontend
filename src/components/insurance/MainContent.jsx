@@ -7,7 +7,6 @@ const Content = () => {
     <MainContainer>
       <Container>
         <Section>
-          <Title>보험청구</Title>
           <FAQ />
         </Section>
       </Container>

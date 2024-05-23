@@ -8,7 +8,6 @@ const Content = () => {
     <MainContainer>
       <Container>
         <Section>
-          <Title>마이페이지 &gt; 진료내역 보기</Title>
           <SubjectContainer
             subject="진료내역 보기"
             subSubject="*최근 2년이내 받은 진료내역"
@@ -39,16 +38,6 @@ const Section = styled.section`
     width: 100%;
     margin-bottom: 2rem;
   }
-`;
-
-const Title = styled.h2`
-  margin-top: 2rem;
-  color: #A3A3A3;
-  font-family: Pretendard;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
 `;
 
 export default Content;

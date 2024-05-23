@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 
-const NavBar = () => {
+const NavBar = ({ title }) => {
   const [user, setUser] = useState("User");
   const navigate = useNavigate();
 
@@ -15,37 +15,51 @@ const NavBar = () => {
 
   return (
     <HeaderContainer>
-      <BackgroundCircle />
-      <TopContainer>
-        <Auth>
-          <Link to="/signin">로그인</Link>
-          <img src={loginBar} alt="login bar" />
-          <Link to="/signup">회원가입</Link>
-        </Auth>
-        <LogoDiv>
-          <Logo>쉽닥</Logo>
-          <img src={logoImg} alt="logoImg" />
-        </LogoDiv>
-        <UserDiv>
-          <User>{user}(님)</User>
-          <ProfileImage src={profileWhite} alt="profile" onClick={handleProfileClick} />
-        </UserDiv>
-      </TopContainer>
-      <BottomContainer>
-        <Nav>
-          <ul>
-            <li><Link to="/">홈</Link></li>
-            <li><Link to="/health-check">건강검진</Link></li>
-            <li><Link to="/insurance">보험청구</Link></li>
-            <li><Link to="/community">커뮤니티</Link></li>
-          </ul>
-        </Nav>
-      </BottomContainer>
+      <MainContainer>
+        <BackgroundCircle />
+        <TopContainer>
+          <Auth>
+            <Link to="/">로그인</Link>
+            <img src={loginBar} alt="login bar" />
+            <Link to="/signup">회원가입</Link>
+          </Auth>
+          <LogoDiv>
+            <Logo>쉽닥</Logo>
+            <img src={logoImg} alt="logoImg" />
+          </LogoDiv>
+          <UserDiv>
+            <User>{user}(님)</User>
+            <ProfileImage src={profileWhite} alt="profile" onClick={handleProfileClick} />
+          </UserDiv>
+        </TopContainer>
+        <BottomContainer>
+          <Nav>
+            <ul>
+              <li><Link to="/home">홈</Link></li>
+              <li><Link to="/health-check">건강검진</Link></li>
+              <li><Link to="/insurance">보험청구</Link></li>
+              <li><Link to="/community">커뮤니티</Link></li>
+            </ul>
+          </Nav>
+        </BottomContainer>
+      </MainContainer>
+      <Section>
+        <Title>{title}</Title>
+      </Section>
     </HeaderContainer>
   );
 };
 
 const HeaderContainer = styled.header`
+  background: linear-gradient(180deg, #2E7EF3 0%, #7BB8F0 100%);
+  box-shadow: 0px -8px 22.7px 0px rgba(0, 91, 226, 0.17) inset;
+  color: white;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+`;
+
+const MainContainer = styled.header`
   background: linear-gradient(180deg, #2E7EF3 0%, #7BB8F0 100%);
   box-shadow: 0px -8px 22.7px 0px rgba(0, 91, 226, 0.17) inset;
   color: white;
@@ -100,7 +114,7 @@ const LogoDiv = styled.div`
 `;
 
 const Logo = styled.div`
-  font-size: 40px;
+  font-size: 3rem;
   font-weight: 700;
   text-align: center;
   text-shadow: 0px 0.326px 0.326px rgba(0, 0, 0, 0.25);
@@ -110,8 +124,7 @@ const Logo = styled.div`
 
 const Nav = styled.nav`
   font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
+  font-size: 1rem
   line-height: normal;
   font-weight: 600;
   ul {
@@ -145,16 +158,15 @@ const Auth = styled.div`
   z-index: 1;
   position: relative;
   a {
-    color: var(--Sub-color, #FFF);
-    font-size: 14px;
+    color: #FFF;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    color: white;
     text-decoration: none;
     font-family: Pretendard;
   }
-  img{
+  img {
     stroke-width: 1px;
     stroke: #FFF;
     width: 2px;
@@ -172,8 +184,8 @@ const UserDiv = styled.div`
 `;
 
 const User = styled.div`
-  color: var(--Sub-color, #FFF);
-  font-size: 16px;
+  color: #FFF;
+  font-size: 0.8rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -185,6 +197,25 @@ const User = styled.div`
 
 const ProfileImage = styled.img`
   cursor: pointer;
+`;
+
+const Section = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  background-color: #fff;
+`;
+
+const Title = styled.h2`
+  margin-left: clamp(10rem, 30vw, 40rem);
+  width: 50vw;
+  padding: 2rem 2rem;
+  color: #A3A3A3;
+  font-family: Pretendard;
+  font-size: clamp(0.8rem, 1.5vw, 0.8rem);
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 export default NavBar;

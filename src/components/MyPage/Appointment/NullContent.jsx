@@ -7,7 +7,6 @@ const Content = () => {
     <MainContainer>
       <Container>
         <Section>
-          <Title>마이페이지 &gt; 병원 예약내역 보기</Title>
           <NullText
             subject="병원 예약내역 보기"
             subSubject=""
@@ -38,16 +37,6 @@ const Section = styled.section`
     width: 100%;
     margin-bottom: 2rem;
   }
-`;
-
-const Title = styled.h2`
-  margin-top: 2rem;
-  color: #A3A3A3;
-  font-family: Pretendard;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
 `;
 
 export default Content;

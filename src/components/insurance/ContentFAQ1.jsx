@@ -7,7 +7,6 @@ const Content = () => {
     <MainContainer>
       <Container>
         <Section>
-          <Title>보험청구 &gt; 실손보험 청구는 어디서 할 수 있나요?</Title>
           <WhereText />
         </Section>
       </Container>

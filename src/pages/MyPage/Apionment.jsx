@@ -6,7 +6,9 @@ import Content from "../../components/MyPage/Appointment/Content";
 const Appointment = () => {
   return (
     <PageContainer>
-      <NavBar />
+      <NavBar 
+      title="마이페이지 &gt; 병원 예약내역 보기"
+      />
       <Content />
     </PageContainer>
   );
