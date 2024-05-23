@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from '../../components/NavBar/NavBar';
 import styled from 'styled-components';
-import Content from "../../components/MyPage/Appointment/NullContent";
+import Content from "../../components/MyPage/Apointment/NullContent";
 
 const AppointmentNull = () => {
   return (

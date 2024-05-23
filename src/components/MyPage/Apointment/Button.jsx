@@ -7,7 +7,7 @@ const Button = () => {
   const navigate = useNavigate();
 
   const handleButton1 = () => {
-    navigate("Button1");
+    navigate("detail");
   };
 
   return (
