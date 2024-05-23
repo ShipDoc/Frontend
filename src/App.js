@@ -14,6 +14,7 @@ import MyPageApointmentNull from "./pages/MyPage/ApointmentNull";
 import MyPageApointmentDetail from "./pages/MyPage/ApointmentDetail";
 import MyPageHistory from "./pages/MyPage/History";
 import MyPageHistoryNull from "./pages/MyPage/HistoryNull";
+import MyPageHistoryDetail from "./pages/MyPage/HistoryDetail";
 import HealthCare from "./pages/HealthCare/HealthCare";
 import Reservation from "./pages/detail/Reservation";
 import Payment from "./pages/detail/Payment";
@@ -44,8 +45,13 @@ function App() {
         path="/mypage/apointmentNull"
         element={<MyPageApointmentNull />}
       ></Route>
+      <Route path="/mypage/apointment/detail" element={<MyPageApointmentDetail />}></Route>
+
+
       <Route path="/mypage/history" element={<MyPageHistory />}></Route>
       <Route path="/mypage/historyNull" element={<MyPageHistoryNull />}></Route>
+      <Route path="/mypage/history/detail" element={<MyPageHistoryDetail />}></Route>
+
     </Routes>
   );
 }
