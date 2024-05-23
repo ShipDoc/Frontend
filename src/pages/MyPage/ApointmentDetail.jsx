@@ -1,3 +1,5 @@
+// ApointmentDetail.jsx
+
 import React, { useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import HospitalComponent from "../../components/MyPage/Apointment/ApointmentHospital";
