@@ -9,7 +9,7 @@ import hospitalMaeker from "../../../assets/icons/hospitalMarker.svg";
 export default function HospitalComponent({ name }) {
     const [hospitalName, setHospitalName] = useState((name));
 
-    const [user, setUser] = useState("User");
+    const [user, setUser] = useState("김아현");
     const [date, setDate] = useState("2024. 05. 07 화요일 10:00");
     const [sms, setSms] = useState("O");
     const [auto, setAuto] = useState("O");

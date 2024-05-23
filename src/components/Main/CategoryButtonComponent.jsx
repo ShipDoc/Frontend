@@ -42,7 +42,7 @@ export default function CategoryButtonComponent() {
   useEffect(() => {
     const currentPage = location.pathname === "/Home" ? "홈" : 
                         location.pathname === "/HealthCare" ? "건강검진" : 
-                        // location.pathname === "/Insurance" ? "보험청구" : 
+                        location.pathname === "/Insurance" ? "보험청구" : 
                         "홈";
     setSelectedButton(currentPage);
   }, [location.pathname]);
@@ -56,7 +56,7 @@ export default function CategoryButtonComponent() {
   }
 
   const handleGoInsurance = () => {
-    navigate("/Home");
+    navigate("/Insurance");
   }
 
   const handleGoCommunity = () => {

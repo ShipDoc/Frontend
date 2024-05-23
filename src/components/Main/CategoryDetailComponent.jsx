@@ -3,6 +3,7 @@ import stethoscopeImg from "../../assets/images/stethoscope.svg";
 import coldImg from "../../assets/images/cold.svg";
 import healthCareListImg from "../../assets/images/healthCareList.svg";
 import reservationImg from "../../assets/images/reservation.svg";
+import { useNavigate } from "react-router-dom";
 
 const CategoryDetailButtonContainer = styled.div`
   margin-top: 4vh;
@@ -66,11 +67,17 @@ const HealthCareText = styled.p`
 // const 
 
 export default function CategoryDetailComponent({home, checkup}) {
+  const navigate = useNavigate();
+
+  const handleGoSearchHospitalBySubjectPage = () => {
+    navigate("/SearchHospitalBySubject");
+  }
+
   return (
     <>
       {home && (
         <CategoryDetailButtonContainer>
-          <CategoryDetailButtonBox home={home}>
+          <CategoryDetailButtonBox home={home} onClick={handleGoSearchHospitalBySubjectPage}>
             <img src={stethoscopeImg} alt="stethoscopeImg" />
             <SearchHospitalBoldText>진료과목<SearchHospitalText>으로 <br />병원찾기</SearchHospitalText></SearchHospitalBoldText>
           </CategoryDetailButtonBox>
