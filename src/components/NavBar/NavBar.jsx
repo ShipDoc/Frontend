@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 
-const NavBar = ({ title }) => {
+const NavBar = ({ children }) => {
     const [user, setUser] = useState("User");
     const [activeIndex, setActiveIndex] = useState(0);
     const navigate = useNavigate();
@@ -80,7 +80,7 @@ const NavBar = ({ title }) => {
                 </BottomContainer>
             </MainContainer>
             <Section>
-                <Title>{title}</Title>
+                <Title>{children}</Title>
             </Section>
         </HeaderContainer>
     );
