@@ -3,7 +3,7 @@ import HamburgerDiv from "../../assets/images/hamburgerdiv.svg";
 import hamburger from "../../assets/images/hamburger.svg";
 import locationBoxImg from "../../assets/images/locationBox.svg";
 import locationImg from "../../assets/images/locationImg.svg";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import HospitalComponent from "./HospitalComponent";
 import SearchBar from "./SearchBar";
 import SortModal from "./SortModal";
@@ -40,6 +40,7 @@ const NearHospitalText = styled.p`
 const HamburgerContainer = styled.div`
   position: relative;
   width: max-content;
+  cursor: pointer;
 `;
 
 const LocationDiv = styled.div`
@@ -66,6 +67,12 @@ const PartitionComponent = styled.div`
 
 export default function MainFooter({ checkup }) {
   const [location, setLocation] = useState("지역");
+  const [modal, setModal] = useState(false);
+  const modalRef = useRef();
+
+  const toggleModal = () => {
+    setModal((prev) => !prev);
+  };
 
   return (
     <FooterWrapper>
@@ -89,8 +96,8 @@ export default function MainFooter({ checkup }) {
               gap: "0.5vw",
             }}
           >
-            <NearHospitalText>내 주변 병원</NearHospitalText>
-            <HamburgerContainer>
+            {checkup ? <NearHospitalText>내 주변 건강검진 가능 병원</NearHospitalText> : <NearHospitalText>내 주변 병원</NearHospitalText>}
+            <HamburgerContainer onClick={toggleModal}>
               <img src={HamburgerDiv} alt="hamburgerDiv" />
               <img
                 src={hamburger}
@@ -122,9 +129,10 @@ export default function MainFooter({ checkup }) {
               <LocationText>{location}</LocationText>
             </div>
           </LocationDiv>
-          <div style={{position: "absolute", top: "3%", left: "50%", transform: "translate(-50%)" ,zIndex: 10}}>
-            <SortModal />
-          </div>
+          {modal && 
+            <div ref={modalRef} style={{position: "absolute", top: "3%", left: "50%", transform: "translate(-50%)" ,zIndex: 10}}>
+              <SortModal />
+            </div>}
         </div>
         <div>
           <HospitalComponent />

@@ -5,16 +5,16 @@ import MainSection from "../../components/Main/MainSection";
 import CategoryDetailComponent from "../../components/Main/CategoryDetailComponent";
 import MainFooter from "../../components/Main/MainFooter";
 
-export default function Home() {
+export default function HealthCare() {
   const [user, setUser] = useState("User");
 
   return (
     <>
       <MainHeader user={user} />
       <Banner />
-      <MainSection home="home" />
-      <CategoryDetailComponent home="home" />
-      <MainFooter />
+      <MainSection checkup="checkup" />
+      <CategoryDetailComponent checkup="checkup" />
+      <MainFooter checkup="checkup" />
     </>
   )
 }

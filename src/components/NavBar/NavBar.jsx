@@ -36,7 +36,7 @@ const NavBar = ({ title }) => {
           <Nav>
             <ul>
               <li><Link to="/home">홈</Link></li>
-              <li><Link to="/health-check">건강검진</Link></li>
+              <li><Link to="/HealthCare">건강검진</Link></li>
               <li><Link to="/insurance">보험청구</Link></li>
               <li><Link to="/community">커뮤니티</Link></li>
             </ul>
@@ -207,7 +207,7 @@ const Section = styled.section`
 `;
 
 const Title = styled.h2`
-  margin-left: clamp(10rem, 30vw, 40rem);
+  margin-left: clamp(10rem, 20vw, 40rem);
   width: 50vw;
   padding: 2rem 2rem;
   color: #A3A3A3;
