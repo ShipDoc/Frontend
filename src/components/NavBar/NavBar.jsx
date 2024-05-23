@@ -63,7 +63,7 @@ const MainContainer = styled.header`
   background: linear-gradient(180deg, #2E7EF3 0%, #7BB8F0 100%);
   box-shadow: 0px -8px 22.7px 0px rgba(0, 91, 226, 0.17) inset;
   color: white;
-  padding: 5rem 0 1rem 0;
+  padding: 6vh 0 1rem 0;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -85,7 +85,7 @@ const TopContainer = styled.div`
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  margin-bottom: 6rem;
+  margin-bottom: 8vh;
   display: flex;
   justify-content: center;
   align-items: center;
