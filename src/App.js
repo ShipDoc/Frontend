@@ -14,9 +14,10 @@ import MyPageApointmentNull from "./pages/MyPage/ApointmentNull";
 import MyPageHistory from "./pages/MyPage/History";
 import MyPageHistoryNull from "./pages/MyPage/HistoryNull";
 import HealthCare from "./pages/HealthCare/HealthCare";
+import Reservation from "./pages/detail/Reservation";
+import Payment from "./pages/detail/Payment";
 
 function App() {
-
   return (
     <Routes>
       {/* Account */}
@@ -33,6 +34,8 @@ function App() {
 
       {/* Detail */}
       <Route path="/detail" element={<Detail />}></Route>
+      <Route path="/detail/reservation" element={<Reservation />}></Route>
+      <Route path="/detail/pay" element={<Payment />}></Route>
 
       <Route path="/mypage" element={<MyPage />}></Route>
       <Route path="/mypage/apointment" element={<MyPageApointment />}></Route>
