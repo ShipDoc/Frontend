@@ -1,7 +1,30 @@
+// Button.jsx
+
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ButtonItem from '../ButtonItem';
 import { useNavigate } from "react-router-dom";
+
+const ButtonContainer = styled.div`
+  font-family: Pretendard;
+  align-items: center;
+  margin-bottom: 10rem;
+`;
+
+const ClickableButtonItem = styled.div`
+  cursor: pointer;
+  position: relative;
+`;
+
+const DeleteButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
+
+const AddButton = styled.button`
+  margin-top: 20px;
+`;
 
 const Button = () => {
   const navigate = useNavigate();
@@ -36,7 +59,7 @@ const Button = () => {
     };
     setButtonData([...buttonData, newButton]);
   };
-
+  // 삭제
   const handleDeleteButton = (index) => {
     const newData = buttonData.filter((_, i) => i !== index);
     setButtonData(newData);
@@ -60,26 +83,5 @@ const Button = () => {
     </div>
   );
 };
-
-const ButtonContainer = styled.div`
-  font-family: Pretendard;
-  align-items: center;
-  margin-bottom: 10rem;
-`;
-
-const ClickableButtonItem = styled.div`
-  cursor: pointer;
-  position: relative;
-`;
-
-const DeleteButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-`;
-
-const AddButton = styled.button`
-  margin-top: 20px;
-`;
 
 export default Button;
