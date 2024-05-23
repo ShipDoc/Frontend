@@ -96,7 +96,7 @@ export default function MainFooter({ checkup }) {
               gap: "0.5vw",
             }}
           >
-            <NearHospitalText>내 주변 병원</NearHospitalText>
+            {checkup ? <NearHospitalText>내 주변 건강검진 가능 병원</NearHospitalText> : <NearHospitalText>내 주변 병원</NearHospitalText>}
             <HamburgerContainer onClick={toggleModal}>
               <img src={HamburgerDiv} alt="hamburgerDiv" />
               <img
