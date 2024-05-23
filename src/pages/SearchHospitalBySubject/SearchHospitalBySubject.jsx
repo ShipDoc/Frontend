@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import NavBar from "../../components/NavBar/NavBar";
 import blueBackImg from "../../assets/images/blueBack.svg";
+import SearchHospitalText from "../../components/searchHospital/SearchHospitaText";
+import symptomImg from "../../assets/images/symptom.svg";
 
 const PageDetailTextContainer = styled.div`
   display: flex;
@@ -17,6 +19,12 @@ const PageDetailText = styled.p`
   line-height: normal;
 `
 
+const WrapperDiv = styled.div`
+  position: relative;
+  width: 60vw;
+  margin: 0 auto;
+`
+
 export default function SearchHospitalBySubject() {
   return (
     <>
@@ -26,6 +34,9 @@ export default function SearchHospitalBySubject() {
           <PageDetailText>홈 &gt; 증상으로 병원찾기</PageDetailText>
         </PageDetailTextContainer>
       </NavBar>
+      <WrapperDiv>
+        <SearchHospitalText text="증상으로 병원 찾기" src={symptomImg} />
+      </WrapperDiv>
 
     </>
   )

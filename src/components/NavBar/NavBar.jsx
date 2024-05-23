@@ -93,6 +93,7 @@ const HeaderContainer = styled.header`
     width: 100%;
     position: relative;
     overflow: hidden;
+    z-inde: 5;
 `;
 
 const MainContainer = styled.header`
@@ -306,7 +307,7 @@ const Section = styled.section`
 const Title = styled.h2`
     margin-left: clamp(10rem, 20vw, 40rem);
     width: 50vw;
-    padding: 2rem 2rem;
+    padding: 2rem 2rem 0 2rem;
     color: #a3a3a3;
     font-family: Pretendard;
     font-size: clamp(0.8rem, 1.5vw, 0.8rem);
