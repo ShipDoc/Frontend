@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router";
-import ChoosePayment from "../../components/detail/ChoosePayment";
-import Payments from "../../components/detail/Payments";
 import AgreeText from "../../components/detail/AgreeText";
 
 const formatDate = (date) => {
@@ -24,7 +22,7 @@ const formatDate = (date) => {
     return `${year}.${month}.${day}. ${dayOfWeek}`;
 };
 
-const Payment = () => {
+const NoPay = () => {
     const { state } = useLocation();
     const navigate = useNavigate();
 
@@ -61,7 +59,7 @@ const Payment = () => {
 
         if (requiredChecked1 && requiredChecked2) setAllChecked(true);
         else setAllChecked(false);
-    }, [requiredChecked1, requiredChecked2, allChecked]);
+    }, [requiredChecked1, requiredChecked2]);
 
     useEffect(() => {
         setSelectedDate(state.selectedDate);
@@ -78,21 +76,6 @@ const Payment = () => {
                         <DateText>
                             {formatDate(new Date(selectedDate))} {selectedTime}
                         </DateText>
-                        <TitleText>
-                            노쇼 방지 선입금 결제 방법 (자동 재예약)
-                        </TitleText>
-                        <DescriptionText>
-                            *노쇼 방지 비용으로{" "}
-                            <span style={{ color: "#FF0000" }}>3,000원</span>이
-                            결제됩니다.
-                        </DescriptionText>
-                        <DescriptionText>
-                            노쇼 방지 비용은 이후 진료비에서 절감이 되고 3번
-                            이상 노쇼시 환불 불가능합니다.
-                        </DescriptionText>
-
-                        <ChoosePayment></ChoosePayment>
-                        <Payments></Payments>
                     </GeneralContainer>
 
                     <StyledHr></StyledHr>
@@ -161,13 +144,6 @@ const DateText = styled.div`
     margin-bottom: 2.3rem;
 `;
 
-const DescriptionText = styled.div`
-    color: #979797;
-    font-size: 0.8rem;
-    font-weight: 500;
-    margin-top: 0.3rem;
-`;
-
 const NextBtn = styled.button`
     background-color: ${(props) => (props.disabled ? "#D9D9D9" : "#1371ff")};
     cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
@@ -182,4 +158,4 @@ const NextBtn = styled.button`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
-export default Payment;
+export default NoPay;

@@ -16,38 +16,52 @@ import { useNavigate } from "react-router-dom";
 const Reservation = () => {
     const navigate = useNavigate();
 
+    // 유저 이름
     const [username, setUsername] = useState("김아현");
 
+    // 전화 번호
     const [number, setNumber] = useState(null);
-
     const changeNumber = (e) => {
         setNumber(e.target.value);
     };
 
+    // 날짜 선택
     const [selectedDate, setSelectedDate] = useState(null);
-
     const handleDateChange = (newDate) => {
         setSelectedDate(newDate);
     };
+    const [selectedTime, setSelectedTime] = useState(null);
 
     const receptionCheck = () => {};
 
     const handleChange = (checked, e) => {};
 
-    const [selectedTime, setSelectedTime] = useState(null);
-
-    const handleButtonClick = (value) => {
-        setSelectedTime(value);
-        console.log(value);
-    };
-
     const nextHandle = () => {
-        navigate("/detail/pay");
+        if (selectedOption === "option1") {
+            navigate("/detail/pay", {
+                state: {
+                    selectedDate: selectedDate,
+                    selectedTime: selectedTime,
+                },
+            });
+        } else {
+            navigate("/detail/noPay", {
+                state: {
+                    selectedDate: selectedDate,
+                    selectedTime: selectedTime,
+                },
+            });
+        }
     };
+
+    // 자동 예약할지 안할지
+    const [selectedOption, setSelectedOption] = useState(null);
 
     useEffect(() => {
-        setSelectedTime(null);
-    }, [selectedDate]);
+        console.log(selectedTime);
+        console.log(selectedDate);
+    }, [selectedTime, selectedDate]);
+
     return (
         <>
             <NavBar></NavBar>
@@ -80,8 +94,8 @@ const Reservation = () => {
                         <ReserveTime
                             openTime="09:00"
                             closeTime="20:00"
-                            handleButtonClick={handleButtonClick}
-                            selectedTime={selectedTime}
+                            setSelectedTime={setSelectedTime}
+                            selectedDate={selectedDate}
                         ></ReserveTime>
                     ) : null}
 
@@ -140,10 +154,22 @@ const Reservation = () => {
                                 (노쇼 방지 비용은 진료 금액에서 절감됩니다.)
                             </ReceptionText2>
                         </DescriptionContainer>
-                        <ButtonRadioGroup></ButtonRadioGroup>
+                        <ButtonRadioGroup
+                            selectedOption={selectedOption}
+                            setSelectedOption={setSelectedOption}
+                        ></ButtonRadioGroup>
                     </GeneralContainer>
 
-                    <NextBtn onClick={nextHandle}>다음</NextBtn>
+                    <NextBtn
+                        disabled={
+                            selectedDate === null ||
+                            selectedTime === null ||
+                            selectedOption === null
+                        }
+                        onClick={nextHandle}
+                    >
+                        다음
+                    </NextBtn>
                 </Div>
             </Frame>
         </>
@@ -300,14 +326,17 @@ const DescriptionContainer = styled.div`
 `;
 
 const NextBtn = styled.button`
+    background-color: ${(props) => (props.disabled ? "#D9D9D9" : "#1371ff")};
+    cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
     margin-top: 2rem;
-    background-color: #1371ff;
+
     color: white;
     font-weight: 800;
     font-size: 1.2rem;
     border-radius: 21px;
     width: 80%;
     height: 3rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
 export default Reservation;

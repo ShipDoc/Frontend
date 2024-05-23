@@ -249,6 +249,7 @@ const ReservationBtn = styled.button`
     border-radius: 20px;
     width: 50%;
     height: 3rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
 const ButtonText = styled.div`

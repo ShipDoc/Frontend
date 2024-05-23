@@ -144,7 +144,7 @@ const StyledToday = styled.img`
     transform: translateX(-50%);
 `;
 
-const MyCalendar = ({ selectedDate, handleDateChange, attendDay = [] }) => {
+const MyCalendar = ({ selectedDate, handleDateChange }) => {
     const [activeStartDate, setActiveStartDate] = useState(null);
     const today = useMemo(() => new Date(), []);
 

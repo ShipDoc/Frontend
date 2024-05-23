@@ -18,6 +18,8 @@ import MyPageHistoryDetail from "./pages/MyPage/HistoryDetail";
 import HealthCare from "./pages/HealthCare/HealthCare";
 import Reservation from "./pages/detail/Reservation";
 import Payment from "./pages/detail/Payment";
+import NoPay from "./pages/detail/NoPay";
+import SuccessRes from "./pages/detail/SuccessRes";
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
       <Route path="/detail" element={<Detail />}></Route>
       <Route path="/detail/reservation" element={<Reservation />}></Route>
       <Route path="/detail/pay" element={<Payment />}></Route>
+      <Route path="/detail/noPay" element={<NoPay />}></Route>
+      <Route path="/detail/success" element={<SuccessRes />}></Route>
 
       <Route path="/mypage" element={<MyPage />}></Route>
       <Route path="/mypage/apointment" element={<MyPageApointment />}></Route>
