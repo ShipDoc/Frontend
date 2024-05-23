@@ -13,6 +13,8 @@ import MyPageApointment from "./pages/MyPage/Apionment";
 import MyPageApointmentNull from "./pages/MyPage/ApointmentNull";
 import MyPageHistory from "./pages/MyPage/History";
 import MyPageHistoryNull from "./pages/MyPage/HistoryNull";
+import Reservation from "./pages/detail/Reservation";
+import Payment from "./pages/detail/Payment";
 
 function App() {
     return (
@@ -30,13 +32,23 @@ function App() {
 
             {/* Detail */}
             <Route path="/detail" element={<Detail />}></Route>
+            <Route path="/detail/reservation" element={<Reservation />}></Route>
+            <Route path="/detail/pat" element={<Payment />}></Route>
 
             <Route path="/mypage" element={<MyPage />}></Route>
-            <Route path="/mypage/apointment" element={<MyPageApointment />}></Route>
-            <Route path="/mypage/apointmentNull" element={<MyPageApointmentNull />}></Route>
+            <Route
+                path="/mypage/apointment"
+                element={<MyPageApointment />}
+            ></Route>
+            <Route
+                path="/mypage/apointmentNull"
+                element={<MyPageApointmentNull />}
+            ></Route>
             <Route path="/mypage/history" element={<MyPageHistory />}></Route>
-            <Route path="/mypage/historyNull" element={<MyPageHistoryNull />}></Route>
-
+            <Route
+                path="/mypage/historyNull"
+                element={<MyPageHistoryNull />}
+            ></Route>
         </Routes>
     );
 }
