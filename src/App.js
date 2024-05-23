@@ -20,6 +20,8 @@ import Reservation from "./pages/detail/Reservation";
 import Payment from "./pages/detail/Payment";
 import NoPay from "./pages/detail/NoPay";
 import SuccessRes from "./pages/detail/SuccessRes";
+import SearchHospitalBySubject from "./pages/SearchHospitalBySubject/SearchHospitalBySubject";
+
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
 
       <Route path="/Home" element={<Home />}></Route>
       <Route path="/HealthCare" element={<HealthCare />}></Route>
+
+      <Route path="/SearchHospitalBySubject" element={<SearchHospitalBySubject />}></Route>
 
       <Route path="/insurance" element={<Insurance />}></Route>
       <Route path="/insurance/FAQ1" element={<InsuranceFAQ1 />}></Route>
