@@ -13,32 +13,37 @@ import MyPageApointment from "./pages/MyPage/Apionment";
 import MyPageApointmentNull from "./pages/MyPage/ApointmentNull";
 import MyPageHistory from "./pages/MyPage/History";
 import MyPageHistoryNull from "./pages/MyPage/HistoryNull";
+import HealthCare from "./pages/HealthCare/HealthCare";
 
 function App() {
-    return (
-        <Routes>
-            {/* Account */}
-            <Route path="/" element={<SignIn />}></Route>
-            <Route path="/SignUp" element={<SignUp />}></Route>
-            <Route path="/SignUp/Info" element={<SignUpInfo />}></Route>
-            <Route path="/SignUp/success" element={<SignUpSuccess />}></Route>
 
-            <Route path="/Home" element={<Home />}></Route>
+  return (
+    <Routes>
+      {/* Account */}
+      <Route path="/" element={<SignIn />}></Route>
+      <Route path="/SignUp" element={<SignUp />}></Route>
+      <Route path="/SignUp/Info" element={<SignUpInfo />}></Route>
+      <Route path="/SignUp/success" element={<SignUpSuccess />}></Route>
 
-            <Route path="/insurance" element={<Insurance />}></Route>
-            <Route path="/insurance/FAQ1" element={<InsuranceFAQ1 />}></Route>
+      <Route path="/Home" element={<Home />}></Route>
+      <Route path="/HealthCare" element={<HealthCare />}></Route>
 
-            {/* Detail */}
-            <Route path="/detail" element={<Detail />}></Route>
+      <Route path="/insurance" element={<Insurance />}></Route>
+      <Route path="/insurance/FAQ1" element={<InsuranceFAQ1 />}></Route>
 
-            <Route path="/mypage" element={<MyPage />}></Route>
-            <Route path="/mypage/apointment" element={<MyPageApointment />}></Route>
-            <Route path="/mypage/apointmentNull" element={<MyPageApointmentNull />}></Route>
-            <Route path="/mypage/history" element={<MyPageHistory />}></Route>
-            <Route path="/mypage/historyNull" element={<MyPageHistoryNull />}></Route>
+      {/* Detail */}
+      <Route path="/detail" element={<Detail />}></Route>
 
-        </Routes>
-    );
+      <Route path="/mypage" element={<MyPage />}></Route>
+      <Route path="/mypage/apointment" element={<MyPageApointment />}></Route>
+      <Route
+        path="/mypage/apointmentNull"
+        element={<MyPageApointmentNull />}
+      ></Route>
+      <Route path="/mypage/history" element={<MyPageHistory />}></Route>
+      <Route path="/mypage/historyNull" element={<MyPageHistoryNull />}></Route>
+    </Routes>
+  );
 }
 
 export default App;

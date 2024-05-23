@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useRef } from "react"
 import dropdownImg from "../../assets/images/dropdown.svg";
 
 const ModalContainer = styled.div`
@@ -14,6 +13,10 @@ const ModalTextContainer = styled.div`
   algin-items: center;
   padding: 1vh 0 1vh 1.05rem;
   position: relative;
+  &:not(:first-child) {
+    border-top: 1px solid var(--Sub-color, #E6E5EB); /* 줄을 추가하는 부분 */
+  }
+  cursor: pointer;
 `
 
 const ModalText = styled.p`
@@ -33,7 +36,6 @@ const DropdownImg = styled.img`
 `
 
 export default function SortModal() {
-  const modal = useRef();
   return (
     <>
       <ModalContainer>
