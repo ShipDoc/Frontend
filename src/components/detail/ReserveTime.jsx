@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const ReserveTime = ({
     openTime,
     closeTime,
-    handleButtonClick,
-    selectedTime,
+    setSelectedTime,
+    selectedDate,
 }) => {
+    const [time, setTime] = useState(null);
+
     const generateTimeSlots = (open, close) => {
         const slots = [];
         let currentTime = new Date(open);
@@ -30,24 +32,38 @@ const ReserveTime = ({
             return `${formattedHours}:${minutes}`;
         }
     };
+    const handleButtonClick = (value) => {
+        setSelectedTime(value);
+        setTime(value);
+    };
 
-    const openDate = new Date(`1970-01-01T${openTime}:00`);
-    const closeDate = new Date(`1970-01-01T${closeTime}:00`);
+    const openDate = new Date(`1970-01-01T${openTime}`);
+    const closeDate = new Date(`1970-01-01T${closeTime}`);
 
     const timeSlots = generateTimeSlots(openDate, closeDate);
     const morningSlots = timeSlots.filter((slot) => slot.getHours() < 12);
     const afternoonSlots = timeSlots.filter((slot) => slot.getHours() >= 12);
 
     const renderTimeButtons = (slots, isAfternoon) => {
-        const buttons = slots.map((slot, index) => (
-            <RadioButton
-                key={index}
-                isSelected={selectedTime === slot.toISOString()}
-                onClick={() => handleButtonClick(slot.toISOString())}
-            >
-                {formatTime(slot, isAfternoon)}
-            </RadioButton>
-        ));
+        const buttons = slots.map((slot, index) => {
+            const combinedDate = new Date(selectedDate);
+            combinedDate.setHours(slot.getHours());
+            combinedDate.setMinutes(slot.getMinutes());
+
+            return (
+                <RadioButton
+                    key={index}
+                    data_isselected={
+                        time === formatTime(combinedDate, isAfternoon)
+                    }
+                    onClick={() =>
+                        handleButtonClick(formatTime(combinedDate, isAfternoon))
+                    }
+                >
+                    {formatTime(combinedDate, isAfternoon)}
+                </RadioButton>
+            );
+        });
 
         const totalButtons = buttons.length;
         const rows = Math.ceil(totalButtons / 4);
@@ -91,9 +107,11 @@ const SectionTitle = styled.h3`
 `;
 
 const RadioButton = styled.button`
-    background-color: ${(props) => (props.isSelected ? "#1371FF" : "#ffffff")};
-    color: ${(props) => (props.isSelected ? "#ffffff" : "#000000")};
-    border: ${(props) => (props.isSelected ? "none" : "1px solid #C3C3C3")};
+    background-color: ${(props) =>
+        props.data_isselected ? "#1371FF" : "#ffffff"};
+    color: ${(props) => (props.data_isselected ? "#ffffff" : "#000000")};
+    border: ${(props) =>
+        props.data_isselected ? "none" : "1px solid #C3C3C3"};
     border-radius: 9px;
     padding: 10px 0;
     margin: 5px;
