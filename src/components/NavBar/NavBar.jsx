@@ -1,21 +1,27 @@
 import logoImg from "../../assets/images/logoImg.svg";
 import profileWhite from "../../assets/images/profileWhite.svg";
 import loginBar from "../../assets/images/loginBar.svg";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 
-const NavBar = ({ children }) => {
+// `activeIndex` prop 추가
+const NavBar = ({ children, activeIndex }) => {
     const [user, setUser] = useState("User");
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState(activeIndex);
     const navigate = useNavigate();
+
+    // `activeIndex` prop이 변경될 때마다 `currentIndex` 업데이트
+    useEffect(() => {
+        setCurrentIndex(activeIndex);
+    }, [activeIndex]);
 
     const handleProfileClick = () => {
         navigate("/mypage");
     };
 
     const handleItemClick = (index) => {
-        setActiveIndex(index);
+        setCurrentIndex(index);
     };
 
     return (
@@ -44,7 +50,7 @@ const NavBar = ({ children }) => {
                     <Nav>
                         <ul>
                             <NavItem
-                                active={activeIndex === 0}
+                                active={currentIndex === 0}
                                 onClick={() => handleItemClick(0)}
                             >
                                 <LeftCurve />
@@ -52,7 +58,7 @@ const NavBar = ({ children }) => {
                                 <Link to="/home">홈</Link>
                             </NavItem>
                             <NavItem
-                                active={activeIndex === 1}
+                                active={currentIndex === 1}
                                 onClick={() => handleItemClick(1)}
                             >
                                 <LeftCurve />
@@ -60,7 +66,7 @@ const NavBar = ({ children }) => {
                                 <Link to="/HealthCare">건강검진</Link>
                             </NavItem>
                             <NavItem
-                                active={activeIndex === 2}
+                                active={currentIndex === 2}
                                 onClick={() => handleItemClick(2)}
                             >
                                 <LeftCurve />
@@ -68,7 +74,7 @@ const NavBar = ({ children }) => {
                                 <Link to="/insurance">보험청구</Link>
                             </NavItem>
                             <NavItem
-                                active={activeIndex === 3}
+                                active={currentIndex === 3}
                                 onClick={() => handleItemClick(3)}
                             >
                                 <LeftCurve />
@@ -93,7 +99,7 @@ const HeaderContainer = styled.header`
     width: 100%;
     position: relative;
     overflow: hidden;
-    z-inde: 5;
+    z-index: 5;
 `;
 
 const MainContainer = styled.header`
@@ -224,7 +230,7 @@ const NavItem = styled.li`
     ${({ active }) =>
         active
             ? "background : #fff; color : #005BE2; > b {display:block;}"
-            : "background : #transparent; color : #fff; "}
+            : "background : transparent; color : #fff;"}
 
     cursor: pointer;
 
