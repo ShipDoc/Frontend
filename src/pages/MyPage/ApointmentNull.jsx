@@ -6,9 +6,9 @@ import Content from "../../components/MyPage/Apointment/NullContent";
 const AppointmentNull = () => {
   return (
     <PageContainer>
-      <NavBar
-      title="마이페이지 &gt; 병원 예약내역 보기"
-      />
+      <NavBar>
+      마이페이지 &gt; 병원 예약내역 보기
+      </NavBar>
       <Content />
     </PageContainer>
   );

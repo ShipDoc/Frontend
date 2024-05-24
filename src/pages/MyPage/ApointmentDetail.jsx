@@ -28,7 +28,9 @@ const Detail = () => {
 
     return (
         <>
-            <NavBar title="마이페이지 &gt; 병원 예약내역 보기 &gt; 연세이빈후과의원" />
+            <NavBar>
+            마이페이지 &gt; 병원 예약내역 보기 &gt; 연세이빈후과의원
+            </NavBar>
             <Frame>
                 <Div>
                     <HospitalComponent name="연세이빈후과의원" />
