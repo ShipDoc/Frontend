@@ -122,7 +122,7 @@ const TopContainer = styled.div`
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
-    margin-bottom: 6rem;
+    margin-bottom: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;

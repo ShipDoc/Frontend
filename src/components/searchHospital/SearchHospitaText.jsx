@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const SearchHospitalTextContainer = styled.div`
   margin-top: 3vh;
-  margin-left: 4vw;
+  // margin-left: 4vw;
   height: max-content;
   position: relative;
   width: max-content;
