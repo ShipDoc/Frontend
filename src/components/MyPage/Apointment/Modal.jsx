@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -21,7 +22,7 @@ const ModalContainer = styled.div`
   width: 300px;
   box-shadow: 0px 0px 45.542px 0px rgba(0, 0, 0, 0.35);
   z-index: 1001;
-  `;
+`;
 
 const ModalContent = styled.div`
   display: flex;
@@ -67,8 +68,14 @@ const ConfirmButton = styled.button`
   cursor: pointer;
 `;
 
-
 const Modal = ({ show, handleClose, handleConfirm }) => {
+  const navigate = useNavigate();
+
+  const handleConfirmClick = () => {
+    handleConfirm();
+    navigate("/mypage/apointment", { state: { showModal: true } });
+  };
+
   if (!show) {
     return null;
   }
@@ -80,7 +87,7 @@ const Modal = ({ show, handleClose, handleConfirm }) => {
           <ModalText>예약을 취소하시겠습니까?</ModalText>
           <ButtonContainer>
             <CancelButton onClick={handleClose}>취소</CancelButton>
-            <ConfirmButton onClick={handleConfirm}>확인</ConfirmButton>
+            <ConfirmButton onClick={handleConfirmClick}>확인</ConfirmButton>
           </ButtonContainer>
         </ModalContent>
       </ModalContainer>

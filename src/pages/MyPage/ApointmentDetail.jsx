@@ -1,5 +1,3 @@
-// ApointmentDetail.jsx
-
 import React, { useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import HospitalComponent from "../../components/MyPage/Apointment/ApointmentHospital";
@@ -22,14 +20,14 @@ const Detail = () => {
     };
 
     const handleConfirmModal = () => {
-        setShowModal(false);
         // 예약 취소 처리 로직 추가
+        setShowModal(false);
     };
 
     return (
         <>
             <NavBar>
-            마이페이지 &gt; 병원 예약내역 보기 &gt; 연세이빈후과의원
+                마이페이지 &gt; 병원 예약내역 보기 &gt; 연세이빈후과의원
             </NavBar>
             <Frame>
                 <Div>
