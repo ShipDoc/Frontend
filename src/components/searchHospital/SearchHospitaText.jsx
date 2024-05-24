@@ -23,7 +23,7 @@ const SearchText = styled.p`
 const SearchHospitalImg = styled.img`
   z-index: -10;
   position: absolute;
-  right: -35%;
+  right: -30%;
   transform: translate(0 ,-50%);
 `
 

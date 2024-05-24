@@ -69,7 +69,11 @@ const HealthCareText = styled.p`
 export default function CategoryDetailComponent({home, checkup}) {
   const navigate = useNavigate();
 
-  const handleGoSearchHospitalBySubjectPage = () => {
+  const handleGoSearchHospitalBySymptom = () => {
+    navigate("/SearchHospitalBySymptom");
+  }
+
+  const handleGoSearchHospitalBySubject = () => {
     navigate("/SearchHospitalBySubject");
   }
 
@@ -77,12 +81,12 @@ export default function CategoryDetailComponent({home, checkup}) {
     <>
       {home && (
         <CategoryDetailButtonContainer>
-          <CategoryDetailButtonBox home={home} >
+          <CategoryDetailButtonBox home={home} onClick={handleGoSearchHospitalBySubject}>
             <img src={stethoscopeImg} alt="stethoscopeImg" />
             <SearchHospitalBoldText>진료과목<SearchHospitalText>으로 <br />병원찾기</SearchHospitalText></SearchHospitalBoldText>
           </CategoryDetailButtonBox>
     
-          <CategoryDetailButtonBox home={home} onClick={handleGoSearchHospitalBySubjectPage}>
+          <CategoryDetailButtonBox home={home} onClick={handleGoSearchHospitalBySymptom}>
             <img src={coldImg} alt="coldImg" />
             <SearchHospitalBoldText>증상<SearchHospitalText>으로 <br />병원찾기</SearchHospitalText></SearchHospitalBoldText>
           </CategoryDetailButtonBox>
