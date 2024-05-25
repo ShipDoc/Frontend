@@ -70,7 +70,7 @@ const Detail = () => {
 
     return (
         <>
-            <NavBar>
+            <NavBar activeIndex={0}>
                 <GeneralContainer>
                     <PathText>
                         홈 &gt; 증상으로 병원 찾기 &gt; {symptom} &gt;{" "}

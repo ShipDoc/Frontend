@@ -68,7 +68,7 @@ const NoPay = () => {
 
     return (
         <>
-            <NavBar>
+            <NavBar activeIndex={0}>
                 <GeneralContainer>
                     <PathText>{state.text}</PathText>
                 </GeneralContainer>
