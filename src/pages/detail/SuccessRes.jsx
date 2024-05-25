@@ -2,16 +2,21 @@ import React, { useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import styled from "styled-components";
 import success from "../../assets/icons/detail/success.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SuccessRes = () => {
+    const { state } = useLocation();
     const navigate = useNavigate();
 
     const nextHandle = () => {};
 
     return (
         <>
-            <NavBar></NavBar>
+            <NavBar>
+                <GeneralContainer>
+                    <PathText>{state.text}</PathText>
+                </GeneralContainer>
+            </NavBar>
             <Frame>
                 <Div>
                     <Container>
@@ -40,6 +45,19 @@ const Div = styled.div`
     text-align: center;
     width: 42rem;
     padding: 1rem 1rem 4rem 1rem;
+`;
+
+const PathText = styled.div`
+    color: #808080;
+    font-size: 0.75rem;
+    margin-left: 9rem;
+    margin-bottom: 1rem;
+`;
+
+const GeneralContainer = styled.div`
+    text-align: start;
+    margin-left: 1rem;
+    align-items: center;
 `;
 
 const Container = styled.div`

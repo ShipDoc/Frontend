@@ -6,6 +6,7 @@ import SignInBtn from "../../components/account/SignInBtn";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { signin } from "../../apis/api/user";
 
 const SignIn = () => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const SignIn = () => {
         setLoginVal({ ...loginVal, password: e.target.value });
     };
 
-    const handleSignIn = () => {
+    const handleSignIn = async () => {
         if (
             !loginVal.name ||
             loginVal.name.length === 0 ||
@@ -33,14 +34,19 @@ const SignIn = () => {
             return;
         }
 
-        navigate("/");
-        //   const { data, status } = await signin(loginVal);
-        //   if (status === 200) {
-        //     localStorage.setItem('token', data.responseData.token);
-        //     navigate('/');
-        //   } else {
-        //     alert('로그인에 실패했습니다.');
-        //   }
+        const res = await signin({
+            loginId: loginVal.name,
+            password: loginVal.password,
+        });
+
+        if (res.data.code === "COMMON200") {
+            console.log("성공");
+            localStorage.setItem("token", res.headers.Authorization);
+            navigate("/Home");
+        } else {
+            console.log(res.data.code);
+            alert("로그인에 실패했습니다.");
+        }
     };
 
     const handleSignUp = () => {

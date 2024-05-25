@@ -5,6 +5,7 @@ import Input from "../../components/account/Input";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
+import { signup, sms } from "../../apis/api/user";
 
 const SignUpInfo = () => {
     const navigate = useNavigate();
@@ -23,6 +24,10 @@ const SignUpInfo = () => {
         id: null,
         password: null,
         checkPwd: null,
+
+        name: null,
+        birth: null,
+        number: null,
         auth: null,
     });
 
@@ -31,7 +36,10 @@ const SignUpInfo = () => {
         id: false,
         password: false,
         checkPwd: false,
-        auth: false,
+        name: false,
+        birth: false,
+        number: null,
+        auth: null,
     });
 
     const handleChangeId = (e) => {
@@ -70,26 +78,97 @@ const SignUpInfo = () => {
         }
     };
 
-    const handleAuth = (e) => {
+    const handleName = (e) => {
         let val = e.target.value;
 
-        setSignUpVal({ ...signUpVal, auth: e.target.value });
+        setSignUpVal({ ...signUpVal, name: e.target.value });
 
         if (val !== "" || val !== null) {
-            setSignUpValid({ ...signUpValid, auth: true });
+            setSignUpValid({ ...signUpValid, name: true });
         } else {
-            setSignUpValid({ ...signUpValid, auth: false });
+            setSignUpValid({ ...signUpValid, name: false });
         }
     };
 
-    const onClickAuth = (e) => {
-        setCheckAuth(true);
-        setShowModal(true); // 인증 완료 모달 표시
+    const handleBirth = (e) => {
+        const regex = /^\d{8}$/;
+        let val = e.target.value;
+
+        setSignUpVal({ ...signUpVal, birth: e.target.value });
+
+        if (!isNaN(val)) {
+            if (val === "" || regex.test(val)) {
+                setSignUpValid({ ...signUpValid, birth: true });
+            } else {
+                setSignUpValid({ ...signUpValid, birth: false });
+            }
+        } else {
+            setSignUpValid({ ...signUpValid, birth: false });
+        }
     };
 
-    const handleSubmit = () => {
+    const handleNumber = (e) => {
+        let val = e.target.value;
+
+        setSignUpVal({ ...signUpVal, number: e.target.value });
+
+        if (val !== "" || val !== null) {
+            setSignUpValid({ ...signUpValid, number: true });
+        } else {
+            setSignUpValid({ ...signUpValid, number: false });
+        }
+    };
+
+    const handleAuth = (e) => {
+        setSignUpVal({ ...signUpVal, auth: e.target.value });
+    };
+
+    const onClickNumber = async () => {
+        const res = await sms({
+            phoneNumber: signUpVal.number,
+        });
+
+        if (res.data.code === "COMMON200") {
+            alert(
+                "인증번호를 성공적으로 발송했습니다. 발송된 인증코드는 5분간 유효합니다."
+            );
+        } else {
+            alert("로그인에 실패했습니다.");
+        }
+    };
+
+    const onClickAuth = async () => {
+        const res = await sms({
+            phoneNumber: signUpVal.number,
+            verifyCode: signUpVal.auth,
+        });
+
+        if (res.data.code === "COMMON200") {
+            setSignUpValid({ ...signUpValid, auth: true });
+            setCheckAuth(true);
+            setShowModal(true); // 인증 완료 모달 표시
+        } else {
+            alert("인증에 실패했습니다.");
+        }
+    };
+
+    const handleSubmit = async () => {
         if (checkAuth) {
-            navigate("/signUp/success");
+            const res = await signup({
+                loginId: signUpVal.id,
+                password: signUpVal.password,
+                passwordCheck: signUpVal.passwordCheck,
+                name: signUpVal.name,
+                birth: signUpVal.birth,
+                phoneNumber: signUpVal.number,
+                verifyCode: signUpVal.auth,
+            });
+
+            if (res.data.code === "COMMON200") {
+                navigate("/signUp/success");
+            } else {
+                alert("로그인에 실패했습니다.");
+            }
         }
     };
 
@@ -177,6 +256,50 @@ const SignUpInfo = () => {
 
                     <InputFrame>
                         <InputTitle>
+                            이름
+                            <span style={{ color: "red", fontWeight: 400 }}>
+                                *
+                            </span>
+                        </InputTitle>
+
+                        <Input
+                            type="text"
+                            placeholder="이름"
+                            handling={handleName}
+                            border="20px"
+                            margintop="0.2rem"
+                        ></Input>
+                        {!signUpValid.name && signUpVal.name && (
+                            <ErrorMessage>
+                                이름을 정확하게 입력해주세요.
+                            </ErrorMessage>
+                        )}
+                    </InputFrame>
+
+                    <InputFrame>
+                        <InputTitle>
+                            생년월일 8자리
+                            <span style={{ color: "red", fontWeight: 400 }}>
+                                *
+                            </span>
+                        </InputTitle>
+
+                        <Input
+                            type="text"
+                            placeholder="생년월일 8자리"
+                            handling={handleBirth}
+                            border="20px"
+                            margintop="0.2rem"
+                        ></Input>
+                        {!signUpValid.birth && signUpVal.birth && (
+                            <ErrorMessage>
+                                올바른 형식으로 작성해주세요.
+                            </ErrorMessage>
+                        )}
+                    </InputFrame>
+
+                    <InputFrame>
+                        <InputTitle>
                             문자 본인 인증
                             <span style={{ color: "red", fontWeight: 400 }}>
                                 *
@@ -187,6 +310,28 @@ const SignUpInfo = () => {
                             <Input
                                 type="tel"
                                 placeholder="전화번호를 입력하세요."
+                                handling={handleNumber}
+                                border="20px"
+                                margintop="0.2rem"
+                            ></Input>
+                            <AuthBtn onClick={onClickNumber}>인증하기</AuthBtn>
+                        </AuthFrame>
+                        {!signUpValid.auth && !checkAuth && signUpVal.auth && (
+                            <ErrorMessage>인증을 완료해 주세요.</ErrorMessage>
+                        )}
+                    </InputFrame>
+                    <InputFrame>
+                        <InputTitle>
+                            코드 입력
+                            <span style={{ color: "red", fontWeight: 400 }}>
+                                *
+                            </span>
+                        </InputTitle>
+
+                        <AuthFrame>
+                            <Input
+                                type="tel"
+                                placeholder="코드."
                                 handling={handleAuth}
                                 border="20px"
                                 margintop="0.2rem"
