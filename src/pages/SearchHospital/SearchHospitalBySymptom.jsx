@@ -55,7 +55,7 @@ export default function SearchHospitalBySubject() {
 
   return (
     <>
-      <NavBar>
+      <NavBar activeIndex={0}>
         <PageDetailTextContainer>
           <img src={blueBackImg} alt="blueBackImg" />
           <PageDetailText>홈 &gt; 증상으로 병원찾기</PageDetailText>
