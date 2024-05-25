@@ -51,7 +51,11 @@ const Payment = () => {
     };
 
     const nextHandle = () => {
-        navigate("/detail/success");
+        navigate("/detail/success", {
+            state: {
+                text: state.text,
+            },
+        });
     };
 
     const [allRequiredChecked, setAllRequiredChecked] = useState(false);
@@ -70,7 +74,11 @@ const Payment = () => {
 
     return (
         <>
-            <NavBar></NavBar>
+            <NavBar>
+                <GeneralContainer>
+                    <PathText>{state.text}</PathText>
+                </GeneralContainer>
+            </NavBar>
             <Frame>
                 <Div>
                     <GeneralContainer>
@@ -140,6 +148,13 @@ const StyledHr = styled.hr`
     border: none;
     border-top: 1px solid #c3c3c3;
     margin: 1.6rem 0;
+`;
+
+const PathText = styled.div`
+    color: #808080;
+    font-size: 0.75rem;
+    margin-left: 9rem;
+    margin-bottom: 1rem;
 `;
 
 const GeneralContainer = styled.div`
