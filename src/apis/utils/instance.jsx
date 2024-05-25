@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/";
+const BASE_URL = "http://3.39.110.194:8080";
 
 const defaultApi = axios.create({
     baseURL: BASE_URL,
     headers: {
-        "Content-Type": "application/json; charset=UTF-8",
+        "Content-Type": "application/json",
     },
 });
 

@@ -11,6 +11,9 @@ import { useNavigate } from "react-router-dom";
 const Detail = () => {
     const navigate = useNavigate();
 
+    const [symptom, setSymptom] = useState("발열");
+    const [hospitalName, setHospitalName] = useState("연세이빈후과의원");
+
     // 진료중, 휴게시간, 진료마감 구분
     const [ingNum, setIngNum] = useState(0);
 
@@ -58,12 +61,23 @@ const Detail = () => {
     };
 
     const handleBtn = () => {
-        navigate("/detail/reservation");
+        navigate("/detail/reservation", {
+            state: {
+                text: `홈 > 증상으로 병원 찾기 > ${symptom} > ${hospitalName} > 병원 예약하기`,
+            },
+        });
     };
 
     return (
         <>
-            <NavBar></NavBar>
+            <NavBar>
+                <GeneralContainer>
+                    <PathText>
+                        홈 &gt; 증상으로 병원 찾기 &gt; {symptom} &gt;{" "}
+                        {hospitalName}
+                    </PathText>
+                </GeneralContainer>
+            </NavBar>
             <Frame>
                 <Div>
                     <HospitalComponent name="연세이빈후과"></HospitalComponent>
@@ -156,6 +170,13 @@ const GeneralContainer = styled.div`
     text-align: start;
     margin-left: 1rem;
     align-items: center;
+`;
+
+const PathText = styled.div`
+    color: #808080;
+    font-size: 0.75rem;
+    margin-left: 9rem;
+    margin-bottom: 1rem;
 `;
 
 const SubTitle = styled.div`
