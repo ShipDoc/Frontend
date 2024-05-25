@@ -25,6 +25,7 @@ import SuccessRes from "./pages/detail/SuccessRes";
 import SearchHospitalBySubject from "./pages/SearchHospital/SearchHospitalBySubject.jsx";
 import SearchHospital from "./pages/SearchHospital/SearchHospital";
 import SearchHospitalBySymptom from "./pages/SearchHospital/SearchHospitalBySymptom";
+import Chat from "./pages/chat/Chat.jsx";
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
       <Route path="/detail/noPay" element={<NoPay />}></Route>
       <Route path="/detail/success" element={<SuccessRes />}></Route>
 
+      {/* MyPage */}
       <Route path="/mypage" element={<MyPage />}></Route>
       <Route path="/mypage/apointment" element={<MyPageApointment />}></Route>
       <Route
@@ -70,6 +72,9 @@ function App() {
       <Route path="/mypage/historyNull" element={<MyPageHistoryNull />}></Route>
       <Route path="/mypage/history/detail" element={<MyPageHistoryDetail />}></Route>
 
+
+      {/* Chat */}
+      <Route path="/chat" element={<Chat />}></Route>
     </Routes>
   );
 }

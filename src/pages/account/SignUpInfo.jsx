@@ -5,7 +5,8 @@ import Input from "../../components/account/Input";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
-import { signup, sms } from "../../apis/api/user";
+import { signup, sms, verifyCode } from "../../apis/api/user";
+import Timer from "../../components/account/Timer";
 
 const SignUpInfo = () => {
     const navigate = useNavigate();
@@ -18,6 +19,11 @@ const SignUpInfo = () => {
 
     // 인증 완료 모달 표시 여부
     const [showModal, setShowModal] = useState(false);
+
+    // 코드 전송 버튼을 눌렀는지
+    const [transmit, setTransmit] = useState(false);
+
+    const [count, setCount] = useState();
 
     // 입력한 값들
     const [signUpVal, setSignUpVal] = useState({
@@ -123,12 +129,14 @@ const SignUpInfo = () => {
         setSignUpVal({ ...signUpVal, auth: e.target.value });
     };
 
+    // 코드 전송하기 눌렀을 때
     const onClickNumber = async () => {
         const res = await sms({
             phoneNumber: signUpVal.number,
         });
 
         if (res.data.code === "COMMON200") {
+            setTransmit(true);
             alert(
                 "인증번호를 성공적으로 발송했습니다. 발송된 인증코드는 5분간 유효합니다."
             );
@@ -137,8 +145,9 @@ const SignUpInfo = () => {
         }
     };
 
+    // 인증하기 눌렀을 때
     const onClickAuth = async () => {
-        const res = await sms({
+        const res = await verifyCode({
             phoneNumber: signUpVal.number,
             verifyCode: signUpVal.auth,
         });
@@ -153,21 +162,33 @@ const SignUpInfo = () => {
     };
 
     const handleSubmit = async () => {
+        console.log(signUpVal.id);
+        console.log(signUpVal.password);
+        console.log(signUpVal.checkPwd);
+        console.log(signUpVal.name);
+        console.log(signUpVal.birth);
+        console.log(signUpVal.number);
+        console.log(signUpVal.auth);
         if (checkAuth) {
             const res = await signup({
                 loginId: signUpVal.id,
                 password: signUpVal.password,
-                passwordCheck: signUpVal.passwordCheck,
+                passwordCheck: signUpVal.checkPwd,
                 name: signUpVal.name,
                 birth: signUpVal.birth,
                 phoneNumber: signUpVal.number,
                 verifyCode: signUpVal.auth,
             });
 
-            if (res.data.code === "COMMON200") {
-                navigate("/signUp/success");
+            console.log(res);
+            if (res.status === 400) {
+                alert(res.message);
             } else {
-                alert("로그인에 실패했습니다.");
+                if (res.data.code === "COMMON200") {
+                    navigate("/signUp/success");
+                } else {
+                    alert("로그인에 실패했습니다.");
+                }
             }
         }
     };
@@ -314,34 +335,37 @@ const SignUpInfo = () => {
                                 border="20px"
                                 margintop="0.2rem"
                             ></Input>
-                            <AuthBtn onClick={onClickNumber}>인증하기</AuthBtn>
+                            <AuthBtn onClick={onClickNumber}>코드 전송</AuthBtn>
                         </AuthFrame>
                         {!signUpValid.auth && !checkAuth && signUpVal.auth && (
                             <ErrorMessage>인증을 완료해 주세요.</ErrorMessage>
                         )}
                     </InputFrame>
-                    <InputFrame>
-                        <InputTitle>
-                            코드 입력
-                            <span style={{ color: "red", fontWeight: 400 }}>
-                                *
-                            </span>
-                        </InputTitle>
 
-                        <AuthFrame>
-                            <Input
-                                type="tel"
-                                placeholder="코드."
-                                handling={handleAuth}
-                                border="20px"
-                                margintop="0.2rem"
-                            ></Input>
-                            <AuthBtn onClick={onClickAuth}>인증하기</AuthBtn>
-                        </AuthFrame>
-                        {!signUpValid.auth && !checkAuth && signUpVal.auth && (
-                            <ErrorMessage>인증을 완료해 주세요.</ErrorMessage>
-                        )}
-                    </InputFrame>
+                    {transmit && (
+                        <InputFrame>
+                            <InputTitle>
+                                코드 입력
+                                <span style={{ color: "red", fontWeight: 400 }}>
+                                    *
+                                </span>
+                            </InputTitle>
+
+                            <AuthFrame>
+                                <Input
+                                    type="tel"
+                                    placeholder="코드."
+                                    handling={handleAuth}
+                                    border="20px"
+                                    margintop="0.2rem"
+                                ></Input>
+                                <AuthBtn onClick={onClickAuth}>
+                                    인증하기
+                                </AuthBtn>
+                            </AuthFrame>
+                            <ErrorMessage>{<Timer />}</ErrorMessage>
+                        </InputFrame>
+                    )}
                 </SignUpFrame>
 
                 <Btn disabled={!allSatisfied} onClick={handleSubmit}>
