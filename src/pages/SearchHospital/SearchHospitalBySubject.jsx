@@ -3,6 +3,8 @@ import NavBar from "../../components/NavBar/NavBar";
 import blueBackImg from "../../assets/images/blueBack.svg";
 import stethoschpeImg from "../../assets/images/blueStethoscope.svg";
 import SearchHospitalText from "../../components/searchHospital/SearchHospitaText";
+import SubjectComponent from "../../components/searchHospital/SubjectComponent";
+import { useNavigate } from "react-router-dom";
 
 
 const PageDetailTextContainer = styled.div`
@@ -26,7 +28,32 @@ const WrapperDiv = styled.div`
   margin: 0 auto;
 `
 
+const SearchButton = styled.button`
+  margin: 0 auto;
+  margin-top: 20vh;
+  margin-bottom: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.9375rem;
+  background: var(--Primary-color, #1371FF);
+  color: #FFF;
+  font-family: Pretendard;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  width: 90%;
+  height: 5vh;
+`
+
 export default function SearchHospitalBySubject() {
+  const navigate = useNavigate();
+
+  const handleSearchHospital = () => {
+    navigate("/SearchHospital");
+  }
+
   return (
     <>
       <NavBar>
@@ -37,6 +64,8 @@ export default function SearchHospitalBySubject() {
       </NavBar>
       <WrapperDiv>
         <SearchHospitalText text="진료과목으로 병원 찾기" src={stethoschpeImg} />
+        <SubjectComponent />
+        <SearchButton onClick={handleSearchHospital}>검색</SearchButton>
       </WrapperDiv>
     </>
   );
