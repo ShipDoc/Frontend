@@ -54,11 +54,15 @@ export default function SearchHospitalBySubject() {
     navigate("/SearchHospital");
   }
 
+  const handleGotoHome = () => {
+    navigate("/home");
+  }
+
   return (
     <>
       <NavBar activeIndex={0}>
         <PageDetailTextContainer>
-          <img src={blueBackImg} alt="blueBackImg" />
+          <img src={blueBackImg} alt="blueBackImg" onClick={handleGotoHome} />
           <PageDetailText>홈 &gt; 진료과목으로 병원찾기</PageDetailText>
         </PageDetailTextContainer>
       </NavBar>

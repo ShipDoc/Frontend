@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const SymptomContainer = styled.div`
@@ -5,24 +6,21 @@ const SymptomContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2vh;
-`
+`;
 
 const SymptomBox = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-`
+`;
 
 const SymptomTextButton = styled.button`
   border-radius: 0.9375rem;
   border: 1px solid #979797;
-  background: none;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
+  background: ${({ isSelected }) => (isSelected ? "var(--Primary-color, #1371FF)" : "none")};
   padding: 1vh 2vw;
   cursor: pointer;
-  color: #979797;
+  color: ${({ isSelected }) => (isSelected ? "#FFF" : "#979797")};
   font-family: Pretendard;
   font-size: 1rem;
   font-style: normal;
@@ -33,31 +31,48 @@ const SymptomTextButton = styled.button`
     background: var(--Primary-color, #1371FF);
     color: #FFF;
   }
-`
+`;
 
-export default function SymptomComponent() { 
+const SymptomComponent = () => {
+  const [selectedSymptom, setSelectedSymptom] = useState(() => {
+    return localStorage.getItem("selectedSymptom") || "";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("selectedSymptom", selectedSymptom);
+  }, [selectedSymptom]);
+
+  const symptoms = [
+    ["정형외과", "설사", "배 통증", "두통", "귀 통증"],
+    ["손가락 통증", "손가락 통증", "눈 떨림", "발 열", "어깨 통증"],
+    ["눈 떨림", "눈 떨림"],
+  ];
+
+  const handleButtonClick = (symptom) => {
+    if (selectedSymptom === symptom) {
+      setSelectedSymptom(""); // 이미 선택된 버튼을 다시 클릭하면 선택 해제
+    } else {
+      setSelectedSymptom(symptom);
+    }
+  };
+
   return (
-    <>
-      <SymptomContainer>
-        <SymptomBox>
-          <SymptomTextButton>정형외과</SymptomTextButton>
-          <SymptomTextButton>설사</SymptomTextButton>
-          <SymptomTextButton>배 통증</SymptomTextButton>
-          <SymptomTextButton>두통</SymptomTextButton>
-          <SymptomTextButton>귀 통증</SymptomTextButton>
+    <SymptomContainer>
+      {symptoms.map((symptomRow, rowIndex) => (
+        <SymptomBox key={rowIndex}>
+          {symptomRow.map((symptom) => (
+            <SymptomTextButton
+              key={symptom}
+              isSelected={selectedSymptom === symptom}
+              onClick={() => handleButtonClick(symptom)}
+            >
+              {symptom}
+            </SymptomTextButton>
+          ))}
         </SymptomBox>
-        <SymptomBox>
-          <SymptomTextButton>손가락 통증</SymptomTextButton>
-          <SymptomTextButton>손가락 통증</SymptomTextButton>
-          <SymptomTextButton>눈 떨림</SymptomTextButton>
-          <SymptomTextButton>발 열</SymptomTextButton>
-          <SymptomTextButton>어깨 통증</SymptomTextButton>
-        </SymptomBox>
-        <SymptomBox>
-          <SymptomTextButton>눈 떨림</SymptomTextButton>
-          <SymptomTextButton>눈 떨림</SymptomTextButton>
-        </SymptomBox>
-      </SymptomContainer>
-    </>
-  )
-}
+      ))}
+    </SymptomContainer>
+  );
+};
+
+export default SymptomComponent;
