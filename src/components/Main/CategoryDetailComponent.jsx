@@ -29,7 +29,6 @@ const CategoryDetailButtonBox = styled.div`
   }};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   cursor: pointer;
-
 ` 
 
 const SearchHospitalBoldText = styled.p`
@@ -64,8 +63,6 @@ const HealthCareText = styled.p`
   line-height: normal;
 `
 
-// const 
-
 export default function CategoryDetailComponent({home, checkup}) {
   const navigate = useNavigate();
 
@@ -75,6 +72,10 @@ export default function CategoryDetailComponent({home, checkup}) {
 
   const handleGoSearchHospitalBySubject = () => {
     navigate("/SearchHospitalBySubject");
+  }
+
+  const handleGoHealthCareHistory = () => {
+    navigate("/HealthCare/History");
   }
 
   return (
@@ -94,7 +95,7 @@ export default function CategoryDetailComponent({home, checkup}) {
       )}
       {checkup && (
         <CategoryDetailButtonContainer>
-          <CategoryDetailButtonBox checkup={checkup}>
+          <CategoryDetailButtonBox checkup={checkup} onClick={handleGoHealthCareHistory}>
             <img src={healthCareListImg} alt="healthCareListImg" />
             <HealthCareText>건강검진<br />내역보기</HealthCareText>
           </CategoryDetailButtonBox>

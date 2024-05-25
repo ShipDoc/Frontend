@@ -165,7 +165,7 @@ export default function CategoryComponent({home, checkup}) {
               <CowboyImg src={cowboyImg} alt="cowboyImg" />
             </HeartImgContainer>
             <div>
-              <HealthInsuranceText>나의 올해 국가건강검진 <br /> 목록 보기 <BoldHealthInsuranceText>'국민건강보험'</BoldHealthInsuranceText></HealthInsuranceText>
+              <HealthInsuranceText>나의 올해 국가건강검진 <br /> 목록 보기 <BoldHealthInsuranceText>'국가건강보험'</BoldHealthInsuranceText></HealthInsuranceText>
             </div>
           </HealthInsuranceBox>
         </HealthInsuranceContainer>

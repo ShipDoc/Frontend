@@ -16,6 +16,8 @@ import MyPageHistory from "./pages/MyPage/History";
 import MyPageHistoryNull from "./pages/MyPage/HistoryNull";
 import MyPageHistoryDetail from "./pages/MyPage/HistoryDetail";
 import HealthCare from "./pages/HealthCare/HealthCare";
+import HealthCareHistory from "./pages/HealthCare/HealthCareHistory.jsx";
+import HealthCareHistoryDetail from "./pages/HealthCare/HealthCareHistoryDetail.jsx";
 import Reservation from "./pages/detail/Reservation";
 import Payment from "./pages/detail/Payment";
 import NoPay from "./pages/detail/NoPay";
@@ -37,6 +39,8 @@ function App() {
       {/* Main */}
       <Route path="/Home" element={<Home />}></Route>
       <Route path="/HealthCare" element={<HealthCare />}></Route>
+      <Route path="/HealthCare/History" element={<HealthCareHistory />}></Route>
+      <Route path="/healthcare/History/detail" element={<HealthCareHistoryDetail />} />
 
       {/* SearchHospital */}
       <Route path="/SearchHospitalBySymptom" element={<SearchHospitalBySymptom />}></Route>
