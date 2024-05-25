@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import NavBar from "../../components/NavBar/NavBar";
 import blueBackImg from "../../assets/images/blueBack.svg";
@@ -6,27 +7,26 @@ import SearchHospitalText from "../../components/searchHospital/SearchHospitaTex
 import SubjectComponent from "../../components/searchHospital/SubjectComponent";
 import { useNavigate } from "react-router-dom";
 
-
 const PageDetailTextContainer = styled.div`
   display: flex;
   gap: 0.5rem;
   align-items: center;
-`
+`;
 
 const PageDetailText = styled.p`
-  color: #A3A3A3;
+  color: #a3a3a3;
   font-family: Pretendard;
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-`
+`;
 
 const WrapperDiv = styled.div`
   position: relative;
   width: 50vw;
   margin: 0 auto;
-`
+`;
 
 const SearchButton = styled.button`
   margin: 0 auto;
@@ -35,28 +35,32 @@ const SearchButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 0.9375rem;
-  background: var(--Primary-color, #1371FF);
-  color: #FFF;
+  border-radius: 0.8rem;
+  background: ${({ isSelected }) => (isSelected ? "#1371FF" : "#656565")};
+  color: #fff;
   font-family: Pretendard;
   font-size: 1rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   width: 90%;
-  height: 5vh;
-`
+  height: 7vh;
+  cursor: ${({ isSelected }) => (isSelected ? "pointer" : "not-allowed")};
+`;
 
 export default function SearchHospitalBySubject() {
+  const [selectedSubject, setSelectedSubject] = useState("");
   const navigate = useNavigate();
 
   const handleSearchHospital = () => {
-    navigate("/SearchHospital");
-  }
+    if (selectedSubject) {
+      navigate("/SearchHospital");
+    }
+  };
 
   const handleGotoHome = () => {
     navigate("/home");
-  }
+  };
 
   return (
     <>
@@ -68,8 +72,10 @@ export default function SearchHospitalBySubject() {
       </NavBar>
       <WrapperDiv>
         <SearchHospitalText text="진료과목으로 병원 찾기" src={stethoschpeImg} />
-        <SubjectComponent />
-        <SearchButton onClick={handleSearchHospital}>검색</SearchButton>
+        <SubjectComponent onSubjectSelect={setSelectedSubject} />
+        <SearchButton onClick={handleSearchHospital} isSelected={selectedSubject}>
+          검색
+        </SearchButton>
       </WrapperDiv>
     </>
   );

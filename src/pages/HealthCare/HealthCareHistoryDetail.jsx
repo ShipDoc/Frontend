@@ -1,17 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar';
+import blueBackImg from "../../assets/images/blueBack.svg"
 
 const HealthCareRecordDetail = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const { name, date } = location.state;
+  const handleGotoHome = () => {
+    navigate("/home");
+  }
 
   return (
     <PageContainer>
-      <NavBar>
+      <NavBar activeIndex={1}>
         <PageDetailTextContainer>
-          <PageDetailText>건강검진 &gt; 건강검진 내역 보기</PageDetailText>
+          <img src={blueBackImg} alt="blueBackImg" onClick={handleGotoHome} />
+          <PageDetailText>홈 &gt; 건강검진 &gt; 건강검진 내역 보기</PageDetailText>
         </PageDetailTextContainer>
       </NavBar>
       <ContentContainer>

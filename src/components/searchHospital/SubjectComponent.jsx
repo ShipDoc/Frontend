@@ -33,14 +33,15 @@ const SubjectTextButton = styled.button`
   }
 `;
 
-const SubjectComponent = () => {
+const SubjectComponent = ({ onSubjectSelect }) => {
   const [selectedSubject, setSelectedSubject] = useState(() => {
     return localStorage.getItem("selectedSubject") || "";
   });
 
   useEffect(() => {
     localStorage.setItem("selectedSubject", selectedSubject);
-  }, [selectedSubject]);
+    onSubjectSelect(selectedSubject);
+  }, [selectedSubject, onSubjectSelect]);
 
   const subjects = [
     ["외과", "내과", "이비인후과", "소아과", "피부과"],

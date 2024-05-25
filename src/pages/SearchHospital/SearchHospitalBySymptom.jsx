@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import NavBar from "../../components/NavBar/NavBar";
 import blueBackImg from "../../assets/images/blueBack.svg";
@@ -10,7 +11,7 @@ const PageDetailTextContainer = styled.div`
   display: flex;
   gap: 0.5rem;
   align-items: center;
-`
+`;
 
 const PageDetailText = styled.p`
   color: #A3A3A3;
@@ -19,13 +20,13 @@ const PageDetailText = styled.p`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-`
+`;
 
 const WrapperDiv = styled.div`
   position: relative;
   width: 50vw;
   margin: 0 auto;
-`
+`;
 
 const SearchButton = styled.button`
   margin: 0 auto;
@@ -34,8 +35,8 @@ const SearchButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 0.9375rem;
-  background: var(--Primary-color, #1371FF);
+  border-radius: 0.8rem;
+  background: ${({ isSymptomSelected }) => (isSymptomSelected ? "#1371FF" : "#656565")};
   color: #FFF;
   font-family: Pretendard;
   font-size: 1rem;
@@ -43,18 +44,23 @@ const SearchButton = styled.button`
   font-weight: 600;
   line-height: normal;
   width: 90%;
-  height: 5vh;
-`
+  height: 7vh;
+  cursor: ${({ isSymptomSelected }) => (isSymptomSelected ? "pointer" : "default")};
+`;
 
-export default function SearchHospitalBySubject() {
+export default function SearchHospitalBySymptom() {
+  const [isSymptomSelected, setIsSymptomSelected] = useState(false);
   const navigate = useNavigate();
 
   const handleSearchHospital = () => {
-    navigate("/SearchHospital");
-  }
+    if (isSymptomSelected) {
+      navigate("/SearchHospital");
+    }
+  };
+
   const handleGotoHome = () => {
     navigate("/home");
-  }
+  };
 
   return (
     <>
@@ -66,10 +72,9 @@ export default function SearchHospitalBySubject() {
       </NavBar>
       <WrapperDiv>
         <SearchHospitalText text="증상으로 병원 찾기" src={symptomImg} />
-        <SymptomComponent />
-        <SearchButton onClick={handleSearchHospital}>검색</SearchButton>
+        <SymptomComponent setSymptomSelected={setIsSymptomSelected} />
+        <SearchButton onClick={handleSearchHospital} isSymptomSelected={isSymptomSelected}>검색</SearchButton>
       </WrapperDiv>
-
     </>
-  )
+  );
 }
