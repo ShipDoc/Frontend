@@ -7,7 +7,7 @@ const InsuranceQna1 = () => {
   return (
     <PageContainer>
       <NavBar activeIndex={2}>
-        "보험청구 &gt; 실손보험 청구는 어디서 할 수 있나요?"
+        보험청구 &gt; 실손보험 청구는 어디서 할 수 있나요?
       </NavBar>
       <Content />
     </PageContainer>

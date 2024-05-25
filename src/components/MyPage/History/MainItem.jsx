@@ -36,8 +36,7 @@ const Subject=styled.h2`
 `;
 
 const Text=styled.h2`
-  width: 229px;
-  height: 20px;
+  height: 1.5rem;
   flex-shrink: 0;
   color: ${(props) => (props.highlight ? "#1371FF" : "#646464")};
   font-family: Pretendard;

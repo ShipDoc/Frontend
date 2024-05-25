@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import HospitalComponent from "../../components/MyPage/History/HistoryHospital";
 import styled from "styled-components";
@@ -13,12 +13,21 @@ const Detail = () => {
     const [peopleNum, setPeopleNum] = useState(0);
     const [isReviewClicked, setIsReviewClicked] = useState(false);
 
+    useEffect(() => {
+        const savedReviewState = localStorage.getItem('isReviewClicked');
+        if (savedReviewState) {
+            setIsReviewClicked(JSON.parse(savedReviewState));
+        }
+    }, []);
+
     const handleBtn = () => {
         // 예약 버튼 클릭 시 동작
     };
 
     const handleReviewClick = () => {
-        setIsReviewClicked(!isReviewClicked);
+        const newReviewState = !isReviewClicked;
+        setIsReviewClicked(newReviewState);
+        localStorage.setItem('isReviewClicked', JSON.stringify(newReviewState));
     };
 
     return (
@@ -55,7 +64,7 @@ const Detail = () => {
                             </TagContainer>
                             <ReviewBtn onClick={handleReviewClick} isClicked={isReviewClicked}>
                                 <ButtonText>
-                                    <span>{isReviewClicked ? "리뷰 남기기" : "리뷰 남기기 완료"}</span>
+                                    <span>{isReviewClicked ? "리뷰 남기기 완료" : "리뷰 남기기"}</span>
                                 </ButtonText>
                             </ReviewBtn>
                             <ReservationBtn onClick={handleBtn}>
@@ -190,7 +199,7 @@ const ReservationBtn = styled.button`
 `;
 
 const ReviewBtn = styled.button`
-    background-color: ${props => props.isClicked ? '#1371ff' : '#656565'};
+    background-color: ${props => props.isClicked ? '#656565' : '#1371ff'};
     color: white;
     font-weight: 800;
     font-size: 1.2rem;

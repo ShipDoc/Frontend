@@ -3,7 +3,8 @@ import styled from "styled-components";
 import MainItem from "./MainItem";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import hospitalMaeker from "../../../assets/icons/hospitalMarker.svg";
-import virticalLine from "../../../assets/images/virticalLine.svg";
+import virticalLine1 from "../../../assets/images/virticalLine1.svg";
+import virticalLine2 from "../../../assets/images/virticalLine2.svg";
 
 export default function HospitalComponent({ name }) {
     const [hospitalName, setHospitalName] = useState(name);
@@ -38,7 +39,7 @@ export default function HospitalComponent({ name }) {
                                 text={user}
                             />
                         </MainItemWrapper>
-                        <VerticalLine src={virticalLine} alt="virticalLine" />
+                        <VerticalLine src={virticalLine1} alt="virticalLine" />
                         <MainItemWrapper>
                             <MainItem
                                 subject="예약 날짜 & 시간"
@@ -54,7 +55,7 @@ export default function HospitalComponent({ name }) {
                                 text="이비인후과"
                             />
                         </MainItemWrapper>
-                        <VerticalLine src={virticalLine} alt="virticalLine" />
+                        <VerticalLine src={virticalLine2} alt="virticalLine" />
                         <MainItemWrapper>
                             <MainItem
                                 subject="내원 일수"
@@ -106,7 +107,6 @@ const ItemContainer = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    gap: 1rem;
 `;
 
 const MainItemWrapper = styled.div`
@@ -115,7 +115,7 @@ const MainItemWrapper = styled.div`
 `;
 
 const VerticalLine = styled.img`
-    height: 100%;
+    hieght: 100%;
     margin: 0 0.5rem;
 `;
 
