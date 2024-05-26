@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import HealthCareRecordItem from '../../components/HealthCare/HealthCareRecordItem';
 import testImg from "../../assets/images/testImg.svg";
 import iIcon from "../../assets/icons/iIcon.svg";
@@ -7,6 +8,12 @@ import styled from 'styled-components';
 
 // HealthCareRecordList 컴포넌트
 const HealthCareRecordList = () => {
+  const navigate = useNavigate();
+
+  const handleReminderClick = () => {
+    navigate('/healthcare/History/reminder');
+  }
+
   return (
     <RecordListContainer>
       <TitleContainer>
@@ -21,7 +28,7 @@ const HealthCareRecordList = () => {
         name="서울척병원 건강검진센터"
         date="2023-04-12"
       />
-      <ReminderContainer>
+      <ReminderContainer onClick={handleReminderClick}>
         <ReminderImage src={HealthCareShipdoc} alt="Reminder" />
         <ReminderText>
           <ReminderTitle>건강검진 알려줘요 쉽닥!</ReminderTitle>
@@ -70,6 +77,7 @@ const ReminderContainer = styled.div`
   border-radius: 1.5rem;
   box-shadow: 0px 3.453px 3.453px 0px rgba(0, 0, 0, 0.25);
   flex-shrink: 0;
+  cursor: pointer; /* 클릭 가능한 커서 표시 */
 `;
 
 const ReminderImage = styled.img`
@@ -96,7 +104,7 @@ const ReminderTitle = styled.div`
   line-height: normal;
   letter-spacing: -0.32px;
   text-shadow: 0px 0.789px 3.157px rgba(0, 0, 0, 0.25);
-`
+`;
 
 const ReminderSub = styled.div`
   display: flex;
@@ -111,6 +119,6 @@ const ReminderSub = styled.div`
   line-height: normal;
   letter-spacing: -0.18px;
   text-shadow: 0px 0.789px 3.157px rgba(0, 0, 0, 0.25);
-`
+`;
 
 export default HealthCareRecordList;

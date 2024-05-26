@@ -33,14 +33,15 @@ const SymptomTextButton = styled.button`
   }
 `;
 
-const SymptomComponent = () => {
+const SymptomComponent = ({ setSymptomSelected }) => {
   const [selectedSymptom, setSelectedSymptom] = useState(() => {
     return localStorage.getItem("selectedSymptom") || "";
   });
 
   useEffect(() => {
     localStorage.setItem("selectedSymptom", selectedSymptom);
-  }, [selectedSymptom]);
+    setSymptomSelected(!!selectedSymptom);
+  }, [selectedSymptom, setSymptomSelected]);
 
   const symptoms = [
     ["어지러움", "설사", "배 통증", "두통", "귀 통증"],

@@ -18,6 +18,7 @@ import MyPageHistoryDetail from "./pages/MyPage/HistoryDetail";
 import HealthCare from "./pages/HealthCare/HealthCare";
 import HealthCareHistory from "./pages/HealthCare/HealthCareHistory.jsx";
 import HealthCareHistoryDetail from "./pages/HealthCare/HealthCareHistoryDetail.jsx";
+import HealthCareHistoryReminder from "./pages/HealthCare/ReminderPage.jsx";
 import Reservation from "./pages/detail/Reservation";
 import Payment from "./pages/detail/Payment";
 import NoPay from "./pages/detail/NoPay";
@@ -29,7 +30,8 @@ import Chat from "./pages/chat/Chat.jsx";
 import Health from "./pages/health/Health.jsx";
 
 function App() {
-    return (
+
+  return (
         <Routes>
             {/* Account */}
             <Route path="/" element={<SignIn />}></Route>
@@ -40,14 +42,9 @@ function App() {
             {/* Main */}
             <Route path="/Home" element={<Home />}></Route>
             <Route path="/HealthCare" element={<HealthCare />}></Route>
-            <Route
-                path="/HealthCare/History"
-                element={<HealthCareHistory />}
-            ></Route>
-            <Route
-                path="/healthcare/History/detail"
-                element={<HealthCareHistoryDetail />}
-            />
+            <Route path="/HealthCare/History" element={<HealthCareHistory />}></Route>
+            <Route path="/healthcare/History/detail" element={<HealthCareHistoryDetail />} />
+            <Route path="/healthcare/History/reminder" element={<HealthCareHistoryReminder />} />
 
             {/* SearchHospital */}
             <Route
