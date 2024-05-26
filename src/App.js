@@ -29,24 +29,24 @@ import SearchHospital from "./pages/SearchHospital/SearchHospital";
 import SearchHospitalBySymptom from "./pages/SearchHospital/SearchHospitalBySymptom";
 import SearchHospitalBySymptomDetail from "./pages/SearchHospital/SearchHospitalBySymptomDetail";
 import Chat from "./pages/chat/Chat.jsx";
-
+import Health from "./pages/health/Health.jsx";
 
 function App() {
+
   return (
-    <Routes>
-      {/* Account */}
-      <Route path="/" element={<SignIn />}></Route>
-      <Route path="/SignUp" element={<SignUp />}></Route>
-      <Route path="/SignUp/Info" element={<SignUpInfo />}></Route>
-      <Route path="/SignUp/success" element={<SignUpSuccess />}></Route>
+        <Routes>
+            {/* Account */}
+            <Route path="/" element={<SignIn />}></Route>
+            <Route path="/SignUp" element={<SignUp />}></Route>
+            <Route path="/SignUp/Info" element={<SignUpInfo />}></Route>
+            <Route path="/SignUp/success" element={<SignUpSuccess />}></Route>
 
-      {/* Main */}
-      <Route path="/Home" element={<Home />}></Route>
-      <Route path="/HealthCare" element={<HealthCare />}></Route>
-      <Route path="/HealthCare/History" element={<HealthCareHistory />}></Route>
-      <Route path="/healthcare/History/detail" element={<HealthCareHistoryDetail />} />
-      <Route path="/healthcare/History/reminder" element={<HealthCareHistoryReminder />} />
-
+            {/* Main */}
+            <Route path="/Home" element={<Home />}></Route>
+            <Route path="/HealthCare" element={<HealthCare />}></Route>
+            <Route path="/HealthCare/History" element={<HealthCareHistory />}></Route>
+            <Route path="/healthcare/History/detail" element={<HealthCareHistoryDetail />} />
+            <Route path="/healthcare/History/reminder" element={<HealthCareHistoryReminder />} />
 
       {/* SearchHospital */}
       <Route path="/SearchHospitalBySymptom" element={<SearchHospitalBySymptom />}></Route>
@@ -54,36 +54,48 @@ function App() {
       <Route path="/SearchHospitalBySubject" element={<SearchHospitalBySubject />}></Route>
       <Route path="/SearchHospitalBySubject/Detail" element={<SearchHospitalBySubjectDetail />}></Route>
       <Route path="/SearchHospital" element={<SearchHospital />}></Route>
+        <Route path="/insurance" element={<Insurance />}></Route>
+        <Route path="/insurance/FAQ1" element={<InsuranceFAQ1 />}></Route>
 
-      <Route path="/insurance" element={<Insurance />}></Route>
-      <Route path="/insurance/FAQ1" element={<InsuranceFAQ1 />}></Route>
+        {/* Detail */}
+        <Route path="/detail" element={<Detail />}></Route>
+        <Route path="/detail/reservation" element={<Reservation />}></Route>
+        <Route path="/detail/pay" element={<Payment />}></Route>
+        <Route path="/detail/noPay" element={<NoPay />}></Route>
+        <Route path="/detail/success" element={<SuccessRes />}></Route>
 
-      {/* Detail */}
-      <Route path="/detail" element={<Detail />}></Route>
-      <Route path="/detail/reservation" element={<Reservation />}></Route>
-      <Route path="/detail/pay" element={<Payment />}></Route>
-      <Route path="/detail/noPay" element={<NoPay />}></Route>
-      <Route path="/detail/success" element={<SuccessRes />}></Route>
+        {/* MyPage */}
+        <Route path="/mypage" element={<MyPage />}></Route>
+        <Route
+            path="/mypage/apointment"
+            element={<MyPageApointment />}
+        ></Route>
+        <Route
+            path="/mypage/apointmentNull"
+            element={<MyPageApointmentNull />}
+        ></Route>
+        <Route
+            path="/mypage/apointment/detail"
+            element={<MyPageApointmentDetail />}
+        ></Route>
 
-      {/* MyPage */}
-      <Route path="/mypage" element={<MyPage />}></Route>
-      <Route path="/mypage/apointment" element={<MyPageApointment />}></Route>
-      <Route
-        path="/mypage/apointmentNull"
-        element={<MyPageApointmentNull />}
-      ></Route>
-      <Route path="/mypage/apointment/detail" element={<MyPageApointmentDetail />}></Route>
+        <Route path="/mypage/history" element={<MyPageHistory />}></Route>
+        <Route
+            path="/mypage/historyNull"
+            element={<MyPageHistoryNull />}
+        ></Route>
+        <Route
+            path="/mypage/history/detail"
+            element={<MyPageHistoryDetail />}
+        ></Route>
 
+        {/* Chat */}
+        <Route path="/chat" element={<Chat />}></Route>
 
-      <Route path="/mypage/history" element={<MyPageHistory />}></Route>
-      <Route path="/mypage/historyNull" element={<MyPageHistoryNull />}></Route>
-      <Route path="/mypage/history/detail" element={<MyPageHistoryDetail />}></Route>
-
-
-      {/* Chat */}
-      <Route path="/chat" element={<Chat />}></Route>
-    </Routes>
-  );
+        {/* Health */}
+        <Route path="/health" element={<Health />}></Route>
+        </Routes>
+    );
 }
 
 export default App;
