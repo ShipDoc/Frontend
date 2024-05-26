@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import hospitalMaeker from "../../assets/icons/hospitalMarker.svg";
+import React, { useEffect, useState } from "react";
+import hospitalMarker from "../../assets/icons/hospitalMarker.svg";
 import styled from "styled-components";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-const HospitalMap = () => {
+const HospitalMap = (props) => {
     const [coordinate, setCoordinate] = useState({
-        lat: 33.5563,
-        lng: 126.79581,
+        lat: props.data.latitude,
+        lng: props.data.longitude,
     });
 
     const [hospitalAddress, setHospitalAddress] = useState(
@@ -21,10 +21,14 @@ const HospitalMap = () => {
         }
     };
 
+    useEffect(() => {
+        setCoordinate({ lat: props.data.latitude, lng: props.data.longitude });
+    }, [props.data]);
+
     return (
         <HospitalMapContainer>
             <Titlecontainer>
-                <img src={hospitalMaeker}></img>
+                <img src={hospitalMarker}></img>
                 <ImgTitle>병원 위치</ImgTitle>
             </Titlecontainer>
             <AddressAndBtnContainer>

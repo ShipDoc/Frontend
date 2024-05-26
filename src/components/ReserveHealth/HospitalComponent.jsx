@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import placeImg from "../../assets/images/place.svg";
 import basicRateImg from "../../assets/images/basicRate.svg";
 import fillRateImg from "../../assets/images/fillRate.svg";
 import leftImg from "../../assets/images/leftImg.svg";
 import rightImg from "../../assets/images/rightImg.svg";
-import consulationChatImg from "../../assets/images/consulatoinChatImg.svg";
+import hospitalMarker from "../../assets/icons/hospitalMarker.svg";
 import { useState } from "react";
 
 const HospitalContainer = styled.div`
@@ -15,7 +14,6 @@ const HospitalContainer = styled.div`
 `;
 
 const HospitalNameText = styled.p`
-    color: #fff;
     font-family: Pretendard;
     font-size: 1rem;
     font-style: normal;
@@ -24,7 +22,7 @@ const HospitalNameText = styled.p`
 `;
 
 const HospitalLocationText = styled.p`
-    color: #e7e7e7;
+    color: #989898;
     font-family: Pretendard;
     font-size: 0.75rem;
     font-style: normal;
@@ -62,8 +60,8 @@ const HospitalTagContainer = styled.div`
 `;
 
 const HospitalTagBox = styled.div`
-    border-radius: 0.5625rem;
-    border: 1px solid #fff;
+    border-radius: 9px;
+    border: 1.5px solid #606060;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,7 +69,6 @@ const HospitalTagBox = styled.div`
 `;
 
 const HospitalTagText = styled.p`
-    color: #fff;
     font-family: Pretendard;
     font-size: 0.75rem;
     font-style: normal;
@@ -96,7 +93,6 @@ const ConsultationButton = styled.div`
 `;
 
 const ConsultationText = styled.p`
-    color: #fff;
     font-family: Pretendard;
     font-size: 0.625rem;
     font-style: normal;
@@ -125,10 +121,10 @@ const Rating = ({ rating }) => {
     return <div style={{ display: "flex", alignItems: "center" }}>{stars}</div>;
 };
 
-export default function HospitalComponent() {
-    const [hospitalName, setHospitalName] = useState("병원 이름");
-    const [hospitalLocation, setHospitalLocation] = useState("병원 주소");
-    const [rateNum, setRateNum] = useState(0); // 나중에 평점 받아오기
+export default function HospitalComponent(props) {
+    const [hospitalName, setHospitalName] = useState(props.hospitalName);
+    const [hospitalLocation, setHospitalLocation] = useState(props.address);
+    const [rateNum, setRateNum] = useState(Number(props.totalRate)); // 나중에 평점 받아오기
     const [hospitalTags, setHospitalTags] = useState([
         "Test 1",
         "Test 2",
@@ -152,7 +148,7 @@ export default function HospitalComponent() {
                             gap: "0.2vw",
                         }}
                     >
-                        <img src={placeImg} alt="placeImg" />
+                        <img src={hospitalMarker} alt="hospitalMarker" />
                         <HospitalNameText>{hospitalName}</HospitalNameText>
                         <HospitalLocationText>
                             {hospitalLocation}
