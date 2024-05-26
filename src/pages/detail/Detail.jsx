@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import HospitalComponent from "../../components/detail/HospitalComponent";
 import styled from "styled-components";
@@ -7,8 +7,20 @@ import Star from "../../components/common/Star";
 import profile from "../../assets/images/profile.svg";
 import logoImg from "../../assets/images/logoImg.svg";
 import { useNavigate } from "react-router-dom";
+import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
+import { getDetail } from "../../apis/api/detail";
+
+const geolocationOptions = {
+    enableHighAccuracy: true,
+    timeout: 1000 * 10,
+    maximumAge: 1000 * 3600 * 24,
+};
 
 const Detail = () => {
+    const [hospitalDetail, setHospitalDetail] = useState({});
+
+    const { location, error } = useGeoLocation(geolocationOptions);
+
     const navigate = useNavigate();
 
     const [symptom, setSymptom] = useState("발열");
@@ -18,9 +30,9 @@ const Detail = () => {
     const [ingNum, setIngNum] = useState(0);
 
     const [subjectTags, setSubjectTags] = useState([
-        "Test 1",
-        "Test 2",
-        "Test 3",
+        "안심 실명제",
+        "분야별 협진",
+        "전담 회복실",
     ]);
 
     const [peopleNum, setPeopleNum] = useState(0);
@@ -68,6 +80,25 @@ const Detail = () => {
         });
     };
 
+    useEffect(() => {
+        const fetchHospitalDetail = async () => {
+            try {
+                const res = await getDetail({ hospitalId: 1 });
+                // console.log(res);
+
+                if (res.data.code === "COMMON200") {
+                    setHospitalDetail(res.data.result);
+                } else {
+                    console.log(res.data.code);
+                }
+            } catch (error) {
+                console.error("Failed to fetch hospital detail:", error);
+            }
+        };
+
+        fetchHospitalDetail();
+    }, []);
+
     return (
         <>
             <NavBar activeIndex={0}>
@@ -82,7 +113,7 @@ const Detail = () => {
                 <Div>
                     <HospitalComponent name="연세이빈후과"></HospitalComponent>
                     <StyledHr />
-                    <HospitalMap></HospitalMap>
+                    <HospitalMap data={location}></HospitalMap>
                     <StyledHr />
                     <GeneralContainer>
                         <IngContainer>

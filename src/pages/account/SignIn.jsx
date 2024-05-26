@@ -40,8 +40,7 @@ const SignIn = () => {
         });
 
         if (res.data.code === "COMMON200") {
-            console.log("성공");
-            localStorage.setItem("token", res.headers.Authorization);
+            localStorage.setItem("token", res.headers.authorization);
             navigate("/Home");
         } else {
             console.log(res.data.code);
