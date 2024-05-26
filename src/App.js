@@ -24,8 +24,10 @@ import Payment from "./pages/detail/Payment";
 import NoPay from "./pages/detail/NoPay";
 import SuccessRes from "./pages/detail/SuccessRes";
 import SearchHospitalBySubject from "./pages/SearchHospital/SearchHospitalBySubject.jsx";
+import SearchHospitalBySubjectDetail from "./pages/SearchHospital/SearchHospitalBySubjectDetail.jsx";
 import SearchHospital from "./pages/SearchHospital/SearchHospital";
 import SearchHospitalBySymptom from "./pages/SearchHospital/SearchHospitalBySymptom";
+import SearchHospitalBySymptomDetail from "./pages/SearchHospital/SearchHospitalBySymptomDetail";
 import Chat from "./pages/chat/Chat.jsx";
 
 
@@ -48,7 +50,9 @@ function App() {
 
       {/* SearchHospital */}
       <Route path="/SearchHospitalBySymptom" element={<SearchHospitalBySymptom />}></Route>
+      <Route path="/SearchHospitalBySymptom/Detail" element={<SearchHospitalBySymptomDetail />}></Route>
       <Route path="/SearchHospitalBySubject" element={<SearchHospitalBySubject />}></Route>
+      <Route path="/SearchHospitalBySubject/Detail" element={<SearchHospitalBySubjectDetail />}></Route>
       <Route path="/SearchHospital" element={<SearchHospital />}></Route>
 
       <Route path="/insurance" element={<Insurance />}></Route>

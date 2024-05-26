@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import NavBar from "../../components/NavBar/NavBar";
 import blueBackImg from "../../assets/images/blueBack.svg";
-import SearchHospitalText from "../../components/searchHospital/SearchHospitaText";
-import symptomImg from "../../assets/images/symptom.svg";
 import SymptomComponent from "../../components/searchHospital/SymptomComponent";
 import { useNavigate } from "react-router-dom";
 
@@ -49,12 +47,12 @@ const SearchButton = styled.button`
 `;
 
 export default function SearchHospitalBySymptom() {
-  const [isSymptomSelected, setIsSymptomSelected] = useState(false);
+  const [selectedSymptom, setSelectedSymptom] = useState("");
   const navigate = useNavigate();
 
   const handleSearchHospital = () => {
-    if (isSymptomSelected) {
-      navigate("/SearchHospital");
+    if (selectedSymptom) {
+      navigate(`/SearchHospitalBySymptom/Detail?keyword=${selectedSymptom}`);
     }
   };
 
@@ -71,9 +69,8 @@ export default function SearchHospitalBySymptom() {
         </PageDetailTextContainer>
       </NavBar>
       <WrapperDiv>
-        <SearchHospitalText text="증상으로 병원 찾기" src={symptomImg} />
-        <SymptomComponent setSymptomSelected={setIsSymptomSelected} />
-        <SearchButton onClick={handleSearchHospital} isSymptomSelected={isSymptomSelected}>검색</SearchButton>
+        <SymptomComponent setSymptomSelected={setSelectedSymptom} />
+        <SearchButton onClick={handleSearchHospital} isSymptomSelected={!!selectedSymptom}>검색</SearchButton>
       </WrapperDiv>
     </>
   );

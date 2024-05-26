@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import NavBar from "../../components/NavBar/NavBar";
 import blueBackImg from "../../assets/images/blueBack.svg";
-import stethoschpeImg from "../../assets/images/blueStethoscope.svg";
-import SearchHospitalText from "../../components/searchHospital/SearchHospitaText";
 import SubjectComponent from "../../components/searchHospital/SubjectComponent";
 import { useNavigate } from "react-router-dom";
 
@@ -54,7 +52,7 @@ export default function SearchHospitalBySubject() {
 
   const handleSearchHospital = () => {
     if (selectedSubject) {
-      navigate("/SearchHospital");
+      navigate(`/SearchHospitalBySubject/Detail?keyword=${selectedSubject}`);
     }
   };
 
@@ -71,9 +69,8 @@ export default function SearchHospitalBySubject() {
         </PageDetailTextContainer>
       </NavBar>
       <WrapperDiv>
-        <SearchHospitalText text="진료과목으로 병원 찾기" src={stethoschpeImg} />
         <SubjectComponent onSubjectSelect={setSelectedSubject} />
-        <SearchButton onClick={handleSearchHospital} isSelected={selectedSubject}>
+        <SearchButton onClick={handleSearchHospital} isSelected={!!selectedSubject}>
           검색
         </SearchButton>
       </WrapperDiv>

@@ -40,7 +40,7 @@ const SymptomComponent = ({ setSymptomSelected }) => {
 
   useEffect(() => {
     localStorage.setItem("selectedSymptom", selectedSymptom);
-    setSymptomSelected(!!selectedSymptom);
+    setSymptomSelected(selectedSymptom);
   }, [selectedSymptom, setSymptomSelected]);
 
   const symptoms = [

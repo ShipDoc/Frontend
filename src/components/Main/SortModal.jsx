@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 import dropdownImg from "../../assets/images/dropdown.svg";
 
 const ModalContainer = styled.div`
@@ -10,7 +11,7 @@ const ModalContainer = styled.div`
 
 const ModalTextContainer = styled.div`
   display: flex;
-  algin-items: center;
+  align-items: center;
   padding: 1vh 0 1vh 1.05rem;
   position: relative;
   &:not(:first-child) {
@@ -35,24 +36,20 @@ const DropdownImg = styled.img`
   transform: translate(0, -50%);
 `
 
-export default function SortModal() {
+export default function SortModal({ onSelect }) {
+  const options = ["가까운 순", "별점 높은 순", "리뷰 많은 순"];
+
   return (
-    <>
-      <ModalContainer>
-        <ModalTextContainer>
-          <ModalText>어떤 기준으로 정렬할까요?</ModalText>
-          <DropdownImg src={dropdownImg} alt="dropdownImg" />
+    <ModalContainer>
+      <ModalTextContainer>
+        <ModalText>어떤 기준으로 정렬할까요?</ModalText>
+        <DropdownImg src={dropdownImg} alt="dropdownImg" />
+      </ModalTextContainer>
+      {options.map((option) => (
+        <ModalTextContainer key={option} onClick={() => onSelect(option)}>
+          <ModalText>{option}</ModalText>
         </ModalTextContainer>
-        <ModalTextContainer>
-          <ModalText>가까운 순</ModalText>
-        </ModalTextContainer>
-        <ModalTextContainer>
-          <ModalText>별점 높은 순</ModalText>
-        </ModalTextContainer>
-        <ModalTextContainer>
-          <ModalText>리뷰 많은 순</ModalText>
-        </ModalTextContainer>
-      </ModalContainer>
-    </>
-  )
+      ))}
+    </ModalContainer>
+  );
 }
