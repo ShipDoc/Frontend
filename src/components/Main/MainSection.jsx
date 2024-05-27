@@ -37,9 +37,9 @@ export default function MainSection({home, checkup}) {
     <>
       <WrapperDiv>
         <CategoryButtonComponent />
-        <SearchBar placeholder="어디가 아프신가요?" />
+        {/* <SearchBar placeholder="어디가 아프신가요?" /> */}
         <CategoryComponent home={home} checkup={checkup} />
-        <BlueCircle />
+        {/* <BlueCircle /> */}
       </WrapperDiv>
     </>
   )
