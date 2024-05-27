@@ -15,7 +15,7 @@ const ReminderPage = () => {
   const [modalTitle, setModalTitle] = useState('');
 
   const handleGotoHome = () => {
-    navigate("/home");
+    navigate("/HealthCare/History");
   }
 
   const handleChange = (checked) => {

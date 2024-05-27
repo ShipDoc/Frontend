@@ -7,6 +7,9 @@ import { useState, useRef, useEffect } from "react";
 import HospitalComponent from "./HospitalComponent";
 import SearchBar from "./SearchBar";
 import SortModal from "./SortModal";
+import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
+import { getHealthCareList } from "../../apis/api/healthCare";
+import { getHospitalList } from "../../apis/api/search";
 
 const FooterWrapper = styled.div`
     width: 100%;
@@ -65,8 +68,24 @@ const PartitionComponent = styled.div`
     background: #fff;
 `;
 
+const NoListText = styled.div`
+    margin: 7rem 0;
+    font-size: 1rem;
+    color: #808080;
+    font-family: Pretendard;
+`;
+
+const geolocationOptions = {
+    enableHighAccuracy: true,
+    timeout: 1000 * 10,
+    maximumAge: 1000 * 3600 * 24,
+};
+
 export default function MainFooter({ checkup }) {
-    const [location, setLocation] = useState("지역");
+    const { location, error } = useGeoLocation(geolocationOptions);
+    const [myLocationName, setMyLocationName] = useState("성북구");
+    const [hospitalList, setHospitalList] = useState([]);
+
     const [modal, setModal] = useState(false);
     const [sortOption, setSortOption] = useState("가까운 순");
     const modalRef = useRef();
@@ -78,7 +97,41 @@ export default function MainFooter({ checkup }) {
     const handleSelectOption = (option) => {
         setSortOption(option);
         setModal(false);
-      };
+    };
+
+    const fetchHospitalList = async () => {
+        try {
+            const res = checkup 
+                ? await getHealthCareList({
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                    size: 15,
+                    sort: "REVIEW",
+                }) 
+                : await getHospitalList({
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                    size: 15,
+                    sort: "REVIEW",
+                });
+
+            if (res.data.code === "COMMON200") {
+                setHospitalList(res.data.result.hospitalList);
+            } else {
+                console.log(res.data.code);
+            }
+        } catch (error) {
+            console.error("Failed to fetch hospital list:", error);
+        }
+    };
+
+    useEffect(() => {
+        if (location.latitude && location.longitude) {
+            fetchHospitalList();
+        } else {
+            console.log(location);
+        }
+    }, [location, sortOption]);
 
     return (
         <FooterWrapper>
@@ -138,7 +191,7 @@ export default function MainFooter({ checkup }) {
                             }}
                         >
                             <img src={locationImg} alt="locationImg" />
-                            <LocationText>{location}</LocationText>
+                            <LocationText>{myLocationName}</LocationText>
                         </div>
                     </LocationDiv>
                     {modal && (
@@ -157,9 +210,29 @@ export default function MainFooter({ checkup }) {
                     )}
                 </div>
                 <div>
-                    <HospitalComponent />
-                    <PartitionComponent />
-                    <HospitalComponent />
+                    {hospitalList.map((data, idx) => (
+                        <HospitalComponent 
+                            key={idx}
+                            hospitalName={data.hospitalName}
+                            address={data.address}
+                            totalRate={data.totalRate}
+                            imageUrl={data.imageUrl}
+                            tags={data.tags}
+                        />
+                    ))}
+                    {hospitalList.length === 0 && (
+                        <NoListText>
+                            {checkup ? (
+                                <NearHospitalText>
+                                    건강검진이 가능한 병원이 없습니다.
+                                </NearHospitalText>
+                            ) : (
+                                <NearHospitalText>
+                                    내 주변 병원이 없습니다.
+                                </NearHospitalText>
+                            )}
+                        </NoListText>
+                    )}
                 </div>
             </FooterContainer>
         </FooterWrapper>

@@ -2,10 +2,8 @@ import styled from "styled-components";
 import placeImg from "../../assets/images/place.svg";
 import basicRateImg from "../../assets/images/basicRate.svg";
 import fillRateImg from "../../assets/images/fillRate.svg";
-import leftImg from "../../assets/images/leftImg.svg";
-import rightImg from "../../assets/images/rightImg.svg";
 import consulationChatImg from "../../assets/images/consulatoinChatImg.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const HospitalContainer = styled.div`
     // display: flex;
@@ -48,8 +46,9 @@ const DetailHospitalContainer = styled.div`
     margin-top: 1vh;
     width: 40vw;
     height: 18vh;
+    background: url(${props => props.imageUrl}) no-repeat center center;
+    background-size: cover;
     border-radius: 2.0625rem;
-    background: #fff;
     position: relative;
 `;
 
@@ -125,15 +124,29 @@ const Rating = ({ rating }) => {
     return <div style={{ display: "flex", alignItems: "center" }}>{stars}</div>;
 };
 
-export default function HospitalComponent() {
-    const [hospitalName, setHospitalName] = useState("병원 이름");
-    const [hospitalLocation, setHospitalLocation] = useState("병원 주소");
-    const [rateNum, setRateNum] = useState(0); // 나중에 평점 받아오기
+export default function HospitalComponent({
+    hospitalName,
+    address,
+    totalRate,
+    imageUrl,
+    tags,
+}) {
+    const [rateNum, setRateNum] = useState(Number(totalRate));
     const [hospitalTags, setHospitalTags] = useState([
         "Test 1",
         "Test 2",
         "Test 3",
     ]); // 병원 분류 상태 (백에서 받아오기)
+
+    useEffect(() => {
+        console.log("Props received:", {
+            hospitalName,
+            address,
+            totalRate,
+            imageUrl,
+            tags
+        });
+    }, [hospitalName, address, totalRate, imageUrl, tags]);
 
     return (
         <>
@@ -155,7 +168,7 @@ export default function HospitalComponent() {
                         <img src={placeImg} alt="placeImg" />
                         <HospitalNameText>{hospitalName}</HospitalNameText>
                         <HospitalLocationText>
-                            {hospitalLocation}
+                            {address}
                         </HospitalLocationText>
                     </div>
                     <div
@@ -169,30 +182,7 @@ export default function HospitalComponent() {
                         <RateText>{rateNum.toFixed(1)}</RateText>
                     </div>
                 </div>
-                <DetailHospitalContainer>
-                    <img
-                        src={leftImg}
-                        alt="leftImg"
-                        style={{
-                            position: "absolute",
-                            top: "50%",
-                            left: "2vw",
-                            transform: "translate(0, -50%)",
-                            cursor: "pointer",
-                        }}
-                    />
-                    <img
-                        src={rightImg}
-                        alt="rightImg"
-                        style={{
-                            position: "absolute",
-                            top: "50%",
-                            right: "2vw",
-                            transform: "translate(0, -50%)",
-                            cursor: "pointer",
-                        }}
-                    />
-                </DetailHospitalContainer>
+                <DetailHospitalContainer imageUrl={imageUrl}/>
                 <HospitalTagContainer>
                     {hospitalTags.map((text, index) => {
                         return (
