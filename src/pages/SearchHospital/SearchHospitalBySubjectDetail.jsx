@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import NavBar from "../../components/NavBar/NavBar";
 import blueBackImg from "../../assets/images/blueBack.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import SearchFooter from "../../components/searchHospital/SearchFooter";
 
 const PageDetailTextContainer = styled.div`
@@ -20,8 +20,10 @@ const PageDetailText = styled.p`
   line-height: normal;
 `;
 
-export default function SearchHospitalBySubject() {
+export default function SearchHospitalBySubjectDetail() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { selectedSubject } = location.state || {};
 
   const handleGotoHome = () => {
     navigate("/home");
@@ -35,7 +37,7 @@ export default function SearchHospitalBySubject() {
           <PageDetailText>홈 &gt; 진료 과목으로 병원찾기</PageDetailText>
         </PageDetailTextContainer>
       </NavBar>
-      <SearchFooter checkup />
+      <SearchFooter symptom={selectedSubject} />
     </>
   );
 }

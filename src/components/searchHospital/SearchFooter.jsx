@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
+import { getCategoryList } from "../../apis/api/category";
+import HospitalComponent from "./HospitalComponent";
+import SortModal from "../Main/SortModal";
 import locationBoxImgBlue from "../../assets/images/locationBoxImgblue.svg";
 import locationImgBlue from "../../assets/images/locationImgBlue.svg";
 import toggleBoxImage from "../../assets/images/toggleBoxImage.svg";
-import HospitalComponent from "./HospitalComponent";
-import SortModal from "../Main/SortModal";
 
 const FooterWrapper = styled.div`
   width: 100%;
-  background: #FFF;
+  background: #fff;
   margin-top: 7vh;
   margin-bottom: 10vh;
 `;
@@ -33,7 +34,7 @@ const NearHospitalText = styled.p`
   line-height: normal;
 
   span {
-    color: #1371FF;
+    color: #1371ff;
   }
 `;
 
@@ -98,16 +99,16 @@ const ToggleText = styled.p`
 const ToggleIcon = styled.div`
   margin-left: 0.3rem;
   cursor: pointer;
-  color: #FFF;
+  color: #fff;
   font-size: 0.75rem;
 `;
 
 const PartitionComponent = styled.div`
   height: 0.3vh;
   stroke-width: 2px;
-  stroke: #E0E0E0;
+  stroke: #e0e0e0;
   width: 100%;
-  background: #E0E0E0;
+  background: #e0e0e0;
 `;
 
 const SearchHeader = styled.div`
@@ -123,7 +124,7 @@ const HospitalListContainer = styled.div`
 `;
 
 const SearchButton = styled.button`
-  background-color: #1371FF;
+  background-color: #1371ff;
   color: white;
   font-weight: 800;
   font-size: 1.2rem;
@@ -134,20 +135,54 @@ const SearchButton = styled.button`
   cursor: pointer;
 `;
 
-export default function SearchFooter({ checkup }) {
-  const location = useLocation();
-  const [symptom, setSymptom] = useState("");
+const NoListText = styled.div`
+  margin: 7rem 0;
+  font-size: 1rem;
+  color: #808080;
+  font-family: Pretendard;
+`;
+
+const geolocationOptions = {
+  enableHighAccuracy: true,
+  timeout: 1000 * 10,
+  maximumAge: 1000 * 3600 * 24,
+};
+
+export default function SearchFooter({ symptom }) {
+  const { location, error } = useGeoLocation(geolocationOptions);
+  const [hospitalList, setHospitalList] = useState([]);
   const [modal, setModal] = useState(false);
   const [sortOption, setSortOption] = useState("가까운 순");
   const modalRef = useRef();
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const keyword = queryParams.get("keyword");
-    if (keyword) {
-      setSymptom(keyword);
-    }
-  }, [location.search]);
+    const fetchHospitalList = async () => {
+      if (!location.latitude || !location.longitude || !symptom) return;
+
+      try {
+        const res = await getCategoryList({
+          latitude: location.latitude,
+          longitude: location.longitude,
+          size: 15,
+          category: [symptom],
+          sort: "REVIEW",
+        });
+
+        console.log("API Response:", res);
+
+        if (res && res.data && res.data.code === "COMMON200") {
+          setHospitalList(res.data.result.hospitalList);
+          console.log("Hospital List:", res.data.result.hospitalList);
+        } else {
+          console.log("Error Code:", res.data ? res.data.code : "No response data");
+        }
+      } catch (error) {
+        console.error("Failed to fetch hospital list:", error);
+      }
+    };
+
+    fetchHospitalList();
+  }, [location, symptom, sortOption]);
 
   const toggleModal = () => {
     setModal((prev) => !prev);
@@ -199,11 +234,20 @@ export default function SearchFooter({ checkup }) {
           )}
         </SearchHeader>
         <HospitalListContainer>
-          <HospitalComponent />
-          <PartitionComponent />
-          <HospitalComponent />
-          <PartitionComponent />
-          <HospitalComponent />
+          {hospitalList.length > 0 ? (
+            hospitalList.map((data, idx) => (
+              <HospitalComponent
+                key={idx}
+                hospitalName={data.hospitalName}
+                address={data.address}
+                totalRate={data.totalRate}
+                imageUrl={data.imageUrl}
+                tags={data.tags}
+              />
+            ))
+          ) : (
+            <NoListText>병원 데이터가 없습니다.</NoListText>
+          )}
         </HospitalListContainer>
         <SearchButton>더보기</SearchButton>
       </FooterContainer>
