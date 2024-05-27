@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import HospitalComponent from "../../components/MyPage/Apointment/ApointmentHospital";
 import styled from "styled-components";
 import HospitalMap from "../../components/detail/HospitalMap";
 import Modal from "../../components/MyPage/Apointment/Modal";
 import { useNavigate } from "react-router-dom";
+import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
+import { getDetail } from "../../apis/api/detail";
+
+const geolocationOptions = {
+    enableHighAccuracy: true,
+    timeout: 1000 * 10,
+    maximumAge: 1000 * 3600 * 24,
+};
 
 const Detail = () => {
+    const [hospitalDetail, setHospitalDetail] = useState({});
+
+    const { location, error } = useGeoLocation(geolocationOptions);
+
     const navigate = useNavigate();
+
     const [peopleNum, setPeopleNum] = useState(0);
     const [showModal, setShowModal] = useState(false);
 
@@ -24,6 +37,25 @@ const Detail = () => {
         setShowModal(false);
     };
 
+    useEffect(() => {
+        const fetchHospitalDetail = async () => {
+            try {
+                const res = await getDetail({ hospitalId: 1 });
+                // console.log(res);
+
+                if (res.data.code === "COMMON200") {
+                    setHospitalDetail(res.data.result);
+                } else {
+                    console.log(res.data.code);
+                }
+            } catch (error) {
+                console.error("Failed to fetch hospital detail:", error);
+            }
+        };
+
+        fetchHospitalDetail();
+    }, []);
+
     return (
         <>
             <NavBar>
@@ -33,7 +65,7 @@ const Detail = () => {
                 <Div>
                     <HospitalComponent name="연세이빈후과의원" />
                     <StyledHr />
-                    <HospitalMap />
+                    <HospitalMap data={location} />
                     <StyledHr />
                     <MainContainer>
                         <GeneralContainer>

@@ -68,11 +68,17 @@ const PartitionComponent = styled.div`
 export default function MainFooter({ checkup }) {
     const [location, setLocation] = useState("지역");
     const [modal, setModal] = useState(false);
+    const [sortOption, setSortOption] = useState("가까운 순");
     const modalRef = useRef();
 
     const toggleModal = () => {
         setModal((prev) => !prev);
     };
+
+    const handleSelectOption = (option) => {
+        setSortOption(option);
+        setModal(false);
+      };
 
     return (
         <FooterWrapper>
@@ -146,7 +152,7 @@ export default function MainFooter({ checkup }) {
                                 zIndex: 10,
                             }}
                         >
-                            <SortModal />
+                            <SortModal onSelect={handleSelectOption} />
                         </div>
                     )}
                 </div>
