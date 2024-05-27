@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import NavBar from "../../components/NavBar/NavBar";
 import blueBackImg from "../../assets/images/blueBack.svg";
-import { useNavigate } from "react-router-dom";
-import SearchFooter from "../../components/searchHospital/SearchFooter";
+import { useNavigate, useLocation } from "react-router-dom";
+import SearchFooterSymptom from "../../components/searchHospital/SearchFooterSymptom";
 
 const PageDetailTextContainer = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ const PageDetailTextContainer = styled.div`
 `;
 
 const PageDetailText = styled.p`
-  color: #A3A3A3;
+  color: #a3a3a3;
   font-family: Pretendard;
   font-size: 0.75rem;
   font-style: normal;
@@ -20,8 +20,10 @@ const PageDetailText = styled.p`
   line-height: normal;
 `;
 
-export default function SearchHospitalBySymptom() {
+export default function SearchHospitalBySymptomDetail() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { selectedSymptom } = location.state || {};
 
   const handleGotoHome = () => {
     navigate("/home");
@@ -35,7 +37,7 @@ export default function SearchHospitalBySymptom() {
           <PageDetailText>홈 &gt; 증상으로 병원찾기</PageDetailText>
         </PageDetailTextContainer>
       </NavBar>
-      <SearchFooter checkup />
+      <SearchFooterSymptom symptom={selectedSymptom} />
     </>
   );
 }

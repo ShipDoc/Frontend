@@ -148,6 +148,25 @@ const geolocationOptions = {
   maximumAge: 1000 * 3600 * 24,
 };
 
+const categoryMap = {
+  "SURGERY": "외과",
+  "INTERNAL_MEDICINE": "내과",
+  "OTOLARYNGOLOGY": "이비인후과",
+  "PEDIATRICS": "소아과",
+  "ORTHOPEDICS": "정형외과",
+  "NEUROSURGERY": "신경외과",
+  "FAMILY_MEDICINE": "가정의학과",
+  "OPHTHALMOLOGY": "안과",
+  "PSYCHIATRY": "정신건강의학과",
+  "DERMATOLOGY": "피부과",
+  "UROLOGY": "비뇨기과",
+  "OBSTETRICS_AND_GYNECOLOGY": "산부인과",
+  "NEUROLOGY": "신경과",
+  "PLASTIC_SURGERY": "성형외과",
+  "EMERGENCY_MEDICINE": "응급의학과",
+  "OTHERS": "기타",
+};
+
 export default function SearchFooter({ symptom }) {
   const { location, error } = useGeoLocation(geolocationOptions);
   const [hospitalList, setHospitalList] = useState([]);
@@ -159,14 +178,18 @@ export default function SearchFooter({ symptom }) {
     const fetchHospitalList = async () => {
       if (!location.latitude || !location.longitude || !symptom) return;
 
+      const requestData = {
+        latitude: 37.589135,
+        longitude: 127.2198911,
+        size: 15,
+        category: [symptom],
+        sort: "REVIEW",
+      };
+
+      console.log("Request Data:", requestData);
+
       try {
-        const res = await getCategoryList({
-          latitude: location.latitude,
-          longitude: location.longitude,
-          size: 15,
-          category: [symptom],
-          sort: "REVIEW",
-        });
+        const res = await getCategoryList(requestData);
 
         console.log("API Response:", res);
 
@@ -199,7 +222,7 @@ export default function SearchFooter({ symptom }) {
         <SearchHeader>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5vw" }}>
             <NearHospitalText>
-              <span>'{symptom}'</span> 관련 병원
+              <span>'{categoryMap[symptom] || symptom}'</span> 관련 병원
             </NearHospitalText>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>

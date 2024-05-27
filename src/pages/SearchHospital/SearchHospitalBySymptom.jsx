@@ -12,7 +12,7 @@ const PageDetailTextContainer = styled.div`
 `;
 
 const PageDetailText = styled.p`
-  color: #A3A3A3;
+  color: #a3a3a3;
   font-family: Pretendard;
   font-size: 0.75rem;
   font-style: normal;
@@ -34,8 +34,8 @@ const SearchButton = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 0.8rem;
-  background: ${({ isSymptomSelected }) => (isSymptomSelected ? "#1371FF" : "#656565")};
-  color: #FFF;
+  background: ${({ isSelected }) => (isSelected ? "#1371FF" : "#656565")};
+  color: #fff;
   font-family: Pretendard;
   font-size: 1rem;
   font-style: normal;
@@ -43,7 +43,7 @@ const SearchButton = styled.button`
   line-height: normal;
   width: 90%;
   height: 7vh;
-  cursor: ${({ isSymptomSelected }) => (isSymptomSelected ? "pointer" : "default")};
+  cursor: ${({ isSelected }) => (isSelected ? "pointer" : "not-allowed")};
 `;
 
 export default function SearchHospitalBySymptom() {
@@ -52,7 +52,7 @@ export default function SearchHospitalBySymptom() {
 
   const handleSearchHospital = () => {
     if (selectedSymptom) {
-      navigate(`/SearchHospitalBySymptom/Detail?keyword=${selectedSymptom}`);
+      navigate(`/SearchHospitalBySymptom/Detail?keyword=${selectedSymptom}`, { state: { selectedSymptom } });
     }
   };
 
@@ -69,8 +69,10 @@ export default function SearchHospitalBySymptom() {
         </PageDetailTextContainer>
       </NavBar>
       <WrapperDiv>
-        <SymptomComponent setSymptomSelected={setSelectedSymptom} />
-        <SearchButton onClick={handleSearchHospital} isSymptomSelected={!!selectedSymptom}>검색</SearchButton>
+        <SymptomComponent onSubjectSelect={setSelectedSymptom} />
+        <SearchButton onClick={handleSearchHospital} isSelected={!!selectedSymptom}>
+          검색
+        </SearchButton>
       </WrapperDiv>
     </>
   );
