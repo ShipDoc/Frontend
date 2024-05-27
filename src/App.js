@@ -30,10 +30,10 @@ import SearchHospitalBySymptom from "./pages/SearchHospital/SearchHospitalBySymp
 import SearchHospitalBySymptomDetail from "./pages/SearchHospital/SearchHospitalBySymptomDetail";
 import Chat from "./pages/chat/Chat.jsx";
 import Health from "./pages/health/Health.jsx";
+import Review from "./pages/review/Review.jsx";
 
 function App() {
-
-  return (
+    return (
         <Routes>
             {/* Account */}
             <Route path="/" element={<SignIn />}></Route>
@@ -44,9 +44,18 @@ function App() {
             {/* Main */}
             <Route path="/Home" element={<Home />}></Route>
             <Route path="/HealthCare" element={<HealthCare />}></Route>
-            <Route path="/HealthCare/History" element={<HealthCareHistory />}></Route>
-            <Route path="/healthcare/History/detail" element={<HealthCareHistoryDetail />} />
-            <Route path="/healthcare/History/reminder" element={<HealthCareHistoryReminder />} />
+            <Route
+                path="/HealthCare/History"
+                element={<HealthCareHistory />}
+            ></Route>
+            <Route
+                path="/healthcare/History/detail"
+                element={<HealthCareHistoryDetail />}
+            />
+            <Route
+                path="/healthcare/History/reminder"
+                element={<HealthCareHistoryReminder />}
+            />
 
             {/* SearchHospital */}
             <Route path="/SearchHospitalBySymptom" element={<SearchHospitalBySymptom />}></Route>
@@ -63,6 +72,9 @@ function App() {
             <Route path="/detail/pay" element={<Payment />}></Route>
             <Route path="/detail/noPay" element={<NoPay />}></Route>
             <Route path="/detail/success" element={<SuccessRes />}></Route>
+
+            {/* Review */}
+            <Route path="/detail/review" element={<Review />}></Route>
 
             {/* MyPage */}
             <Route path="/mypage" element={<MyPage />}></Route>
