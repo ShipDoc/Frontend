@@ -5,8 +5,8 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 const HospitalMap = (props) => {
     const [coordinate, setCoordinate] = useState({
-        lat: props.data.latitude,
-        lng: props.data.longitude,
+        lat: 37.5665, // 기본 값: 서울의 위도
+        lng: 126.978, // 기본 값: 서울의 경도
     });
 
     const [hospitalAddress, setHospitalAddress] = useState(
@@ -21,9 +21,21 @@ const HospitalMap = (props) => {
         }
     };
 
+    const handleMapView = () => {
+        window.open(props.placeUrl, "_blank", "noopener, noreferrer");
+        console.log(props.placeUrl);
+    };
+
     useEffect(() => {
-        setCoordinate({ lat: props.data.latitude, lng: props.data.longitude });
-    }, [props.data]);
+        const newLat = parseFloat(Number(props.data.latitude).toFixed(4));
+        const newLng = parseFloat(Number(props.data.longitude).toFixed(4));
+        setCoordinate({
+            lat: newLat,
+            lng: newLng,
+        });
+        console.log("New coordinates set:", { lat: newLat, lng: newLng });
+        setHospitalAddress(props.address);
+    }, [props]);
 
     return (
         <HospitalMapContainer>
@@ -38,7 +50,7 @@ const HospitalMap = (props) => {
                         복사
                     </CopyAddress>
                 </AddressContainer>
-                <AddressBtn>지도보기</AddressBtn>
+                <AddressBtn onClick={handleMapView}>지도보기</AddressBtn>
             </AddressAndBtnContainer>
             <MapContainer>
                 <Map

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import placeImg from "../../assets/images/place.svg";
 import basicRateImg from "../../assets/images/basicRate.svg";
@@ -29,17 +29,18 @@ const Rating = ({ rating }) => {
     return <div style={{ display: "flex", alignItems: "center" }}>{stars}</div>;
 };
 
-export default function HospitalComponent({ name }) {
-    const [hospitalName, setHospitalName] = useState(name);
+export default function HospitalComponent(props) {
+    const [hospitalName, setHospitalName] = useState("병원 이름");
     const [hospitalLocation, setHospitalLocation] = useState("병원 주소");
-    const [rateNum, setRateNum] = useState(0); // 나중에 평점 받아오기
+    const [rateNum, setRateNum] = useState(0);
+
     const [hospitalTags, setHospitalTags] = useState([
-        "Test 1",
-        "Test 2",
-        "Test 3",
+        "안심 실명제",
+        "분야별 협진",
+        "전담 회복실",
     ]); // 병원 분류 상태 (백에서 받아오기)
 
-    const [telNum, setTelNum] = useState("00-000-0000");
+    const [telNum, setTelNum] = useState("");
 
     const [reviewCnt, setReviewCnt] = useState(0);
 
@@ -50,6 +51,18 @@ export default function HospitalComponent({ name }) {
             console.log("실패");
         }
     };
+
+    useEffect(() => {
+        console.log(props);
+        setHospitalName(props.hospitalDetail.placeName);
+        setHospitalLocation(props.hospitalDetail.address);
+        setRateNum(props.data.totalRate);
+
+        setTelNum(props.hospitalDetail.phone);
+        // setReviewCnt(props.hospitalDetail.reviewList.length);
+        console.log(props.hospitalDetail.reviewList);
+    }, [props]);
+
     return (
         <>
             <HospitalContainer>
@@ -73,6 +86,7 @@ export default function HospitalComponent({ name }) {
                             cursor: "pointer",
                         }}
                     />
+                    <HospitalImg src={props.data.imageUrl}></HospitalImg>
                     <img
                         src={rightImg}
                         alt="rightImg"
@@ -143,11 +157,22 @@ const HospitalLocationText = styled.div`
 
 const DetailHospitalContainer = styled.div`
     margin-top: 1vh;
-    width: 100%;
+    width: 40vw;
     height: 18vh;
-    border-radius: 33px;
-    background: #e6e5eb;
+    border-radius: 2.0625rem;
     position: relative;
+    background-color: #e6e5eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+`;
+
+const HospitalImg = styled.img`
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2.0625rem;
 `;
 
 const HospitalTagsAndRate = styled.div`

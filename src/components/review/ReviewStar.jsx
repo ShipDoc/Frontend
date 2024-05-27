@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const Star = ({ rate, textColor }) => {
+const ReviewStar = ({ rate }) => {
     const [popularity, setPopularity] = useState(rate);
     const STAR_IDX_ARR = ["1", "2", "3", "4", "5"];
     const [ratesResArr, setRatesResArr] = useState([0, 0, 0, 0, 0]);
@@ -33,8 +33,8 @@ const Star = ({ rate, textColor }) => {
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="18"
+                            width="45"
+                            height="43"
                             viewBox="0 0 14 13"
                             fill="#D9D9D9"
                         >
@@ -52,13 +52,20 @@ const Star = ({ rate, textColor }) => {
                             <use
                                 clipPath={`url(#${item}StarClip)`}
                                 href={`#${item}Star`}
-                                fill="#FFD600"
+                                fill="#1371FF"
                             />
                         </svg>
                     </div>
                 );
             })}
-            <span style={{ color: textColor, fontWeight: 700 }}>
+            <span
+                style={{
+                    color: "#949494",
+                    fontWeight: 700,
+                    fontSize: "2rem",
+                    marginLeft: "1rem",
+                }}
+            >
                 {Number(popularity).toFixed(1)}
             </span>
         </StarWrapper>
@@ -75,4 +82,4 @@ const StarWrapper = styled.div`
     }
 `;
 
-export default Star;
+export default ReviewStar;

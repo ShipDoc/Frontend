@@ -6,6 +6,7 @@ import SortModal from "../../components/Main/SortModal";
 import locationIcon from "../../assets/icons/locationIcon.svg";
 import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
 import { getHealthCareList } from "../../apis/api/healthCare";
+import { useNavigate } from "react-router-dom";
 
 const geolocationOptions = {
     enableHighAccuracy: true,
@@ -15,8 +16,12 @@ const geolocationOptions = {
 
 const Health = () => {
     const { location, error } = useGeoLocation(geolocationOptions);
+
+    const [path, setPath] = useState("건강검진 > 건강검진 예약하기");
+
     const [myLocationName, setMyLocationName] = useState("성북구");
     const [hospitalList, setHospitalList] = useState([]);
+
     const [modal, setModal] = useState(false);
     const modalRef = useRef();
     const buttonRef = useRef();
@@ -37,7 +42,6 @@ const Health = () => {
     }, [modal]);
 
     useEffect(() => {
-        console.log(location);
         if (location.latitude && location.longitude) {
             const fetchHospitalList = async () => {
                 try {
@@ -47,7 +51,6 @@ const Health = () => {
                         size: 3,
                         sort: "REVIEW",
                     });
-                    // console.log(res);
 
                     if (res.data.code === "COMMON200") {
                         setHospitalList(res.data.result.hospitalList);
@@ -94,7 +97,11 @@ const Health = () => {
                     </SortContainer>
 
                     {hospitalList.map((data, idx) => (
-                        <HospitalComponent key={idx} data={data} />
+                        <HospitalComponent
+                            key={hospitalList[idx].hospitalId}
+                            data={data}
+                            path={path}
+                        />
                     ))}
                     {hospitalList.length === 0 && (
                         <NoListText>

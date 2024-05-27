@@ -6,25 +6,20 @@ import HospitalMap from "../../components/detail/HospitalMap";
 import Star from "../../components/common/Star";
 import profile from "../../assets/images/profile.svg";
 import logoImg from "../../assets/images/logoImg.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
 import { getDetail } from "../../apis/api/detail";
 
-const geolocationOptions = {
-    enableHighAccuracy: true,
-    timeout: 1000 * 10,
-    maximumAge: 1000 * 3600 * 24,
-};
-
 const Detail = () => {
+    // "홈 > 예약하기 와 같은 텍스트 받아오기"
+    const { state } = useLocation();
+    const [path, setPath] = useState(state ? state.pathText : "");
+
     const [hospitalDetail, setHospitalDetail] = useState({});
 
-    const { location, error } = useGeoLocation(geolocationOptions);
+    const [location, setLocation] = useState({});
 
     const navigate = useNavigate();
-
-    const [symptom, setSymptom] = useState("발열");
-    const [hospitalName, setHospitalName] = useState("연세이빈후과의원");
 
     // 진료중, 휴게시간, 진료마감 구분
     const [ingNum, setIngNum] = useState(0);
@@ -40,6 +35,8 @@ const Detail = () => {
     const [starRate, setStarRate] = useState(3.5);
 
     const [username, setUsername] = useState("어디서나 777");
+
+    const [hospitalName, setHospitalName] = useState("");
 
     const [description, setDescription] =
         useState("과잉 진료하지 않아서 좋아요.");
@@ -75,7 +72,7 @@ const Detail = () => {
     const handleBtn = () => {
         navigate("/detail/reservation", {
             state: {
-                text: `홈 > 증상으로 병원 찾기 > ${symptom} > ${hospitalName} > 병원 예약하기`,
+                text: `홈 > ${path} > 병원 예약하기`,
             },
         });
     };
@@ -83,11 +80,11 @@ const Detail = () => {
     useEffect(() => {
         const fetchHospitalDetail = async () => {
             try {
-                const res = await getDetail({ hospitalId: 1 });
-                // console.log(res);
+                const res = await getDetail({ hospitalId: state.id });
 
-                if (res.data.code === "COMMON200") {
-                    setHospitalDetail(res.data.result);
+                if (res.data.code === "COMMON200" || res.data.status === 200) {
+                    const hospitalData = res.data.result;
+                    setHospitalDetail(hospitalData);
                 } else {
                     console.log(res.data.code);
                 }
@@ -97,23 +94,43 @@ const Detail = () => {
         };
 
         fetchHospitalDetail();
-    }, []);
+    }, [state]);
+
+    useEffect(() => {
+        if (hospitalDetail) {
+            setPeopleNum(hospitalDetail.waitingCount || 0);
+            setStarRate(hospitalDetail.totalRate || 3.5);
+            setHospitalName(hospitalDetail.placeName || "");
+            setLocation({
+                latitude: hospitalDetail.latitude,
+                longitude: hospitalDetail.longitude,
+            });
+
+            setSubjectTags(
+                hospitalDetail.department ? [hospitalDetail.department] : null
+            );
+        }
+    }, [hospitalDetail]);
 
     return (
         <>
             <NavBar activeIndex={0}>
                 <GeneralContainer>
-                    <PathText>
-                        홈 &gt; 증상으로 병원 찾기 &gt; {symptom} &gt;{" "}
-                        {hospitalName}
-                    </PathText>
+                    <PathText>홈 &gt; {path}</PathText>
                 </GeneralContainer>
             </NavBar>
             <Frame>
                 <Div>
-                    <HospitalComponent name="연세이빈후과"></HospitalComponent>
+                    <HospitalComponent
+                        hospitalDetail={hospitalDetail}
+                        data={state.data}
+                    ></HospitalComponent>
                     <StyledHr />
-                    <HospitalMap data={location}></HospitalMap>
+                    <HospitalMap
+                        data={location}
+                        address={hospitalDetail.address}
+                        placeUrl={hospitalDetail.placeUrl}
+                    ></HospitalMap>
                     <StyledHr />
                     <GeneralContainer>
                         <IngContainer>
@@ -126,13 +143,14 @@ const Detail = () => {
                     <GeneralContainer>
                         <SubTitle>진료과목</SubTitle>
                         <TagContainer>
-                            {subjectTags.map((text, index) => {
-                                return (
-                                    <TagBox key={index}>
-                                        <TagText>{text}</TagText>
-                                    </TagBox>
-                                );
-                            })}
+                            {subjectTags &&
+                                subjectTags.map((text, index) => {
+                                    return (
+                                        <TagBox key={index}>
+                                            <TagText>{text}</TagText>
+                                        </TagBox>
+                                    );
+                                })}
                         </TagContainer>
                     </GeneralContainer>
                     <StyledHr />
@@ -154,7 +172,7 @@ const Detail = () => {
                     <GeneralContainer>
                         <StarContainer>
                             <SubTitle>리뷰</SubTitle>
-                            <Star rate={starRate}></Star>
+                            <Star textColor="#1371FF" rate={starRate}></Star>
                         </StarContainer>
                         <ProfileContainer>
                             <ProfileImg src={profile}></ProfileImg>
