@@ -148,7 +148,7 @@ const geolocationOptions = {
   maximumAge: 1000 * 3600 * 24,
 };
 
-const categoryMap = {
+const symptomMap = {
   "HEADACH": "두통",
   "FEVER": "발열",
   "COUGH": "기침",
@@ -168,22 +168,23 @@ const categoryMap = {
   "BODY_ACHE": "몸살",
 };
 
-export default function SearchFooterSymptom({ symptom }) {
+export default function SearchFooterSymptom({ symptoms }) {
   const { location, error } = useGeoLocation(geolocationOptions);
   const [hospitalList, setHospitalList] = useState([]);
   const [modal, setModal] = useState(false);
   const [sortOption, setSortOption] = useState("가까운 순");
+  const [size, setSize] = useState(3); // size 상태 추가
   const modalRef = useRef();
 
   useEffect(() => {
     const fetchHospitalList = async () => {
-      if (!location.latitude || !location.longitude || !symptom) return;
+      if (!location.latitude || !location.longitude || !symptoms || symptoms.length === 0) return;
 
       const requestData = {
         latitude: 37.589135,
         longitude: 127.2198911,
-        size: 15,
-        category: [symptom],
+        size: size,
+        symptomList: symptoms,
         sort: "REVIEW",
       };
 
@@ -206,7 +207,7 @@ export default function SearchFooterSymptom({ symptom }) {
     };
 
     fetchHospitalList();
-  }, [location, symptom, sortOption]);
+  }, [location, symptoms, sortOption, size]);
 
   const toggleModal = () => {
     setModal((prev) => !prev);
@@ -217,13 +218,17 @@ export default function SearchFooterSymptom({ symptom }) {
     setModal(false);
   };
 
+  const handleLoadMore = () => {
+    setSize((prevSize) => prevSize + 3);
+  };
+
   return (
     <FooterWrapper>
       <FooterContainer>
         <SearchHeader>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5vw" }}>
             <NearHospitalText>
-              <span>'{categoryMap[symptom] || symptom}'</span> 관련 병원
+              <span>'{symptoms.map(symptom => symptomMap[symptom] || symptom).join(", ")}'</span> 관련 병원
             </NearHospitalText>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -273,7 +278,7 @@ export default function SearchFooterSymptom({ symptom }) {
             <NoListText>병원 데이터가 없습니다.</NoListText>
           )}
         </HospitalListContainer>
-        <SearchButton>더보기</SearchButton>
+        <SearchButton onClick={handleLoadMore}>더보기</SearchButton>
       </FooterContainer>
     </FooterWrapper>
   );

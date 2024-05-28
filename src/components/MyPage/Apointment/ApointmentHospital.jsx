@@ -1,21 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
 import MainItem from "./MainItem";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import hospitalMaeker from "../../../assets/icons/hospitalMarker.svg";
 
-
-export default function HospitalComponent({ name }) {
-    const [hospitalName, setHospitalName] = useState((name));
-
-    const [user, setUser] = useState("김아현");
-    const [date, setDate] = useState("2024. 05. 07 화요일 10:00");
-    const [sms, setSms] = useState("O");
-    const [auto, setAuto] = useState("O");
-
-    const [telNum, setTelNum] = useState("00-000-0000");
-
+export default function HospitalComponent({ name, user, date, sms, auto, telNum }) {
     const handleCopyClipBoard = async () => {
         try {
             await navigator.clipboard.writeText(telNum);
@@ -28,28 +17,15 @@ export default function HospitalComponent({ name }) {
             <HospitalContainer>
                 <div>
                     <TextContainer>
-                        <img src={hospitalMaeker}></img>
-                        <HospitalNameText>{hospitalName}</HospitalNameText>
+                        <img src={hospitalMaeker} alt="hospitalMarker" />
+                        <HospitalNameText>{name}</HospitalNameText>
                     </TextContainer>
                 </div>
                 <MainContainer>
-                    <MainItem
-                        subject="진료자"
-                        text={user}
-                    />
-                    <MainItem
-                        subject="예약 날짜 & 시간"
-                        text={date}
-                        highlight
-                    />
-                    <MainItem
-                        subject="진료 전 문자알림"
-                        text={sms}
-                    />
-                    <MainItem
-                        subject="자동 재예약"
-                        text={auto}
-                    />
+                    <MainItem subject="진료자" text={user} />
+                    <MainItem subject="예약 날짜 & 시간" text={date} highlight />
+                    <MainItem subject="진료 전 문자알림" text={sms} />
+                    <MainItem subject="자동 재예약" text={auto} />
                 </MainContainer>
                 <TelAndReview>
                     <Tel>
@@ -83,8 +59,7 @@ const HospitalNameText = styled.div`
 
 const MainContainer = styled.div`
   margin: 2rem;
-`
-
+`;
 
 const TelAndReview = styled.div`
     margin-top: 0.8rem;

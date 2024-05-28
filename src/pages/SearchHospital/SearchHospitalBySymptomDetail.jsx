@@ -12,7 +12,7 @@ const PageDetailTextContainer = styled.div`
 `;
 
 const PageDetailText = styled.p`
-  color: #a3a3a3;
+  color: #A3A3A3;
   font-family: Pretendard;
   font-size: 0.75rem;
   font-style: normal;
@@ -23,7 +23,7 @@ const PageDetailText = styled.p`
 export default function SearchHospitalBySymptomDetail() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { selectedSymptom } = location.state || {};
+  const { selectedSymptoms } = location.state || {};
 
   const handleGotoHome = () => {
     navigate("/home");
@@ -37,7 +37,7 @@ export default function SearchHospitalBySymptomDetail() {
           <PageDetailText>홈 &gt; 증상으로 병원찾기</PageDetailText>
         </PageDetailTextContainer>
       </NavBar>
-      <SearchFooterSymptom symptom={selectedSymptom} />
+      <SearchFooterSymptom symptoms={selectedSymptoms} />
     </>
   );
 }

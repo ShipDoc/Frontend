@@ -3,11 +3,11 @@ import NavBar from "../../components/NavBar/NavBar";
 import HospitalComponent from "../../components/MyPage/History/HistoryHospital";
 import styled from "styled-components";
 import HospitalMap from "../../components/detail/HospitalMap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
+import { getConsultations } from "../../apis/api/consultations";
 import ShipDocAi from "../../assets/images/ShipDocAi.svg";
 import subtract from "../../assets/images/subtract.svg";
-import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
-import { getDetail } from "../../apis/api/detail";
 
 const geolocationOptions = {
     enableHighAccuracy: true,
@@ -15,14 +15,13 @@ const geolocationOptions = {
     maximumAge: 1000 * 3600 * 24,
 };
 
-const Detail = () => {
-    const [hospitalDetail, setHospitalDetail] = useState({});
-
+const HistoryDetail = () => {
+    const locationState = useLocation();
+    const { consultationId } = locationState.state || {};
+    const [consultationDetail, setConsultationDetail] = useState(null);
     const { location, error } = useGeoLocation(geolocationOptions);
-
     const navigate = useNavigate();
 
-    const [peopleNum, setPeopleNum] = useState(0);
     const [isReviewClicked, setIsReviewClicked] = useState(false);
 
     useEffect(() => {
@@ -43,67 +42,75 @@ const Detail = () => {
     };
 
     useEffect(() => {
-        const fetchHospitalDetail = async () => {
+        const fetchConsultationDetail = async () => {
             try {
-                const res = await getDetail({ hospitalId: 1 });
-                // console.log(res);
-
-                if (res.data.code === "COMMON200") {
-                    setHospitalDetail(res.data.result);
+                const res = await getConsultations();
+                if (res.code === "COMMON200") {
+                    const consultation = res.result.consultations.find(c => c.id === consultationId);
+                    setConsultationDetail(consultation);
                 } else {
-                    console.log(res.data.code);
+                    console.log(res.code);
                 }
             } catch (error) {
-                console.error("Failed to fetch hospital detail:", error);
+                console.error("Failed to fetch consultation detail:", error);
             }
         };
 
-        fetchHospitalDetail();
-    }, []);
+        fetchConsultationDetail();
+    }, [consultationId]);
 
+    if (!consultationDetail) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <>
             <NavBar>
-                마이페이지 &gt; 병원 예약내역 보기 &gt; 연세이빈후과의원
+                마이페이지 &gt; 진료내역 보기 &gt; {consultationDetail.hospitalName}
             </NavBar>
             <Frame>
                 <Div>
-                    <HospitalComponent name="연세이빈후과의원"></HospitalComponent>
+                    <HospitalComponent 
+                        patientName = {consultationDetail.patientName}
+                        hospitalName = {consultationDetail.hospitalName}
+                        hospitalPhone = {consultationDetail.hospitalPhone}
+                        reservationTime = {consultationDetail.reservationTime}
+                        diagnosis = {consultationDetail.diagnosis}
+                        department = {consultationDetail.department}
+                        visitCount = {consultationDetail.visitCount}
+                     />
                     <StyledHr />
-                    <HospitalMap data={location}></HospitalMap>
+                    <HospitalMap data={location} />
                     <StyledHr />
                     <MainContainer>
                         <GeneralContainer>
                             <SubTitle>AI 쉽닥 분석</SubTitle>
-                            <TagContainer>
-                                <AIContent>
-                                    <ImgContainer>
-                                        <Subtract src={subtract} alt="subtract" />
-                                        <ShipdocAi src={ShipDocAi} alt="ShipDocAi" />
-                                    </ImgContainer>
-                                    <AiText>
-                                        <AItitle>
-                                            <span className="highlight">"코감기"</span>에 걸리셨군요?
-                                        </AItitle>
-                                        <AISub>
-                                            단백질, 비타민, 미네랄, 무기질 등이 풍부한 식품을 섭취하는 것이 좋습니다.<br />
-                                            달걀, 콩, 두부 등 단백질이 풍부한 음식과, 비타민이 풍부한 과일, 채소,<br />
-                                            그리고 미네랄이 풍부한 감자, 고구마, 현미 등을 충분히 섭취해주는 것이 좋아요.<br />
-                                        </AISub>
-                                    </AiText>
-                                </AIContent>
-                            </TagContainer>
-                            <ReviewBtn onClick={handleReviewClick} isClicked={isReviewClicked}>
-                                <ButtonText>
-                                    <span>{isReviewClicked ? "리뷰 남기기 완료" : "리뷰 남기기"}</span>
-                                </ButtonText>
-                            </ReviewBtn>
-                            <ReservationBtn onClick={handleBtn}>
-                                <ButtonText>
-                                    <span>병원 다시 예약하기</span>
-                                </ButtonText>
-                            </ReservationBtn>
+                                <TagContainer>
+                                    <AIContent>
+                                        <ImgContainer>
+                                            <Subtract src={subtract} alt="subtract" />
+                                            <ShipdocAi src={ShipDocAi} alt="ShipDocAi" />
+                                        </ImgContainer>
+                                        <AiText>
+                                            <AItitle>
+                                                <span className="highlight">"{consultationDetail.diagnosis}"</span>에 걸리셨군요?
+                                            </AItitle>
+                                            <AISub>
+                                                {consultationDetail.aiRecommend}
+                                            </AISub>
+                                        </AiText>
+                                    </AIContent>
+                                </TagContainer>
+                                <ReviewBtn onClick={handleReviewClick} isClicked={isReviewClicked}>
+                                    <ButtonText>
+                                        <span>{isReviewClicked ? "리뷰 남기기 완료" : "리뷰 남기기"}</span>
+                                    </ButtonText>
+                                </ReviewBtn>
+                                <ReservationBtn onClick={handleBtn}>
+                                    <ButtonText>
+                                        <span>병원 다시 예약하기</span>
+                                    </ButtonText>
+                                </ReservationBtn>
                         </GeneralContainer>
                     </MainContainer>
                 </Div>
@@ -248,4 +255,5 @@ const ButtonText = styled.div`
     align-items: center;
 `;
 
-export default Detail;
+
+export default HistoryDetail;

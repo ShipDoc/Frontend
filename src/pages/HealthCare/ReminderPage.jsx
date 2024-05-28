@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar';
@@ -7,24 +7,56 @@ import HealthCareShipdoc from '../../assets/images/HealthCareShipdoc.svg';
 import Checkbox from "react-custom-checkbox";
 import { FaCheck } from "react-icons/fa6";
 import Modal from '../../components/HealthCare/Modal';
+import { getNotification, updateNotification, deleteNotification } from '../../apis/api/notification';
 
 const ReminderPage = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const [modalTitle, setModalTitle] = useState('');
+  const [phone, setPhone] = useState('');
+  const [acceptNotification, setAcceptNotification] = useState(false);
+
+  useEffect(() => {
+    const fetchNotification = async () => {
+      const response = await getNotification();
+      if (response.isSuccess) {
+        setPhone(response.result.phone || '');
+        setAcceptNotification(response.result.acceptNotification);
+      } else {
+        setModalText('데이터를 불러오는 데 실패했습니다.');
+        setModalTitle('오류');
+        setShowModal(true);
+      }
+    };
+    fetchNotification();
+  }, []);
 
   const handleGotoHome = () => {
     navigate("/HealthCare/History");
-  }
+  };
 
-  const handleChange = (checked) => {
-    if (checked) {
-      setModalText('수신허용이 완료되었습니다.');
-      setModalTitle('허용완료');
+  const handleChange = async (checked) => {
+    setAcceptNotification(checked);
+    const response = checked ? await updateNotification(phone) : await deleteNotification();
+    if (response.isSuccess) {
+      setModalText(checked ? '수신허용이 완료되었습니다.' : '수신허용이 해제되었습니다.');
+      setModalTitle(checked ? '허용완료' : '해제완료');
     } else {
-      setModalText('수신허용이 해제되었습니다.');
-      setModalTitle('해제완료');
+      setModalText('변경 사항을 저장하는 데 실패했습니다.');
+      setModalTitle('오류');
+    }
+    setShowModal(true);
+  };
+
+  const handleEditPhone = async () => {
+    const response = await updateNotification(phone);
+    if (response.isSuccess) {
+      setModalText('전화번호가 성공적으로 변경되었습니다.');
+      setModalTitle('변경완료');
+    } else {
+      setModalText('전화번호 변경에 실패했습니다.');
+      setModalTitle('오류');
     }
     setShowModal(true);
   };
@@ -60,17 +92,17 @@ const ReminderPage = () => {
 
           <TelWrapper>
               <InputDiv>
-                  <InputComp placeholder="010-1234-5678" />
-                  <EditButton>변경하기</EditButton>
+                  <InputComp value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="010-1234-5678" />
+                  <EditButton onClick={handleEditPhone}>변경하기</EditButton>
               </InputDiv>
               <CheckBoxContainer>
                   <ReceptionText2>수신 허용</ReceptionText2>
                   <Checkbox
                       icon={<FaCheck style={FaCheckStyle} />}
-                      checked={false}
+                      checked={acceptNotification}
                       borderRadius="50%"
                       borderWidth="2.5px"
-                      onChange={handleChange}
+                      onChange={(checked) => handleChange(checked)}
                       borderColor="#005BE2"
                       style={{ cursor: "pointer" }}
                       labelStyle={LabelStyle}
@@ -80,17 +112,10 @@ const ReminderPage = () => {
           </TelWrapper>
         </GeneralContainer>
 
-        <ConfirmButton
-          onClick={handleGotoHome}
-        >확인</ConfirmButton>
+        <ConfirmButton onClick={handleGotoHome}>확인</ConfirmButton>
       </ContentContainer>
 
-      <Modal
-        show={showModal}
-        handleClose={closeModal}
-        title={modalTitle}
-        text={modalText}
-      />
+      <Modal show={showModal} handleClose={closeModal} title={modalTitle} text={modalText} />
     </PageContainer>
   );
 };
@@ -232,28 +257,28 @@ const EditButton = styled.button`
 `;
 
 const CheckBoxContainer = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    width: 100%;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
 `;
 
 const ReceptionText2 = styled.div`
-    color: #525252;
-    font-weight: 500;
-    font-size: 0.9rem;
+  color: #525252;
+  font-weight: 500;
+  font-size: 0.9rem;
 `;
 
 const ReceptionText = styled.div`
-    color: #979797;
-    font-size: 0.8rem;
-    font-weight: 500;
+  color: #979797;
+  font-size: 0.8rem;
+  font-weight: 500;
 `;
 
 const FaCheckStyle = {
-    color: "#1371FF",
-    fontSize: "13px",
+  color: "#1371FF",
+  fontSize: "13px",
 };
 
 const LabelStyle = { marginLeft: "1rem", userSelect: "none" };

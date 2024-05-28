@@ -12,7 +12,7 @@ const PageDetailTextContainer = styled.div`
 `;
 
 const PageDetailText = styled.p`
-  color: #a3a3a3;
+  color: #A3A3A3;
   font-family: Pretendard;
   font-size: 0.75rem;
   font-style: normal;
@@ -34,8 +34,8 @@ const SearchButton = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 0.8rem;
-  background: ${({ isSelected }) => (isSelected ? "#1371FF" : "#656565")};
-  color: #fff;
+  background: ${({ isSymptomSelected }) => (isSymptomSelected ? "#1371FF" : "#656565")};
+  color: #FFF;
   font-family: Pretendard;
   font-size: 1rem;
   font-style: normal;
@@ -43,16 +43,16 @@ const SearchButton = styled.button`
   line-height: normal;
   width: 90%;
   height: 7vh;
-  cursor: ${({ isSelected }) => (isSelected ? "pointer" : "not-allowed")};
+  cursor: ${({ isSymptomSelected }) => (isSymptomSelected ? "pointer" : "default")};
 `;
 
 export default function SearchHospitalBySymptom() {
-  const [selectedSymptom, setSelectedSymptom] = useState("");
+  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const navigate = useNavigate();
 
   const handleSearchHospital = () => {
-    if (selectedSymptom) {
-      navigate(`/SearchHospitalBySymptom/Detail?keyword=${selectedSymptom}`, { state: { selectedSymptom } });
+    if (selectedSymptoms.length > 0) {
+      navigate(`/SearchHospitalBySymptom/Detail`, { state: { selectedSymptoms } });
     }
   };
 
@@ -69,8 +69,8 @@ export default function SearchHospitalBySymptom() {
         </PageDetailTextContainer>
       </NavBar>
       <WrapperDiv>
-        <SymptomComponent onSubjectSelect={setSelectedSymptom} />
-        <SearchButton onClick={handleSearchHospital} isSelected={!!selectedSymptom}>
+        <SymptomComponent onSubjectSelect={setSelectedSymptoms} />
+        <SearchButton onClick={handleSearchHospital} isSymptomSelected={selectedSymptoms.length > 0}>
           검색
         </SearchButton>
       </WrapperDiv>

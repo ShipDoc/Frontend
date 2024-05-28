@@ -34,8 +34,8 @@ const SymptomTextButton = styled.button`
 `;
 
 const SymptomComponent = ({ onSubjectSelect }) => {
-  const [selectedSymptom, setSelectedSymptom] = useState(() => {
-    return localStorage.getItem("selectedSymptom") || "";
+  const [selectedSubjects, setSelectedSubjects] = useState(() => {
+    return JSON.parse(localStorage.getItem("selectedSubjects")) || [];
   });
 
   const subjectMap = {
@@ -59,36 +59,38 @@ const SymptomComponent = ({ onSubjectSelect }) => {
   };
 
   useEffect(() => {
-    const selectedCategory = subjectMap[selectedSymptom] || "";
-    localStorage.setItem("selectedSymptom", selectedSymptom);
-    onSubjectSelect(selectedCategory);
-  }, [selectedSymptom, onSubjectSelect, subjectMap]);
+    const selectedSymptoms = selectedSubjects.map(subject => subjectMap[subject]);
+    localStorage.setItem("selectedSubjects", JSON.stringify(selectedSubjects));
+    onSubjectSelect(selectedSymptoms);
+  }, [selectedSubjects, onSubjectSelect, subjectMap]);
 
   const symptoms = [
-    ["두통", "발열", "기침", "목통증", "메스꺼움", "피로"],
-    ["설사", "구토", "어지럼증", "흉통", "호흡곤란", "복통"],
-    ["발진", "관절통", "근육통", "콧물", "몸살"],
+    ["두통", "발열", "기침", "목통증", "메스꺼움"],
+    ["피로", "설사", "구토", "어지럼증", "흉통"],
+    ["호흡곤란", "복통", "발진", "관절통", "근육통", "콧물", "몸살"],
   ];
 
-  const handleButtonClick = (symptom) => {
-    if (selectedSymptom === symptom) {
-      setSelectedSymptom(""); // 이미 선택된 버튼을 다시 클릭하면 선택 해제
-    } else {
-      setSelectedSymptom(symptom);
-    }
+  const handleButtonClick = (subject) => {
+    setSelectedSubjects((prevSelected) => {
+      if (prevSelected.includes(subject)) {
+        return prevSelected.filter((s) => s !== subject);
+      } else {
+        return [...prevSelected, subject];
+      }
+    });
   };
 
   return (
     <SymptomContainer>
       {symptoms.map((symptomRow, rowIndex) => (
         <SymptomBox key={rowIndex}>
-          {symptomRow.map((symptom) => (
+          {symptomRow.map((subject) => (
             <SymptomTextButton
-              key={symptom}
-              isSelected={selectedSymptom === symptom}
-              onClick={() => handleButtonClick(symptom)}
+              key={subject}
+              isSelected={selectedSubjects.includes(subject)}
+              onClick={() => handleButtonClick(subject)}
             >
-              {symptom}
+              {subject}
             </SymptomTextButton>
           ))}
         </SymptomBox>

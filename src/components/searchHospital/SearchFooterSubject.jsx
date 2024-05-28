@@ -172,6 +172,7 @@ export default function SearchFooter({ symptom }) {
   const [hospitalList, setHospitalList] = useState([]);
   const [modal, setModal] = useState(false);
   const [sortOption, setSortOption] = useState("가까운 순");
+  const [size, setSize] = useState(3); // size 상태 추가
   const modalRef = useRef();
 
   useEffect(() => {
@@ -181,7 +182,7 @@ export default function SearchFooter({ symptom }) {
       const requestData = {
         latitude: 37.589135,
         longitude: 127.2198911,
-        size: 15,
+        size: size,
         category: [symptom],
         sort: "REVIEW",
       };
@@ -205,7 +206,7 @@ export default function SearchFooter({ symptom }) {
     };
 
     fetchHospitalList();
-  }, [location, symptom, sortOption]);
+  }, [location, symptom, sortOption, size]);
 
   const toggleModal = () => {
     setModal((prev) => !prev);
@@ -214,6 +215,10 @@ export default function SearchFooter({ symptom }) {
   const handleSelectOption = (option) => {
     setSortOption(option);
     setModal(false);
+  };
+
+  const handleLoadMore = () => {
+    setSize((prevSize) => prevSize + 3);
   };
 
   return (
@@ -272,7 +277,7 @@ export default function SearchFooter({ symptom }) {
             <NoListText>병원 데이터가 없습니다.</NoListText>
           )}
         </HospitalListContainer>
-        <SearchButton>더보기</SearchButton>
+        <SearchButton onClick={handleLoadMore}>더보기</SearchButton>
       </FooterContainer>
     </FooterWrapper>
   );

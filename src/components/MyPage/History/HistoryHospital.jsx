@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import MainItem from "./MainItem";
 import { BsFillTelephoneFill } from "react-icons/bs";
@@ -6,17 +6,10 @@ import hospitalMaeker from "../../../assets/icons/hospitalMarker.svg";
 import virticalLine1 from "../../../assets/images/virticalLine1.svg";
 import virticalLine2 from "../../../assets/images/virticalLine2.svg";
 
-export default function HospitalComponent({ name }) {
-    const [hospitalName, setHospitalName] = useState(name);
-    const [user, setUser] = useState("김아현");
-    const [date, setDate] = useState("2024. 05. 07 화요일 10:00");
-    const [sms, setSms] = useState("O");
-    const [auto, setAuto] = useState("O");
-    const [telNum, setTelNum] = useState("00-000-0000");
-
+export default function HospitalComponent({ patientName, hospitalName, hospitalPhone, reservationTime, diagnosis, department, visitCount }) {
     const handleCopyClipBoard = async () => {
         try {
-            await navigator.clipboard.writeText(telNum);
+            await navigator.clipboard.writeText(hospitalPhone);
         } catch (error) {
             console.log("실패");
         }
@@ -36,14 +29,21 @@ export default function HospitalComponent({ name }) {
                         <MainItemWrapper>
                             <MainItem
                                 subject="진료자"
-                                text={user}
+                                text={patientName}
                             />
                         </MainItemWrapper>
                         <VerticalLine src={virticalLine1} alt="virticalLine" />
                         <MainItemWrapper>
                             <MainItem
                                 subject="예약 날짜 & 시간"
-                                text={date}
+                                text={new Date(reservationTime).toLocaleString('ko-KR', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    weekday: 'long',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                })}
                                 highlight
                             />
                         </MainItemWrapper>
@@ -52,14 +52,14 @@ export default function HospitalComponent({ name }) {
                         <MainItemWrapper>
                             <MainItem
                                 subject="진료과목"
-                                text="이비인후과"
+                                text={department}
                             />
                         </MainItemWrapper>
                         <VerticalLine src={virticalLine2} alt="virticalLine" />
                         <MainItemWrapper>
                             <MainItem
                                 subject="내원 일수"
-                                text="1일"
+                                text={`${visitCount}일`}
                                 highlight
                             />
                         </MainItemWrapper>
@@ -68,7 +68,7 @@ export default function HospitalComponent({ name }) {
                 <TelAndReview>
                     <Tel>
                         <BsFillTelephoneFill />
-                        <TelNumber>{telNum}</TelNumber>
+                        <TelNumber>{hospitalPhone}</TelNumber>
                         <CopyTel onClick={handleCopyClipBoard}>복사</CopyTel>
                     </Tel>
                 </TelAndReview>
@@ -115,7 +115,7 @@ const MainItemWrapper = styled.div`
 `;
 
 const VerticalLine = styled.img`
-    hieght: 100%;
+    height: 100%;
     margin: 0 0.5rem;
 `;
 

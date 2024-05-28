@@ -4,9 +4,9 @@ import HospitalComponent from "../../components/MyPage/Apointment/ApointmentHosp
 import styled from "styled-components";
 import HospitalMap from "../../components/detail/HospitalMap";
 import Modal from "../../components/MyPage/Apointment/Modal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
-import { getDetail } from "../../apis/api/detail";
+import { getReservations } from "../../apis/api/reservations";
 
 const geolocationOptions = {
     enableHighAccuracy: true,
@@ -15,13 +15,11 @@ const geolocationOptions = {
 };
 
 const Detail = () => {
-    const [hospitalDetail, setHospitalDetail] = useState({});
-
+    const locationState = useLocation();
+    const { reservationId } = locationState.state || {};
+    const [reservationDetail, setReservationDetail] = useState(null);
     const { location, error } = useGeoLocation(geolocationOptions);
-
     const navigate = useNavigate();
-
-    const [peopleNum, setPeopleNum] = useState(0);
     const [showModal, setShowModal] = useState(false);
 
     const handleBtn = () => {
@@ -38,32 +36,54 @@ const Detail = () => {
     };
 
     useEffect(() => {
-        const fetchHospitalDetail = async () => {
+        const fetchReservationDetail = async () => {
             try {
-                const res = await getDetail({ hospitalId: 1 });
-                // console.log(res);
-
-                if (res.data.code === "COMMON200") {
-                    setHospitalDetail(res.data.result);
+                const res = await getReservations();
+                if (res.isSuccess) {
+                    const reservation = res.result.reservations.find(r => r.id === reservationId);
+                    setReservationDetail(reservation);
                 } else {
-                    console.log(res.data.code);
+                    console.log(res.code);
                 }
             } catch (error) {
-                console.error("Failed to fetch hospital detail:", error);
+                console.error("Failed to fetch reservation detail:", error);
             }
         };
 
-        fetchHospitalDetail();
-    }, []);
+        fetchReservationDetail();
+    }, [reservationId]);
+
+    const formatDateTime = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('ko-KR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            weekday: 'long',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
+
+    if (!reservationDetail) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <>
             <NavBar>
-                마이페이지 &gt; 병원 예약내역 보기 &gt; 연세이빈후과의원
+                마이페이지 &gt; 병원 예약내역 보기 &gt; {reservationDetail.hospitalName}
             </NavBar>
             <Frame>
                 <Div>
-                    <HospitalComponent name="연세이빈후과의원" />
+                    <HospitalComponent 
+                        name={reservationDetail.hospitalName} 
+                        user={reservationDetail.name}
+                        date={formatDateTime(reservationDetail.reservationTime)}
+                        sms={reservationDetail.smsId ? "O" : "X"}
+                        auto={reservationDetail.autoReservation ? "O" : "X"}
+                        telNum={reservationDetail.hospitalTel}
+                    />
                     <StyledHr />
                     <HospitalMap data={location} />
                     <StyledHr />
@@ -75,7 +95,7 @@ const Detail = () => {
                                 <TagBox>
                                     <TagText>
                                         <span style={{ color: "#E22222" }}>
-                                            {peopleNum}명
+                                            {reservationDetail.estimatedWaitPatient}명
                                         </span>{" "}
                                         대기중
                                     </TagText>
