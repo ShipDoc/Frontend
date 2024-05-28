@@ -43,6 +43,7 @@ const Health = () => {
 
     useEffect(() => {
         if (location.latitude && location.longitude) {
+            console.log(location);
             const fetchHospitalList = async () => {
                 try {
                     const res = await getHealthCareList({
@@ -237,13 +238,14 @@ const NoListText = styled.div`
 `;
 
 const ReservationBtn = styled.button`
+    margin-top: 2rem;
     bottom: 0.5rem;
     background-color: #1371ff;
     color: white;
     font-weight: 800;
     font-size: 1.2rem;
-    border-radius: 20px;
-    width: 50%;
+    border-radius: 15px;
+    width: 100%;
     height: 3rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;

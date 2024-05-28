@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router";
 import ChoosePayment from "../../components/detail/ChoosePayment";
 import Payments from "../../components/detail/Payments";
 import AgreeText from "../../components/detail/AgreeText";
+import { reserveHospital } from "../../apis/api/detail";
 
 const formatDate = (date) => {
     const daysOfWeek = [
@@ -25,6 +26,18 @@ const formatDate = (date) => {
 };
 
 const Payment = () => {
+    // state: {
+    //     selectedDate: selectedDate,
+    //     selectedTime: selectedTime,
+    //     text: state.text,
+    //     reserveData: {
+    //         hospitalId: state.data.hospitalId,
+    //         phoneNumber: number,
+    //         reservationDate: formatDateToYYYYMMDD(date),
+    //         reservationTime: selectedTime,
+    //         isAutoReservation: false,
+    //     },
+    // },
     const { state } = useLocation();
     const navigate = useNavigate();
 
@@ -51,11 +64,26 @@ const Payment = () => {
     };
 
     const nextHandle = () => {
-        navigate("/detail/success", {
-            state: {
-                text: state.text,
-            },
-        });
+        const reserve = async () => {
+            try {
+                console.log(state.reserveData);
+                const res = await reserveHospital(state.reserveData);
+
+                if (res.data.code === "COMMON200" || res.data.status === 200) {
+                    navigate("/detail/success", {
+                        state: {
+                            text: state.text,
+                        },
+                    });
+                } else {
+                    console.log(res.data.code);
+                }
+            } catch (error) {
+                console.error("Failed to fetch hospital detail:", error);
+            }
+        };
+
+        reserve();
     };
 
     const [allRequiredChecked, setAllRequiredChecked] = useState(false);

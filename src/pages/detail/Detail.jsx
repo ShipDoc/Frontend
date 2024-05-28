@@ -19,10 +19,12 @@ const Detail = () => {
 
     const [location, setLocation] = useState({});
 
+    const [clinic, setClinic] = useState([]);
+
     const navigate = useNavigate();
 
     // 진료중, 휴게시간, 진료마감 구분
-    const [ingNum, setIngNum] = useState(0);
+    const [ingNum, setIngNum] = useState("OPEN");
 
     const [subjectTags, setSubjectTags] = useState([
         "안심 실명제",
@@ -30,11 +32,15 @@ const Detail = () => {
         "전담 회복실",
     ]);
 
+    // 대기 인원
     const [peopleNum, setPeopleNum] = useState(0);
 
-    const [starRate, setStarRate] = useState(3.5);
+    // 별점
+    const [starRate, setStarRate] = useState(3.7);
 
+    // 유저 이름
     const [username, setUsername] = useState("어디서나 777");
+    const [reviewList, setReviewList] = useState(null);
 
     const [hospitalName, setHospitalName] = useState("");
 
@@ -42,7 +48,11 @@ const Detail = () => {
         useState("과잉 진료하지 않아서 좋아요.");
 
     const IngText = () => {
-        const texts = ["현재 진료중", "휴게시간", "진료마감"];
+        const texts = {
+            OPEN: "현재 진료중",
+            CLOSED: "진료마감",
+            BREAK_TIME: "휴게시간",
+        };
 
         const textStyle = {
             color: "",
@@ -52,13 +62,12 @@ const Detail = () => {
             alignItems: "center",
             marginLeft: "0.5rem",
         };
-
-        if (ingNum === 0) {
+        if (ingNum === "OPEN") {
             textStyle.color = "#32BF00";
-        } else if (ingNum === 1) {
-            textStyle.color = "#1371FF";
-        } else {
+        } else if (ingNum === "CLOSED") {
             textStyle.color = "#FF0000";
+        } else {
+            textStyle.color = "#1371FF";
         }
 
         return (
@@ -69,12 +78,113 @@ const Detail = () => {
         );
     };
 
-    const handleBtn = () => {
-        navigate("/detail/reservation", {
+    const handleBtn = async () => {
+        try {
+            const res = await getDetail({ hospitalId: state.id });
+            if (res.data.code === "COMMON200" || res.data.status === 200) {
+                const hospitalData = res.data.result;
+                navigate("/detail/reservation", {
+                    state: {
+                        text: `홈 > ${path} > 병원 예약하기`,
+                        data: hospitalData,
+                    },
+                });
+            } else {
+                console.log(res.data.code);
+            }
+        } catch (error) {
+            console.error("Failed to fetch hospital detail:", error);
+        }
+    };
+
+    const reviewPage = () => {
+        navigate("/detail/review", {
             state: {
-                text: `홈 > ${path} > 병원 예약하기`,
+                hospitalId: state.id,
             },
         });
+    };
+
+    const makeClinicHours = () => {
+        if (!hospitalDetail || !hospitalDetail.businessHours) {
+            return;
+        }
+
+        const clinics = [];
+
+        // 요일 순서 배열
+        const weekDays = [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday",
+        ];
+
+        const koreanDays = {
+            monday: "월",
+            tuesday: "화",
+            wednesday: "수",
+            thursday: "목",
+            friday: "금",
+            saturday: "토",
+            sunday: "일",
+        };
+
+        // 현재 요일을 가져옴
+        const today = new Date();
+
+        // -1 이면 일요일
+        const todayDay =
+            today.getDay() - 1 === -1
+                ? weekDays[weekDays.length - 1]
+                : weekDays[today.getDay() - 1];
+
+        // 오늘의 영업 시간과 휴게 시간 출력
+        const todayBusinessHours = hospitalDetail.businessHours[todayDay];
+        const breakTime = hospitalDetail.businessHours.breakTime;
+
+        clinics.push({
+            day: "오늘",
+            time: `${todayBusinessHours} | ${breakTime} 휴게 시간`,
+        });
+
+        // 영업 시간 그룹화 함수
+        function groupBusinessHours(businessHours) {
+            const groupedHours = {};
+            for (const day of weekDays) {
+                const hours = businessHours[day];
+
+                if (!groupedHours[hours]) {
+                    groupedHours[hours] = [];
+                }
+                groupedHours[hours].push(day);
+            }
+            return groupedHours;
+        }
+
+        // 그룹화된 영업 시간과 휴무일 출력
+        const groupedHours = groupBusinessHours(hospitalDetail.businessHours);
+        for (const [hours, days] of Object.entries(groupedHours)) {
+            const dayNames = days.map((day) => koreanDays[day]).join(", ");
+
+            if (hours === "휴무") {
+                clinics.push({
+                    day: dayNames,
+                    time: ` (매 주 ${dayNames}요일)`,
+                    isHoliday: true,
+                });
+            } else {
+                clinics.push({
+                    day: dayNames,
+                    time: `${hours} | ${breakTime} 휴게 시간`,
+                });
+            }
+        }
+
+        setClinic(clinics);
     };
 
     useEffect(() => {
@@ -99,7 +209,8 @@ const Detail = () => {
     useEffect(() => {
         if (hospitalDetail) {
             setPeopleNum(hospitalDetail.waitingCount || 0);
-            setStarRate(hospitalDetail.totalRate || 3.5);
+            setStarRate(hospitalDetail.totalRate);
+
             setHospitalName(hospitalDetail.placeName || "");
             setLocation({
                 latitude: hospitalDetail.latitude,
@@ -109,6 +220,12 @@ const Detail = () => {
             setSubjectTags(
                 hospitalDetail.department ? [hospitalDetail.department] : null
             );
+
+            setReviewList(hospitalDetail.reviewList);
+
+            setIngNum(hospitalDetail.isOpenNow);
+
+            makeClinicHours();
         }
     }, [hospitalDetail]);
 
@@ -138,6 +255,29 @@ const Detail = () => {
 
                             <IngText></IngText>
                         </IngContainer>
+                        <ClinicWrapper>
+                            {clinic.map((c, idx) => {
+                                return (
+                                    <ClinicTimeContainer key={idx}>
+                                        <ClinicTimeText>{c.day}</ClinicTimeText>
+                                        <ClinicTime>
+                                            {c.isHoliday ? (
+                                                <>
+                                                    <span
+                                                        style={{ color: "red" }}
+                                                    >
+                                                        정기휴무
+                                                    </span>
+                                                    {c.time}
+                                                </>
+                                            ) : (
+                                                c.time
+                                            )}
+                                        </ClinicTime>
+                                    </ClinicTimeContainer>
+                                );
+                            })}
+                        </ClinicWrapper>
                     </GeneralContainer>
                     <StyledHr />
                     <GeneralContainer>
@@ -172,15 +312,32 @@ const Detail = () => {
                     <GeneralContainer>
                         <StarContainer>
                             <SubTitle>리뷰</SubTitle>
-                            <Star textColor="#1371FF" rate={starRate}></Star>
+                            <Star
+                                id={state.id}
+                                textColor="#1371FF"
+                                rate={starRate}
+                            ></Star>
                         </StarContainer>
-                        <ProfileContainer>
-                            <ProfileImg src={profile}></ProfileImg>
-                            <NickName>{username}</NickName>
-                        </ProfileContainer>
-                        <Description>{description}</Description>
+
+                        {reviewList ? (
+                            <>
+                                <ProfileContainer>
+                                    <ProfileImg src={profile}></ProfileImg>
+                                    <NickName>{reviewList[0].name}</NickName>
+                                </ProfileContainer>
+                                <Description>
+                                    {reviewList[0].content}
+                                </Description>
+                            </>
+                        ) : (
+                            <NoReviewContent>
+                                리뷰가 아직 남겨지지 않았어요.
+                            </NoReviewContent>
+                        )}
                     </GeneralContainer>
-                    <ReviewButton>더 많은 리뷰 보러가기</ReviewButton>
+                    <ReviewButton onClick={reviewPage}>
+                        더 많은 리뷰 보러가기
+                    </ReviewButton>
                     <ReservationBtn onClick={handleBtn}>
                         <ButtonText>
                             <span>병원 예약하기</span>
@@ -229,8 +386,8 @@ const PathText = styled.div`
 `;
 
 const SubTitle = styled.div`
-    font-weight: 500;
-    font-size: 1rem;
+    font-weight: 600;
+    font-size: 1.2rem;
 `;
 
 const IngContainer = styled.div`
@@ -285,6 +442,7 @@ const ReviewButton = styled.div`
 
     margin: 1rem auto 3rem auto;
     font-weight: 700;
+    cursor: pointer;
 `;
 
 const ProfileContainer = styled.div`
@@ -332,6 +490,32 @@ const LogoImg = styled.img`
     width: 1.3rem;
     height: 1.3rem;
     margin-left: 0.3rem;
+`;
+
+const ClinicWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+`;
+const ClinicTimeContainer = styled.div``;
+
+const ClinicTimeText = styled.div`
+    margin-top: 1rem;
+    font-weight: 500;
+`;
+
+const ClinicTime = styled.div`
+    margin-top: 0.4rem;
+    font-weight: 500;
+    color: #8a8a8a;
+    font-size: 0.9rem;
+`;
+
+const NoReviewContent = styled.div`
+    margin: 3rem 0;
+    font-size: 1.1rem;
+    text-align: center;
+    color: #808080;
+    font-weight: 400;
 `;
 
 export default Detail;

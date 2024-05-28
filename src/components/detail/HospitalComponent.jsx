@@ -53,14 +53,16 @@ export default function HospitalComponent(props) {
     };
 
     useEffect(() => {
-        console.log(props);
-        setHospitalName(props.hospitalDetail.placeName);
-        setHospitalLocation(props.hospitalDetail.address);
-        setRateNum(props.data.totalRate);
+        if (props) {
+            setHospitalName(props.hospitalDetail.placeName);
+            setHospitalLocation(props.hospitalDetail.address);
+            setRateNum(props.data.totalRate);
 
-        setTelNum(props.hospitalDetail.phone);
-        // setReviewCnt(props.hospitalDetail.reviewList.length);
-        console.log(props.hospitalDetail.reviewList);
+            setTelNum(props.hospitalDetail.phone);
+            if (props.hospitalDetail.reviewList) {
+                setReviewCnt(props.hospitalDetail.reviewList.length);
+            }
+        }
     }, [props]);
 
     return (
@@ -74,7 +76,7 @@ export default function HospitalComponent(props) {
                         </HospitalLocationText>
                     </TextContainer>
                 </div>
-                <DetailHospitalContainer>
+                <DetailHospitalContainer src={props.data.imageUrl}>
                     <img
                         src={leftImg}
                         alt="leftImg"
@@ -86,7 +88,7 @@ export default function HospitalComponent(props) {
                             cursor: "pointer",
                         }}
                     />
-                    <HospitalImg src={props.data.imageUrl}></HospitalImg>
+
                     <img
                         src={rightImg}
                         alt="rightImg"
@@ -157,16 +159,18 @@ const HospitalLocationText = styled.div`
 
 const DetailHospitalContainer = styled.div`
     margin-top: 1vh;
-    width: 40vw;
+    width: 100%;
     height: 18vh;
     border-radius: 2.0625rem;
     position: relative;
-    background-color: #e6e5eb;
+
     display: flex;
     justify-content: center;
     align-items: center;
 
     cursor: pointer;
+    background: url(${(props) => props.src}) no-repeat center center;
+    background-size: cover;
 `;
 
 const HospitalImg = styled.img`
