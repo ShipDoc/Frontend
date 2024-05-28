@@ -65,9 +65,9 @@ const SymptomComponent = ({ onSubjectSelect }) => {
   }, [selectedSymptom, onSubjectSelect, subjectMap]);
 
   const symptoms = [
-    ["두통", "발열", "기침", "목통증", "메스꺼움"],
-    ["피로", "설사", "구토", "어지럼증", "흉통"],
-    ["호흡곤란", "복통", "발진", "관절통", "근육통", "콧물", "몸살"],
+    ["두통", "발열", "기침", "목통증", "메스꺼움", "피로"],
+    ["설사", "구토", "어지럼증", "흉통", "호흡곤란", "복통"],
+    ["발진", "관절통", "근육통", "콧물", "몸살"],
   ];
 
   const handleButtonClick = (symptom) => {
