@@ -14,7 +14,12 @@ import ReserveTime from "../../components/detail/ReserveTime";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Reservation = () => {
+    // state: {
+    //     text: `홈 > ${path} > 병원 예약하기`,
+    //     data: hospitalData,
+    // },
     const { state } = useLocation();
+    console.log(state);
     const navigate = useNavigate();
 
     // 유저 이름
@@ -33,17 +38,37 @@ const Reservation = () => {
     };
     const [selectedTime, setSelectedTime] = useState(null);
 
+    // 해당 날짜의 운영 시간
+    const [opendDate, setOpenDate] = useState(null);
+
     const receptionCheck = () => {};
 
     const handleChange = (checked, e) => {};
 
     const nextHandle = () => {
+        function formatDateToYYYYMMDD(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1 필요
+            const day = String(date.getDate()).padStart(2, "0");
+
+            return `${year}${month}${day}`;
+        }
+
+        const date = new Date(selectedDate);
+
         if (selectedOption === "option1") {
             navigate("/detail/pay", {
                 state: {
                     selectedDate: selectedDate,
                     selectedTime: selectedTime,
                     text: state.text,
+                    reserveData: {
+                        hospitalId: state.data.hospitalId,
+                        phoneNumber: number,
+                        reservationDate: formatDateToYYYYMMDD(date),
+                        reservationTime: selectedTime,
+                        isAutoReservation: true,
+                    },
                 },
             });
         } else {
@@ -52,6 +77,13 @@ const Reservation = () => {
                     selectedDate: selectedDate,
                     selectedTime: selectedTime,
                     text: state.text,
+                    reserveData: {
+                        hospitalId: state.data.hospitalId,
+                        phoneNumber: number,
+                        reservationDate: formatDateToYYYYMMDD(date),
+                        reservationTime: selectedTime,
+                        isAutoReservation: false,
+                    },
                 },
             });
         }
@@ -61,8 +93,30 @@ const Reservation = () => {
     const [selectedOption, setSelectedOption] = useState(null);
 
     useEffect(() => {
-        console.log(selectedTime);
-        console.log(selectedDate);
+        const weekDays = [
+            "sunday",
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+        ];
+
+        const day = new Date(selectedDate);
+
+        const whichDay = weekDays[day.getDay()];
+
+        const formatBusinessHours = (hours) => {
+            if (hours === "휴무") {
+                return { holiday: true };
+            } else {
+                const [open, close] = hours.split(" ~ ");
+                return { open, close, holiday: false };
+            }
+        };
+
+        setOpenDate(formatBusinessHours(state.data.businessHours[whichDay]));
     }, [selectedTime, selectedDate]);
 
     return (
@@ -98,12 +152,18 @@ const Reservation = () => {
                     ></MyCalendar>
 
                     {selectedDate !== null ? (
-                        <ReserveTime
-                            openTime="09:00"
-                            closeTime="20:00"
-                            setSelectedTime={setSelectedTime}
-                            selectedDate={selectedDate}
-                        ></ReserveTime>
+                        !opendDate.holiday ? (
+                            <ReserveTime
+                                openTime={opendDate.open}
+                                closeTime={opendDate.close}
+                                // openTime="09:00"
+                                // closeTime="13:00"
+                                setSelectedTime={setSelectedTime}
+                                selectedDate={selectedDate}
+                            ></ReserveTime>
+                        ) : (
+                            <NoTimeText>해당 요일은 휴무일입니다.</NoTimeText>
+                        )
                     ) : null}
 
                     <StyledHr />
@@ -120,7 +180,10 @@ const Reservation = () => {
                             <TelContainer>
                                 <BsFillTelephoneFill></BsFillTelephoneFill>
                                 <InputDiv>
-                                    <InputComp></InputComp>
+                                    <InputComp
+                                        type="text"
+                                        onChange={changeNumber}
+                                    ></InputComp>
                                 </InputDiv>
                                 <ReceptionText1>수신 허용</ReceptionText1>
                                 <CheckBoxStyle>
@@ -270,6 +333,13 @@ const CalenderText = styled.div`
     font-style: normal;
     font-weight: 500;
     margin-left: 0.5rem;
+`;
+
+const NoTimeText = styled.div`
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #808080;
+    margin: 3rem 0;
 `;
 
 const TelWrapper = styled.div``;

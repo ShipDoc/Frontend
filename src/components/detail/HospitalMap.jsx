@@ -27,14 +27,16 @@ const HospitalMap = (props) => {
     };
 
     useEffect(() => {
-        const newLat = parseFloat(Number(props.data.latitude).toFixed(4));
-        const newLng = parseFloat(Number(props.data.longitude).toFixed(4));
-        setCoordinate({
-            lat: newLat,
-            lng: newLng,
-        });
-        console.log("New coordinates set:", { lat: newLat, lng: newLng });
-        setHospitalAddress(props.address);
+        if (props) {
+            const newLat = parseFloat(Number(props.data.latitude).toFixed(4));
+            const newLng = parseFloat(Number(props.data.longitude).toFixed(4));
+            setCoordinate({
+                lat: newLat,
+                lng: newLng,
+            });
+
+            setHospitalAddress(props.address);
+        }
     }, [props]);
 
     return (

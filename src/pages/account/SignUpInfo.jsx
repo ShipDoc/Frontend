@@ -131,64 +131,69 @@ const SignUpInfo = () => {
 
     // 코드 전송하기 눌렀을 때
     const onClickNumber = async () => {
-        const res = await sms({
-            phoneNumber: signUpVal.number,
-        });
+        try {
+            const res = await sms({
+                phoneNumber: signUpVal.number,
+            });
 
-        if (res.data.code === "COMMON200") {
-            setTransmit(true);
-            alert(
-                "인증번호를 성공적으로 발송했습니다. 발송된 인증코드는 5분간 유효합니다."
-            );
-        } else {
-            alert("로그인에 실패했습니다.");
+            if (res.data.code === "COMMON200") {
+                setTransmit(true);
+                alert(
+                    "인증번호를 성공적으로 발송했습니다. 발송된 인증코드는 5분간 유효합니다."
+                );
+            } else {
+                alert("로그인에 실패했습니다.");
+            }
+        } catch (e) {
+            alert("5분 후 다시 시도해주세요.");
         }
     };
 
     // 인증하기 눌렀을 때
     const onClickAuth = async () => {
-        const res = await verifyCode({
-            phoneNumber: signUpVal.number,
-            verifyCode: signUpVal.auth,
-        });
+        try {
+            const res = await verifyCode({
+                phoneNumber: signUpVal.number,
+                verifyCode: signUpVal.auth,
+            });
 
-        if (res.data.code === "COMMON200") {
-            setSignUpValid({ ...signUpValid, auth: true });
-            setCheckAuth(true);
-            setShowModal(true); // 인증 완료 모달 표시
-        } else {
+            if (res.data.code === "COMMON200") {
+                setSignUpValid({ ...signUpValid, auth: true });
+                setCheckAuth(true);
+                setShowModal(true); // 인증 완료 모달 표시
+            } else {
+                alert("인증에 실패했습니다.");
+            }
+        } catch (e) {
             alert("인증에 실패했습니다.");
         }
     };
 
     const handleSubmit = async () => {
-        console.log(signUpVal.id);
-        console.log(signUpVal.password);
-        console.log(signUpVal.checkPwd);
-        console.log(signUpVal.name);
-        console.log(signUpVal.birth);
-        console.log(signUpVal.number);
-        console.log(signUpVal.auth);
         if (checkAuth) {
-            const res = await signup({
-                loginId: signUpVal.id,
-                password: signUpVal.password,
-                passwordCheck: signUpVal.checkPwd,
-                name: signUpVal.name,
-                birth: signUpVal.birth,
-                phoneNumber: signUpVal.number,
-                verifyCode: signUpVal.auth,
-            });
+            try {
+                const res = await signup({
+                    loginId: signUpVal.id,
+                    password: signUpVal.password,
+                    passwordCheck: signUpVal.checkPwd,
+                    name: signUpVal.name,
+                    birth: signUpVal.birth,
+                    phoneNumber: signUpVal.number,
+                    verifyCode: signUpVal.auth,
+                });
 
-            console.log(res);
-            if (res.status === 400) {
-                alert(res.message);
-            } else {
-                if (res.data.code === "COMMON200") {
-                    navigate("/signUp/success");
+                console.log(res);
+                if (res.status === 400) {
+                    alert(res.message);
                 } else {
-                    alert("로그인에 실패했습니다.");
+                    if (res.data.code === "COMMON200") {
+                        navigate("/signUp/success");
+                    } else {
+                        alert("회원가입에 실패했습니다.");
+                    }
                 }
+            } catch (e) {
+                alert("회원가입에 실패했습니다.");
             }
         }
     };
@@ -354,7 +359,7 @@ const SignUpInfo = () => {
                             <AuthFrame>
                                 <Input
                                     type="tel"
-                                    placeholder="코드."
+                                    placeholder="인증코드 입력"
                                     handling={handleAuth}
                                     border="20px"
                                     margintop="0.2rem"

@@ -1,20 +1,49 @@
 import React, { useState, useRef, useEffect } from "react";
-import HospitalComponent from "../../components/ReserveHealth/HospitalComponent";
 import styled from "styled-components";
 import NavBar from "../../components/NavBar/NavBar";
-import SortModal from "../../components/Main/SortModal";
 import sortIcon from "../../assets/icons/sortIcon.svg";
-import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
-import { getHealthCareList } from "../../apis/api/healthCare";
 import { useLocation, useNavigate } from "react-router-dom";
-import Star from "../../components/common/Star";
 import ReviewStar from "../../components/review/ReviewStar";
 import ReviewContainer from "../../components/review/ReviewContainer";
+import { getReviews } from "../../apis/api/review";
 
 const Review = () => {
-    const { state } = useLocation;
+    const { state } = useLocation();
+
+    const [reviews, setReviews] = useState([]);
 
     const [visitNum, setVistNum] = useState(0);
+    const [rateNum, setRateNum] = useState(0);
+    const [hospitalName, setHospitalName] = useState("");
+
+    useEffect(() => {
+        const fetchHospitalReview = async () => {
+            try {
+                const res = await getReviews({
+                    hospitalId: state.hospitalId,
+                    page: 1,
+                    size: 3,
+                    sort: "LATEST",
+                });
+
+                if (res.data.code === "COMMON200" || res.data.status === 200) {
+                    const reviewData = res.data.result;
+
+                    setReviews(reviewData.reviewList);
+                    setRateNum(Number(reviewData.totalRate));
+
+                    setVistNum(reviewData.reviewList.length);
+                    setHospitalName(reviewData.hospitalName);
+                } else {
+                    console.log(res.data.code);
+                }
+            } catch (error) {
+                alert("오류가 발생하였습니다!");
+            }
+        };
+
+        fetchHospitalReview();
+    }, [state]);
 
     return (
         <>
@@ -22,10 +51,10 @@ const Review = () => {
             <Frame>
                 <Div>
                     <HospitalTitle>
-                        {state ? state.hospitalName : "연세이빈후과의원"}
+                        {hospitalName ? hospitalName : "연세이빈후과의원"}
                     </HospitalTitle>
                     <TotalStar>
-                        <ReviewStar rate="2"></ReviewStar>
+                        <ReviewStar rate={rateNum ? rateNum : 0}></ReviewStar>
                     </TotalStar>
                     <VisiterContainer>
                         <VisitNumber>
@@ -40,7 +69,22 @@ const Review = () => {
                     <StyledHr></StyledHr>
 
                     <GeneralContainer>
-                        <ReviewContainer></ReviewContainer>
+                        {reviews.length !== 0 ? (
+                            reviews.map((review) => {
+                                return (
+                                    <>
+                                        <ReviewContainer
+                                            review={review}
+                                        ></ReviewContainer>
+                                        <StyledHr></StyledHr>
+                                    </>
+                                );
+                            })
+                        ) : (
+                            <NoReviewContent>
+                                리뷰가 존재하지 않습니다.
+                            </NoReviewContent>
+                        )}
                     </GeneralContainer>
                 </Div>
             </Frame>
@@ -72,7 +116,6 @@ const StyledHr = styled.hr`
 
 const GeneralContainer = styled.div`
     width: 100%;
-    padding: 1rem;
 `;
 
 const HospitalTitle = styled.div`
@@ -98,6 +141,13 @@ const VisiterContainer = styled.div`
 
 const VisitNumber = styled.div`
     color: #656565;
+`;
+
+const NoReviewContent = styled.div`
+    margin: 5rem 0;
+    font-size: 1.2rem;
+    color: #808080;
+    font-weight: 600;
 `;
 
 export default Review;

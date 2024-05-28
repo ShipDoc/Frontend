@@ -31,6 +31,7 @@ import SearchHospitalBySymptomDetail from "./pages/SearchHospital/SearchHospital
 import Chat from "./pages/chat/Chat.jsx";
 import Health from "./pages/health/Health.jsx";
 import Review from "./pages/review/Review.jsx";
+import WriteReview from "./pages/review/WriteReview.jsx";
 
 function App() {
     return (
@@ -58,13 +59,25 @@ function App() {
             />
 
             {/* SearchHospital */}
-            <Route path="/SearchHospitalBySymptom" element={<SearchHospitalBySymptom />}></Route>
-            <Route path="/SearchHospitalBySymptom/Detail" element={<SearchHospitalBySymptomDetail />}></Route>
-            <Route path="/SearchHospitalBySubject" element={<SearchHospitalBySubject />}></Route>
-            <Route path="/SearchHospitalBySubject/Detail" element={<SearchHospitalBySubjectDetail />}></Route>
+            <Route
+                path="/SearchHospitalBySymptom"
+                element={<SearchHospitalBySymptom />}
+            ></Route>
+            <Route
+                path="/SearchHospitalBySymptom/Detail"
+                element={<SearchHospitalBySymptomDetail />}
+            ></Route>
+            <Route
+                path="/SearchHospitalBySubject"
+                element={<SearchHospitalBySubject />}
+            ></Route>
+            <Route
+                path="/SearchHospitalBySubject/Detail"
+                element={<SearchHospitalBySubjectDetail />}
+            ></Route>
             <Route path="/SearchHospital" element={<SearchHospital />}></Route>
-                <Route path="/insurance" element={<Insurance />}></Route>
-                <Route path="/insurance/FAQ1" element={<InsuranceFAQ1 />}></Route>
+            <Route path="/insurance" element={<Insurance />}></Route>
+            <Route path="/insurance/FAQ1" element={<InsuranceFAQ1 />}></Route>
 
             {/* Detail */}
             <Route path="/detail" element={<Detail />}></Route>
@@ -75,6 +88,10 @@ function App() {
 
             {/* Review */}
             <Route path="/detail/review" element={<Review />}></Route>
+            <Route
+                path="/detail/review/write"
+                element={<WriteReview />}
+            ></Route>
 
             {/* MyPage */}
             <Route path="/mypage" element={<MyPage />}></Route>
