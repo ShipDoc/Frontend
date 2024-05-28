@@ -148,26 +148,49 @@ const geolocationOptions = {
     maximumAge: 1000 * 3600 * 24,
 };
 
+const categoryMap = {
+    SURGERY: "외과",
+    INTERNAL_MEDICINE: "내과",
+    OTOLARYNGOLOGY: "이비인후과",
+    PEDIATRICS: "소아과",
+    ORTHOPEDICS: "정형외과",
+    NEUROSURGERY: "신경외과",
+    FAMILY_MEDICINE: "가정의학과",
+    OPHTHALMOLOGY: "안과",
+    PSYCHIATRY: "정신건강의학과",
+    DERMATOLOGY: "피부과",
+    UROLOGY: "비뇨기과",
+    OBSTETRICS_AND_GYNECOLOGY: "산부인과",
+    NEUROLOGY: "신경과",
+    PLASTIC_SURGERY: "성형외과",
+    EMERGENCY_MEDICINE: "응급의학과",
+    OTHERS: "기타",
+};
+
 export default function SearchFooter({ symptom }) {
     const { location, error } = useGeoLocation(geolocationOptions);
     const [hospitalList, setHospitalList] = useState([]);
     const [modal, setModal] = useState(false);
     const [sortOption, setSortOption] = useState("가까운 순");
+    const [size, setSize] = useState(3); // size 상태 추가
     const modalRef = useRef();
 
     useEffect(() => {
         const fetchHospitalList = async () => {
             if (!location.latitude || !location.longitude || !symptom) return;
 
+            const requestData = {
+                latitude: 37.589135,
+                longitude: 127.2198911,
+                size: size,
+                category: [symptom],
+                sort: "REVIEW",
+            };
+
+            console.log("Request Data:", requestData);
+
             try {
-                const res = await getCategoryList({
-                    latitude: location.latitude,
-                    longitude: location.longitude,
-                    size: 15,
-                    category: [symptom],
-                    sort: "REVIEW",
-                });
-                console.log(location.latitude, location.longitude);
+                const res = await getCategoryList(requestData);
 
                 console.log("API Response:", res);
 
@@ -184,9 +207,8 @@ export default function SearchFooter({ symptom }) {
                 console.error("Failed to fetch hospital list:", error);
             }
         };
-
         fetchHospitalList();
-    }, [location, symptom, sortOption]);
+    }, [location, symptom, sortOption, size]);
 
     const toggleModal = () => {
         setModal((prev) => !prev);
@@ -195,6 +217,10 @@ export default function SearchFooter({ symptom }) {
     const handleSelectOption = (option) => {
         setSortOption(option);
         setModal(false);
+    };
+
+    const handleLoadMore = () => {
+        setSize((prevSize) => prevSize + 3);
     };
 
     return (
@@ -209,7 +235,8 @@ export default function SearchFooter({ symptom }) {
                         }}
                     >
                         <NearHospitalText>
-                            <span>'{symptom}'</span> 관련 병원
+                            <span>'{categoryMap[symptom] || symptom}'</span>{" "}
+                            관련 병원
                         </NearHospitalText>
                     </div>
                     <div
@@ -271,7 +298,7 @@ export default function SearchFooter({ symptom }) {
                         <NoListText>병원 데이터가 없습니다.</NoListText>
                     )}
                 </HospitalListContainer>
-                <SearchButton>더보기</SearchButton>
+                <SearchButton onClick={handleLoadMore}>더보기</SearchButton>
             </FooterContainer>
         </FooterWrapper>
     );

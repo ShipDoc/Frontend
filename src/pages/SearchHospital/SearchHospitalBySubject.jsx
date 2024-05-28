@@ -52,7 +52,7 @@ export default function SearchHospitalBySubject() {
 
   const handleSearchHospital = () => {
     if (selectedSubject) {
-      navigate(`/SearchHospitalBySubject/Detail`, { state: { selectedSubject } });
+      navigate(`/SearchHospitalBySubject/Detail?keyword=${selectedSubject}`, { state: { selectedSubject } });
     }
   };
 

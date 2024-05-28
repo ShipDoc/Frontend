@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from './Button';
 import SubjectContainer from '../SubjectContainer';
-import Button from '../History/Button';
 
-const Content = () => {
+const Content = ({ consultations }) => {
   return (
     <MainContainer>
       <Container>
@@ -13,7 +13,7 @@ const Content = () => {
             subSubject="*최근 2년이내 받은 진료내역"
           />
         </Section>
-        <Button />
+        <Button consultations={consultations} />
       </Container>
     </MainContainer>
   );
@@ -24,7 +24,6 @@ const MainContainer = styled.main`
   width: 40%;
   max-width: 1200px;
   background: var(--Sub-color, #FFF);
-  
 `;
 
 const Container = styled.div`

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NavBar from "../../components/NavBar/NavBar";
 import blueBackImg from "../../assets/images/blueBack.svg";
 import { useNavigate, useLocation } from "react-router-dom";
-import SearchFooter from "../../components/searchHospital/SearchFooter";
+import SearchFooter from "../../components/searchHospital/SearchFooterSubject";
 
 const PageDetailTextContainer = styled.div`
   display: flex;

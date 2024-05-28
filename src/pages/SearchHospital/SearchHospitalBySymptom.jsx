@@ -47,12 +47,12 @@ const SearchButton = styled.button`
 `;
 
 export default function SearchHospitalBySymptom() {
-  const [selectedSymptom, setSelectedSymptom] = useState("");
+  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const navigate = useNavigate();
 
   const handleSearchHospital = () => {
-    if (selectedSymptom) {
-      navigate(`/SearchHospitalBySymptom/Detail?keyword=${selectedSymptom}`);
+    if (selectedSymptoms.length > 0) {
+      navigate(`/SearchHospitalBySymptom/Detail`, { state: { selectedSymptoms } });
     }
   };
 
@@ -69,8 +69,10 @@ export default function SearchHospitalBySymptom() {
         </PageDetailTextContainer>
       </NavBar>
       <WrapperDiv>
-        <SymptomComponent setSymptomSelected={setSelectedSymptom} />
-        <SearchButton onClick={handleSearchHospital} isSymptomSelected={!!selectedSymptom}>검색</SearchButton>
+        <SymptomComponent onSubjectSelect={setSelectedSymptoms} />
+        <SearchButton onClick={handleSearchHospital} isSymptomSelected={selectedSymptoms.length > 0}>
+          검색
+        </SearchButton>
       </WrapperDiv>
     </>
   );

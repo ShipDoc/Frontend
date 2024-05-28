@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import SubjectContainer from '../SubjectContainer';
 import Button from './Button';
+import SubjectContainer from '../SubjectContainer';
 
-const Content = () => {
+const Content = ({ reservations }) => {
   return (
     <MainContainer>
       <Container>
@@ -13,7 +13,7 @@ const Content = () => {
             subSubject=""
           />
         </Section>
-        <Button />
+        <Button reservations={reservations} />
       </Container>
     </MainContainer>
   );
@@ -24,7 +24,6 @@ const MainContainer = styled.main`
   width: 40%;
   max-width: 1200px;
   background: var(--Sub-color, #FFF);
-  
 `;
 
 const Container = styled.div`
