@@ -40,9 +40,9 @@ export default function HospitalComponent(props) {
     // 별점
     const [rateNum, setRateNum] = useState(Number(props.data.totalRate));
     const [hospitalTags, setHospitalTags] = useState([
-        "Test 1",
-        "Test 2",
-        "Test 3",
+        "안심 실명제",
+        "분야별 협진",
+        "전담 회복실",
     ]); // 병원 분류 상태 (백에서 받아오기)
 
     const handlingBtn = () => {
@@ -91,7 +91,10 @@ export default function HospitalComponent(props) {
                         <RateText>{rateNum.toFixed(1)}</RateText>
                     </div>
                 </div>
-                <DetailHospitalContainer onClick={handlingBtn}>
+                <DetailHospitalContainer
+                    src={props.data.imageUrl}
+                    onClick={handlingBtn}
+                >
                     <img
                         src={leftImg}
                         alt="leftImg"
@@ -103,7 +106,7 @@ export default function HospitalComponent(props) {
                             cursor: "pointer",
                         }}
                     />
-                    <HospitalImg src={props.data.imageUrl}></HospitalImg>
+
                     <img
                         src={rightImg}
                         alt="rightImg"
@@ -163,7 +166,7 @@ const RateText = styled.p`
 
 const DetailHospitalContainer = styled.div`
     margin-top: 1vh;
-    width: 40vw;
+    width: 100%;
     height: 18vh;
     border-radius: 2.0625rem;
     position: relative;
@@ -173,6 +176,8 @@ const DetailHospitalContainer = styled.div`
     align-items: center;
 
     cursor: pointer;
+    background: url(${(props) => props.src}) no-repeat center center;
+    background-size: cover;
 `;
 
 const HospitalImg = styled.img`

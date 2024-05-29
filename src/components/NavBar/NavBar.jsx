@@ -22,6 +22,15 @@ const NavBar = ({ children, activeIndex }) => {
 
     const handleItemClick = (index) => {
         setCurrentIndex(index);
+        if (index === 0) {
+            navigate("/home");
+        } else if (index === 1) {
+            navigate("/HealthCare");
+        } else if (index === 2) {
+            navigate("/insurance");
+        } else if (index === 3) {
+            navigate("/community");
+        }
     };
 
     return (

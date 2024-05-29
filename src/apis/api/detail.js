@@ -15,3 +15,13 @@ export const getDetail = async (info) => {
         return { message: e.response.data.message, status: e.response.status };
     }
 };
+
+// 병원 예약하기
+export const reserveHospital = async (info) => {
+    try {
+        const result = await authInstance.post(`/api/reservations`, info);
+        return result;
+    } catch (e) {
+        return { message: e.response.data.message, status: e.response.status };
+    }
+};

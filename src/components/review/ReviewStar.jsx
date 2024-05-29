@@ -21,7 +21,8 @@ const ReviewStar = ({ rate }) => {
     };
     useEffect(() => {
         setRatesResArr(calcStarRates);
-    }, []);
+        setPopularity(rate);
+    }, [popularity, rate]);
     return (
         <StarWrapper>
             {STAR_IDX_ARR.map((item, idx) => {

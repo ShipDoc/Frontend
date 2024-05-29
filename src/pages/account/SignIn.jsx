@@ -34,17 +34,21 @@ const SignIn = () => {
             return;
         }
 
-        const res = await signin({
-            loginId: loginVal.name,
-            password: loginVal.password,
-        });
+        try {
+            const res = await signin({
+                loginId: loginVal.name,
+                password: loginVal.password,
+            });
 
-        if (res.data.code === "COMMON200") {
-            localStorage.setItem("token", res.headers.authorization);
-            navigate("/Home");
-        } else {
-            console.log(res.data.code);
-            alert("로그인에 실패했습니다.");
+            if (res.data.code === "COMMON200") {
+                localStorage.setItem("token", res.headers.authorization);
+                navigate("/Home");
+            } else {
+                console.log(res.data.code);
+                alert("로그인에 실패했습니다.");
+            }
+        } catch (e) {
+            alert("아이디 또는 비밀번호가 올바르지 않습니다.");
         }
     };
 
