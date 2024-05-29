@@ -12,14 +12,15 @@ import { FaCheck } from "react-icons/fa6";
 import ButtonRadioGroup from "../../components/detail/ButtonRadioGroup";
 import ReserveTime from "../../components/detail/ReserveTime";
 import { useNavigate, useLocation } from "react-router-dom";
+import { getDetail } from "../../apis/api/detail";
 
 const Reservation = () => {
     // state: {
     //     text: `홈 > ${path} > 병원 예약하기`,
-    //     data: hospitalData,
+    //     hospitalId: hospitalId,
     // },
     const { state } = useLocation();
-    console.log(state);
+
     const navigate = useNavigate();
 
     // 유저 이름
@@ -40,6 +41,9 @@ const Reservation = () => {
 
     // 해당 날짜의 운영 시간
     const [opendDate, setOpenDate] = useState(null);
+
+    // 병원 상세정보 데이터
+    const [hospitalDetail, setHospitalDetail] = useState(null);
 
     const receptionCheck = () => {};
 
@@ -63,7 +67,7 @@ const Reservation = () => {
                     selectedTime: selectedTime,
                     text: state.text,
                     reserveData: {
-                        hospitalId: state.data.hospitalId,
+                        hospitalId: hospitalDetail.hospitalId,
                         phoneNumber: number,
                         reservationDate: formatDateToYYYYMMDD(date),
                         reservationTime: selectedTime,
@@ -78,7 +82,7 @@ const Reservation = () => {
                     selectedTime: selectedTime,
                     text: state.text,
                     reserveData: {
-                        hospitalId: state.data.hospitalId,
+                        hospitalId: hospitalDetail.hospitalId,
                         phoneNumber: number,
                         reservationDate: formatDateToYYYYMMDD(date),
                         reservationTime: selectedTime,
@@ -93,31 +97,56 @@ const Reservation = () => {
     const [selectedOption, setSelectedOption] = useState(null);
 
     useEffect(() => {
-        const weekDays = [
-            "sunday",
-            "monday",
-            "tuesday",
-            "wednesday",
-            "thursday",
-            "friday",
-            "saturday",
-        ];
+        if (hospitalDetail && hospitalDetail !== null) {
+            const weekDays = [
+                "sunday",
+                "monday",
+                "tuesday",
+                "wednesday",
+                "thursday",
+                "friday",
+                "saturday",
+            ];
 
-        const day = new Date(selectedDate);
+            const day = new Date(selectedDate);
 
-        const whichDay = weekDays[day.getDay()];
+            const whichDay = weekDays[day.getDay()];
 
-        const formatBusinessHours = (hours) => {
-            if (hours === "휴무") {
-                return { holiday: true };
-            } else {
-                const [open, close] = hours.split(" ~ ");
-                return { open, close, holiday: false };
+            const formatBusinessHours = (hours) => {
+                if (hours === "휴무") {
+                    return { holiday: true };
+                } else {
+                    const [open, close] = hours.split(" ~ ");
+                    return { open, close, holiday: false };
+                }
+            };
+
+            setOpenDate(
+                formatBusinessHours(hospitalDetail.businessHours[whichDay])
+            );
+        }
+    }, [selectedTime, selectedDate, hospitalDetail]);
+
+    useEffect(() => {
+        const fetchHospitalDetail = async () => {
+            console.log("가져오기!!");
+            try {
+                const res = await getDetail({ hospitalId: state.hospitalId });
+
+                if (res.data.code === "COMMON200" || res.data.status === 200) {
+                    const hospitalData = res.data.result;
+                    setHospitalDetail(hospitalData);
+                    console.log(hospitalData);
+                } else {
+                    console.log(res.data.code);
+                }
+            } catch (error) {
+                console.error("Failed to fetch hospital detail:", error);
             }
         };
 
-        setOpenDate(formatBusinessHours(state.data.businessHours[whichDay]));
-    }, [selectedTime, selectedDate]);
+        fetchHospitalDetail();
+    }, []);
 
     return (
         <>

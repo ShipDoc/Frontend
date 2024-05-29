@@ -83,10 +83,11 @@ const Detail = () => {
             const res = await getDetail({ hospitalId: state.id });
             if (res.data.code === "COMMON200" || res.data.status === 200) {
                 const hospitalData = res.data.result;
+
                 navigate("/detail/reservation", {
                     state: {
                         text: `홈 > ${path} > 병원 예약하기`,
-                        data: hospitalData,
+                        hospitalId: hospitalData.hospitalId,
                     },
                 });
             } else {
