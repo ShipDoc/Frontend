@@ -12,7 +12,7 @@ import { FaCheck } from "react-icons/fa6";
 import ButtonRadioGroup from "../../components/detail/ButtonRadioGroup";
 import ReserveTime from "../../components/detail/ReserveTime";
 import { useNavigate, useLocation } from "react-router-dom";
-import { getDetail } from "../../apis/api/detail";
+import { getDetail, getMoreDetail } from "../../apis/api/detail";
 
 const Reservation = () => {
     // state: {
@@ -23,11 +23,11 @@ const Reservation = () => {
 
     const navigate = useNavigate();
 
-    // 유저 이름
-    const [username, setUsername] = useState("김아현");
+    const [userInfo, setUserInfo] = useState(null);
 
     // 전화 번호
     const [number, setNumber] = useState(null);
+
     const changeNumber = (e) => {
         setNumber(e.target.value);
     };
@@ -45,9 +45,11 @@ const Reservation = () => {
     // 병원 상세정보 데이터
     const [hospitalDetail, setHospitalDetail] = useState(null);
 
-    const receptionCheck = () => {};
-
-    const handleChange = (checked, e) => {};
+    // 수신 허용
+    const [receptionCheck, setReceptionCheck] = useState(false);
+    const handleChange = (checked, e) => {
+        setReceptionCheck(checked);
+    };
 
     const nextHandle = () => {
         function formatDateToYYYYMMDD(date) {
@@ -68,7 +70,7 @@ const Reservation = () => {
                     text: state.text,
                     reserveData: {
                         hospitalId: hospitalDetail.hospitalId,
-                        phoneNumber: number,
+                        phoneNumber: receptionCheck ? number : null,
                         reservationDate: formatDateToYYYYMMDD(date),
                         reservationTime: selectedTime,
                         isAutoReservation: true,
@@ -83,7 +85,7 @@ const Reservation = () => {
                     text: state.text,
                     reserveData: {
                         hospitalId: hospitalDetail.hospitalId,
-                        phoneNumber: number,
+                        phoneNumber: receptionCheck ? number : null,
                         reservationDate: formatDateToYYYYMMDD(date),
                         reservationTime: selectedTime,
                         isAutoReservation: false,
@@ -129,14 +131,13 @@ const Reservation = () => {
 
     useEffect(() => {
         const fetchHospitalDetail = async () => {
-            console.log("가져오기!!");
             try {
                 const res = await getDetail({ hospitalId: state.hospitalId });
 
                 if (res.data.code === "COMMON200" || res.data.status === 200) {
                     const hospitalData = res.data.result;
+
                     setHospitalDetail(hospitalData);
-                    console.log(hospitalData);
                 } else {
                     console.log(res.data.code);
                 }
@@ -146,6 +147,26 @@ const Reservation = () => {
         };
 
         fetchHospitalDetail();
+
+        const fetchMoreDetail = async () => {
+            try {
+                const res = await getMoreDetail({
+                    hospitalId: state.hospitalId,
+                });
+
+                if (res.data.code === "COMMON200" || res.data.status === 200) {
+                    const profileData = res.data.result;
+
+                    setUserInfo(profileData);
+                } else {
+                    console.log(res.data.code);
+                }
+            } catch (error) {
+                console.error("Failed to fetch hospital detail:", error);
+            }
+        };
+
+        fetchMoreDetail();
     }, []);
 
     return (
@@ -160,7 +181,7 @@ const Reservation = () => {
                     <GeneralContainer>
                         <ProfileContainer>
                             <ProfileImg src={profile}></ProfileImg>
-                            <NickName>{username}</NickName>
+                            <NickName>{userInfo ? userInfo.name : ""}</NickName>
                             <TagBox>
                                 <TagText>본인</TagText>
                             </TagBox>
@@ -211,7 +232,9 @@ const Reservation = () => {
                                 <InputDiv>
                                     <InputComp
                                         type="text"
+                                        value={userInfo ? userInfo.phone : ""}
                                         onChange={changeNumber}
+                                        disabled={true}
                                     ></InputComp>
                                 </InputDiv>
                                 <ReceptionText1>수신 허용</ReceptionText1>
@@ -395,8 +418,9 @@ const InputDiv = styled.div`
 
 const InputComp = styled.input`
     margin-left: 1rem;
-    width: 7rem;
+    width: 90%;
     height: 100%;
+    background: white;
 `;
 
 const ReservationText = styled.div`

@@ -222,6 +222,7 @@ const Detail = () => {
                 hospitalDetail.department ? [hospitalDetail.department] : null
             );
 
+            console.log(hospitalDetail);
             setReviewList(hospitalDetail.reviewList);
 
             setIngNum(hospitalDetail.isOpenNow);
@@ -320,21 +321,32 @@ const Detail = () => {
                             ></Star>
                         </StarContainer>
 
-                        {reviewList ? (
-                            <>
-                                <ProfileContainer>
-                                    <ProfileImg src={profile}></ProfileImg>
-                                    <NickName>{reviewList[0].name}</NickName>
-                                </ProfileContainer>
-                                <Description>
-                                    {reviewList[0].content}
-                                </Description>
-                            </>
-                        ) : (
-                            <NoReviewContent>
-                                리뷰가 아직 남겨지지 않았어요.
-                            </NoReviewContent>
-                        )}
+                        {reviewList
+                            ? (reviewList.length !== 0 && (
+                                  <>
+                                      <ProfileContainer>
+                                          <ProfileImg
+                                              src={profile}
+                                          ></ProfileImg>
+                                          <NickName>
+                                              {reviewList.length !== 0
+                                                  ? reviewList[0].name
+                                                  : null}
+                                          </NickName>
+                                      </ProfileContainer>
+                                      <Description>
+                                          {reviewList.length !== 0
+                                              ? reviewList[0].content
+                                              : null}
+                                      </Description>
+                                  </>
+                              )) ||
+                              (reviewList.length === 0 && (
+                                  <NoReviewContent>
+                                      리뷰가 아직 남겨지지 않았어요.
+                                  </NoReviewContent>
+                              ))
+                            : null}
                     </GeneralContainer>
                     <ReviewButton onClick={reviewPage}>
                         더 많은 리뷰 보러가기

@@ -8,7 +8,9 @@ const SuccessRes = () => {
     const { state } = useLocation();
     const navigate = useNavigate();
 
-    const nextHandle = () => {};
+    const nextHandle = () => {
+        navigate("/mypage/apointment");
+    };
 
     return (
         <>
