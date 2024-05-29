@@ -4,6 +4,7 @@ import basicRateImg from "../../assets/images/basicRate.svg";
 import fillRateImg from "../../assets/images/fillRate.svg";
 import consulationChatImg from "../../assets/images/consulatoinChatImg.svg";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const HospitalContainer = styled.div`
   margin-bottom: 2vh;
@@ -117,24 +118,32 @@ const Rating = ({ rating }) => {
 };
 
 export default function HospitalComponent({
+  hospitalId,
   hospitalName,
   address,
   totalRate,
   imageUrl,
   tags,
 }) {
+  const navigate = useNavigate();
   const [rateNum, setRateNum] = useState(Number(totalRate));
   const [hospitalTags, setHospitalTags] = useState(tags || ["Test 1", "Test 2", "Test 3"]);
 
   useEffect(() => {
     console.log("Props received:", {
+      hospitalId,
       hospitalName,
       address,
       totalRate,
       imageUrl,
       tags,
     });
-  }, [hospitalName, address, totalRate, imageUrl, tags]);
+  }, [hospitalId, hospitalName, address, totalRate, imageUrl, tags]);
+
+  const handleReservationClick = () => {
+    const path = `증상으로 병원 찾기 < ${hospitalName}`;
+    navigate("/detail/reservation", { state: { path, hospitalId } });
+  };
 
   return (
     <>
@@ -151,7 +160,7 @@ export default function HospitalComponent({
           </div>
         </div>
         <DetailHospitalContainer imageUrl={imageUrl}>
-          <ConsultationButton>
+          <ConsultationButton onClick={handleReservationClick}>
             <ConsultationText>예약하기</ConsultationText>
           </ConsultationButton>
         </DetailHospitalContainer>
