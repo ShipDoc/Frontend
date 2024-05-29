@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const MyPageFooter = () => {
   return (
     <Footer>
-      <FooterLink to="/logout">로그아웃</FooterLink>
+      <FooterLink to="/">로그아웃</FooterLink>
     </Footer>
   );
 };

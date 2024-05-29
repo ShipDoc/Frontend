@@ -9,6 +9,7 @@ const History = () => {
     const [consultations, setConsultations] = useState([]);
     const navigate = useNavigate();
 
+
     useEffect(() => {
         const fetchConsultations = async () => {
             const data = await getConsultations();

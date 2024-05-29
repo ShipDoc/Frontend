@@ -141,8 +141,8 @@ export default function HospitalComponent({
   }, [hospitalId, hospitalName, address, totalRate, imageUrl, tags]);
 
   const handleReservationClick = () => {
-    const path = `증상으로 병원 찾기 < ${hospitalName}`;
-    navigate("/detail/reservation", { state: { path, hospitalId } });
+    const text = `홈 > ${hospitalName}`;
+    navigate("/detail/reservation", { state: { text, hospitalId } });
   };
 
   return (
