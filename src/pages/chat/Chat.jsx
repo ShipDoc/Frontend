@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import chatBanner from "../../assets/images/chat/chatBanner.svg";
 import chatProfile from "../../assets/images/chat/chatProfile.svg";
@@ -7,6 +7,16 @@ import sendBtn from "../../assets/images/chat/sendBtn.svg";
 import NavBar from "../../components/NavBar/NavBar";
 
 const Chat = () => {
+    const [textInput, setTextInput] = useState("");
+
+    const changeText = (e) => {
+        setTextInput(e.target.value);
+    };
+
+    const sentMessage = () => {
+        console.log(textInput);
+    };
+
     return (
         <>
             <NavBar activeIndex={0}>
@@ -36,8 +46,14 @@ const Chat = () => {
                     </ChatFrame>
 
                     <InputDiv>
-                        <InputComp></InputComp>
-                        <InputImg src={sendBtn}></InputImg>
+                        <InputComp
+                            value={textInput}
+                            onChange={changeText}
+                        ></InputComp>
+                        <InputImg
+                            onClick={sentMessage}
+                            src={sendBtn}
+                        ></InputImg>
                     </InputDiv>
                 </Div>
             </Frame>

@@ -8,6 +8,11 @@ import ReviewContainer from "../../components/review/ReviewContainer";
 import { getReviews } from "../../apis/api/review";
 
 const Review = () => {
+    // {
+    //     stat : {
+    //         hospitalId : hospitalId
+    //     }
+    // }
     const { state } = useLocation();
 
     const [reviews, setReviews] = useState([]);

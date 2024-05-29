@@ -25,7 +25,7 @@ const HistoryDetail = () => {
     const [isReviewClicked, setIsReviewClicked] = useState(false);
 
     useEffect(() => {
-        const savedReviewState = localStorage.getItem('isReviewClicked');
+        const savedReviewState = localStorage.getItem("isReviewClicked");
         if (savedReviewState) {
             setIsReviewClicked(JSON.parse(savedReviewState));
         }
@@ -38,7 +38,13 @@ const HistoryDetail = () => {
     const handleReviewClick = () => {
         const newReviewState = !isReviewClicked;
         setIsReviewClicked(newReviewState);
-        localStorage.setItem('isReviewClicked', JSON.stringify(newReviewState));
+        localStorage.setItem("isReviewClicked", JSON.stringify(newReviewState));
+        navigate("/detail/review", {
+            state: {
+                hospitalId: consultationDetail.id,
+                text: " ",
+            },
+        });
     };
 
     useEffect(() => {
@@ -46,7 +52,9 @@ const HistoryDetail = () => {
             try {
                 const res = await getConsultations();
                 if (res.code === "COMMON200") {
-                    const consultation = res.result.consultations.find(c => c.id === consultationId);
+                    const consultation = res.result.consultations.find(
+                        (c) => c.id === consultationId
+                    );
                     setConsultationDetail(consultation);
                 } else {
                     console.log(res.code);
@@ -66,11 +74,12 @@ const HistoryDetail = () => {
     return (
         <>
             <NavBar>
-                마이페이지 &gt; 진료내역 보기 &gt; {consultationDetail.hospitalName}
+                마이페이지 &gt; 진료내역 보기 &gt;{" "}
+                {consultationDetail.hospitalName}
             </NavBar>
             <Frame>
                 <Div>
-                    <HospitalComponent 
+                    <HospitalComponent
                         patientName={consultationDetail.patientName}
                         hospitalName={consultationDetail.hospitalName}
                         hospitalPhone={consultationDetail.hospitalPhone}
@@ -80,7 +89,7 @@ const HistoryDetail = () => {
                         visitCount={consultationDetail.visitCount}
                     />
                     <StyledHr />
-                    <HospitalMap 
+                    <HospitalMap
                         hospitalAddress={consultationDetail.hospitalAddress}
                         kakaoUrl={consultationDetail.kakaoUrl}
                     />
@@ -91,12 +100,21 @@ const HistoryDetail = () => {
                             <TagContainer>
                                 <AIContent>
                                     <ImgContainer>
-                                        <Subtract src={subtract} alt="subtract" />
-                                        <ShipdocAi src={ShipDocAi} alt="ShipDocAi" />
+                                        <Subtract
+                                            src={subtract}
+                                            alt="subtract"
+                                        />
+                                        <ShipdocAi
+                                            src={ShipDocAi}
+                                            alt="ShipDocAi"
+                                        />
                                     </ImgContainer>
                                     <AiText>
                                         <AItitle>
-                                            <span className="highlight">"{consultationDetail.diagnosis}"</span>에 걸리셨군요?
+                                            <span className="highlight">
+                                                "{consultationDetail.diagnosis}"
+                                            </span>
+                                            에 걸리셨군요?
                                         </AItitle>
                                         <AISub>
                                             {consultationDetail.aiRecommend}
@@ -104,9 +122,16 @@ const HistoryDetail = () => {
                                     </AiText>
                                 </AIContent>
                             </TagContainer>
-                            <ReviewBtn onClick={handleReviewClick} isClicked={isReviewClicked}>
+                            <ReviewBtn
+                                onClick={handleReviewClick}
+                                isClicked={isReviewClicked}
+                            >
                                 <ButtonText>
-                                    <span>{isReviewClicked ? "리뷰 남기기 완료" : "리뷰 남기기"}</span>
+                                    <span>
+                                        {isReviewClicked
+                                            ? "리뷰 남기기 완료"
+                                            : "리뷰 남기기"}
+                                    </span>
                                 </ButtonText>
                             </ReviewBtn>
                             <ReservationBtn onClick={handleBtn}>
@@ -168,7 +193,7 @@ const AIContent = styled.div`
     font-size: 0.75rem;
     font-style: normal;
     font-weight: 700;
-    background-color: #E6E5EB;
+    background-color: #e6e5eb;
     align-items: center;
     padding: 1rem 2rem 0 2rem;
     border-radius: 8px;
@@ -199,7 +224,7 @@ const ShipdocAi = styled.img`
 
 const AiText = styled.div`
     margin-left: 2rem;
-    flex: 1; 
+    flex: 1;
 `;
 
 const AItitle = styled.div`
@@ -241,7 +266,7 @@ const ReservationBtn = styled.button`
 `;
 
 const ReviewBtn = styled.button`
-    background-color: ${props => props.isClicked ? '#656565' : '#1371ff'};
+    background-color: ${(props) => (props.isClicked ? "#656565" : "#1371ff")};
     color: white;
     font-weight: 800;
     font-size: 1.2rem;
