@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import HospitalComponent from "../../components/MyPage/History/HistoryHospital";
 import styled from "styled-components";
-import HospitalMap from "../../components/detail/HospitalMap";
+import HospitalMap from "../../components/MyPage/HospitalMap";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
 import { getConsultations } from "../../apis/api/consultations";
@@ -71,46 +71,49 @@ const HistoryDetail = () => {
             <Frame>
                 <Div>
                     <HospitalComponent 
-                        patientName = {consultationDetail.patientName}
-                        hospitalName = {consultationDetail.hospitalName}
-                        hospitalPhone = {consultationDetail.hospitalPhone}
-                        reservationTime = {consultationDetail.reservationTime}
-                        diagnosis = {consultationDetail.diagnosis}
-                        department = {consultationDetail.department}
-                        visitCount = {consultationDetail.visitCount}
-                     />
+                        patientName={consultationDetail.patientName}
+                        hospitalName={consultationDetail.hospitalName}
+                        hospitalPhone={consultationDetail.hospitalPhone}
+                        reservationTime={consultationDetail.reservationTime}
+                        diagnosis={consultationDetail.diagnosis}
+                        department={consultationDetail.department}
+                        visitCount={consultationDetail.visitCount}
+                    />
                     <StyledHr />
-                    <HospitalMap data={location} />
+                    <HospitalMap 
+                        hospitalAddress={consultationDetail.hospitalAddress}
+                        kakaoUrl={consultationDetail.kakaoUrl}
+                    />
                     <StyledHr />
                     <MainContainer>
                         <GeneralContainer>
                             <SubTitle>AI 쉽닥 분석</SubTitle>
-                                <TagContainer>
-                                    <AIContent>
-                                        <ImgContainer>
-                                            <Subtract src={subtract} alt="subtract" />
-                                            <ShipdocAi src={ShipDocAi} alt="ShipDocAi" />
-                                        </ImgContainer>
-                                        <AiText>
-                                            <AItitle>
-                                                <span className="highlight">"{consultationDetail.diagnosis}"</span>에 걸리셨군요?
-                                            </AItitle>
-                                            <AISub>
-                                                {consultationDetail.aiRecommend}
-                                            </AISub>
-                                        </AiText>
-                                    </AIContent>
-                                </TagContainer>
-                                <ReviewBtn onClick={handleReviewClick} isClicked={isReviewClicked}>
-                                    <ButtonText>
-                                        <span>{isReviewClicked ? "리뷰 남기기 완료" : "리뷰 남기기"}</span>
-                                    </ButtonText>
-                                </ReviewBtn>
-                                <ReservationBtn onClick={handleBtn}>
-                                    <ButtonText>
-                                        <span>병원 다시 예약하기</span>
-                                    </ButtonText>
-                                </ReservationBtn>
+                            <TagContainer>
+                                <AIContent>
+                                    <ImgContainer>
+                                        <Subtract src={subtract} alt="subtract" />
+                                        <ShipdocAi src={ShipDocAi} alt="ShipDocAi" />
+                                    </ImgContainer>
+                                    <AiText>
+                                        <AItitle>
+                                            <span className="highlight">"{consultationDetail.diagnosis}"</span>에 걸리셨군요?
+                                        </AItitle>
+                                        <AISub>
+                                            {consultationDetail.aiRecommend}
+                                        </AISub>
+                                    </AiText>
+                                </AIContent>
+                            </TagContainer>
+                            <ReviewBtn onClick={handleReviewClick} isClicked={isReviewClicked}>
+                                <ButtonText>
+                                    <span>{isReviewClicked ? "리뷰 남기기 완료" : "리뷰 남기기"}</span>
+                                </ButtonText>
+                            </ReviewBtn>
+                            <ReservationBtn onClick={handleBtn}>
+                                <ButtonText>
+                                    <span>병원 다시 예약하기</span>
+                                </ButtonText>
+                            </ReservationBtn>
                         </GeneralContainer>
                     </MainContainer>
                 </Div>
@@ -254,6 +257,5 @@ const ButtonText = styled.div`
     justify-content: center;
     align-items: center;
 `;
-
 
 export default HistoryDetail;

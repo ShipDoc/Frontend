@@ -7,6 +7,9 @@ import SignUpInfo from "./pages/account/SignUpInfo";
 import SignUpSuccess from "./pages/account/SignUpSuccess";
 import Insurance from "./pages/insurance/Insurance";
 import InsuranceFAQ1 from "./pages/insurance/InsuranceFAQ1";
+import InsuranceFAQ2 from "./pages/insurance/InsuranceFAQ2";
+import InsuranceFAQ3 from "./pages/insurance/InsuranceFAQ3";
+import InsuranceFAQ4 from "./pages/insurance/InsuranceFAQ4";
 import Detail from "./pages/detail/Detail";
 import MyPage from "./pages/MyPage/MyPage";
 import MyPageApointment from "./pages/MyPage/Apointment";
@@ -63,8 +66,12 @@ function App() {
             <Route path="/SearchHospitalBySubject" element={<SearchHospitalBySubject />}></Route>
             <Route path="/SearchHospitalBySubject/Detail" element={<SearchHospitalBySubjectDetail />}></Route>
             <Route path="/SearchHospital" element={<SearchHospital />}></Route>
-                <Route path="/insurance" element={<Insurance />}></Route>
-                <Route path="/insurance/FAQ1" element={<InsuranceFAQ1 />}></Route>
+            <Route path="/insurance" element={<Insurance />}></Route>
+            <Route path="/insurance/FAQ1" element={<InsuranceFAQ1 />}></Route>
+            <Route path="/insurance/FAQ2" element={<InsuranceFAQ2 />}></Route>
+            <Route path="/insurance/FAQ3" element={<InsuranceFAQ3 />}></Route>
+            <Route path="/insurance/FAQ4" element={<InsuranceFAQ4 />}></Route>
+
 
             {/* Detail */}
             <Route path="/detail" element={<Detail />}></Route>

@@ -4,6 +4,7 @@ import Content from '../../components/insurance/MainContent';
 import Banner from '../../components/insurance/Banner';
 import styled from 'styled-components';
 
+
 const InsuranceMain = () => {
   return (
     <PageContainer>

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import HospitalComponent from "../../components/MyPage/Apointment/ApointmentHospital";
 import styled from "styled-components";
-import HospitalMap from "../../components/detail/HospitalMap";
+import HospitalMap from "../../components/MyPage/HospitalMap";
 import Modal from "../../components/MyPage/Apointment/Modal";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
-import { getReservations } from "../../apis/api/reservations";
+import { getReservations, deleteReservations } from "../../apis/api/reservations";
 
 const geolocationOptions = {
     enableHighAccuracy: true,
@@ -30,10 +30,28 @@ const Detail = () => {
         setShowModal(false);
     };
 
-    const handleConfirmModal = () => {
-        // 예약 취소 처리 로직 추가
+    const handleConfirmModal = async () => {
+        if (reservationDetail && reservationDetail.id) {
+            console.log("Hospital ID:", reservationDetail.id); // 병원 ID 출력
+            try {
+                const response = await deleteReservations(reservationDetail.id);
+                if (response.isSuccess) {
+                    alert("예약이 취소되었습니다.");
+                    navigate("/mypage/apointment");
+                } else {
+                    alert(`예약 취소 실패: ${response.message}`);
+                }
+            } catch (error) {
+                console.error("예약 취소 실패:", error);
+                alert("예약 취소 중 오류가 발생했습니다.");
+            }
+        } else {
+            alert("예약 정보를 찾을 수 없습니다.");
+        }
         setShowModal(false);
     };
+    
+    
 
     useEffect(() => {
         const fetchReservationDetail = async () => {
@@ -41,6 +59,7 @@ const Detail = () => {
                 const res = await getReservations();
                 if (res.isSuccess) {
                     const reservation = res.result.reservations.find(r => r.id === reservationId);
+                    console.log("Fetched Reservation Detail:", reservation); // 예약 세부 정보 출력
                     setReservationDetail(reservation);
                 } else {
                     console.log(res.code);
@@ -49,9 +68,10 @@ const Detail = () => {
                 console.error("Failed to fetch reservation detail:", error);
             }
         };
-
+    
         fetchReservationDetail();
     }, [reservationId]);
+    
 
     const formatDateTime = (dateString) => {
         const date = new Date(dateString);
@@ -85,7 +105,10 @@ const Detail = () => {
                         telNum={reservationDetail.hospitalTel}
                     />
                     <StyledHr />
-                    <HospitalMap data={location} />
+                    <HospitalMap
+                       hospitalAddress={reservationDetail.hospitalAddress}
+                       kakaoUrl={reservationDetail.kakaoUrl} 
+                    />
                     <StyledHr />
                     <MainContainer>
                         <GeneralContainer>
