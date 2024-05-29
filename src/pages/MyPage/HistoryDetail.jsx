@@ -32,13 +32,12 @@ const HistoryDetail = () => {
     }, []);
 
     const handleBtn = () => {
-        // 예약 버튼 클릭 시 동작
+        const text = `홈 < 병원 다시 예약하기 < ${consultationDetail.hospitalName}`;
+        navigate("/detail/reservation", { state: { text, hospitalId: consultationDetail.id } });
     };
 
     const handleReviewClick = () => {
-        const newReviewState = !isReviewClicked;
-        setIsReviewClicked(newReviewState);
-        localStorage.setItem('isReviewClicked', JSON.stringify(newReviewState));
+        navigate("/detail/review", { state: { hospitalId: consultationDetail.id } });
     };
 
     useEffect(() => {

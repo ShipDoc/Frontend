@@ -12,6 +12,7 @@ const History = () => {
   useEffect(() => {
     const fetchConsultations = async () => {
       const data = await getConsultations();
+      console.log("Data:", data);
       if (data.result === null || data.result.consultations.length === 0) {
         navigate("/mypage/historyNull");
       } else {
