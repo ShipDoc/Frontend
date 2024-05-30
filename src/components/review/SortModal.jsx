@@ -37,7 +37,7 @@ const DropdownImg = styled.img`
 `;
 
 export default function SortModal({ onSelect }) {
-  const options = ["가까운 순", "별점 높은 순", "리뷰 많은 순"];
+  const options = ["최신 순", "추천 많은 순", "별점 높은 순", "별점 낮은 순"];
 
   return (
     <ModalContainer>

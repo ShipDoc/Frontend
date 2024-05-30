@@ -74,13 +74,19 @@ const geolocationOptions = {
     maximumAge: 1000 * 3600 * 24,
 };
 
+const sortOptionsMap = {
+    "가까운 순": "DISTANCE",
+    "별점 높은 순": "SCORE",
+    "리뷰 많은 순": "REVIEW",
+};
+
 export default function MainFooter({ checkup }) {
     const { location, error } = useGeoLocation(geolocationOptions);
     const [myLocationName, setMyLocationName] = useState("성북구");
     const [hospitalList, setHospitalList] = useState([]);
 
     const [modal, setModal] = useState(false);
-    const [sortOption, setSortOption] = useState("가까운 순");
+    const [sortOption, setSortOption] = useState("REVIEW");
     const modalRef = useRef();
 
     const toggleModal = () => {
@@ -88,7 +94,7 @@ export default function MainFooter({ checkup }) {
     };
 
     const handleSelectOption = (option) => {
-        setSortOption(option);
+        setSortOption(sortOptionsMap[option]);
         setModal(false);
     };
 
@@ -223,4 +229,3 @@ export default function MainFooter({ checkup }) {
         </FooterWrapper>
     );
 }
-// MainFooter.jsx

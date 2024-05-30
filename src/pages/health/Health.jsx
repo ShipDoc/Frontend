@@ -14,13 +14,27 @@ const geolocationOptions = {
     maximumAge: 1000 * 3600 * 24,
 };
 
+const sortOptionsMap = {
+    "가까운 순": "DISTANCE",
+    "별점 높은 순": "SCORE",
+    "리뷰 많은 순": "REVIEW",
+};
+
+const sortOptionsReverseMap = {
+    "DISTANCE": "가까운 순",
+    "SCORE": "별점 높은 순",
+    "REVIEW": "리뷰 많은 순",
+};
+
 const Health = () => {
     const { location, error } = useGeoLocation(geolocationOptions);
 
     const [path, setPath] = useState("건강검진 > 건강검진 예약하기");
-
     const [myLocationName, setMyLocationName] = useState("성북구");
     const [hospitalList, setHospitalList] = useState([]);
+    const [size, setSize] = useState(3);
+    const [sortOption, setSortOption] = useState("REVIEW");
+    const [displaySortOption, setDisplaySortOption] = useState("리뷰 많은 순");
 
     const [modal, setModal] = useState(false);
     const modalRef = useRef();
@@ -35,8 +49,8 @@ const Health = () => {
         if (buttonRef.current) {
             const buttonRect = buttonRef.current.getBoundingClientRect();
             setModalPosition({
-                top: buttonRect.bottom + window.scrollY, // 버튼 아래로 모달을 위치시키기 위해
-                left: buttonRect.left + buttonRect.width / 2, // 버튼 중앙에 모달을 위치시키기 위해
+                top: buttonRect.bottom + window.scrollY,
+                left: buttonRect.left + buttonRect.width / 2,
             });
         }
     }, [modal]);
@@ -49,8 +63,8 @@ const Health = () => {
                     const res = await getHealthCareList({
                         latitude: location.latitude,
                         longitude: location.longitude,
-                        size: 3,
-                        sort: "REVIEW",
+                        size: size,
+                        sort: sortOption,
                     });
 
                     if (res.data.code === "COMMON200") {
@@ -67,7 +81,19 @@ const Health = () => {
         } else {
             console.log(location);
         }
-    }, [location]);
+    }, [location, size, sortOption]);
+
+    const handleSelectOption = (option) => {
+        const selectedSortOption = sortOptionsMap[option];
+        setSortOption(selectedSortOption);
+        setDisplaySortOption(option);
+        console.log("Selected Sort Option:", selectedSortOption);
+        setModal(false);
+    };
+
+    const handleLoadMore = () => {
+        setSize((prevSize) => prevSize + 3);
+    };
 
     return (
         <>
@@ -92,7 +118,7 @@ const Health = () => {
                                 ref={buttonRef}
                                 onClick={toggleModal}
                             >
-                                <SortText>가까운 순▼</SortText>
+                                <SortText>{displaySortOption}▼</SortText>
                             </HamburgerContainer>
                         </ToggleDiv>
                     </SortContainer>
@@ -109,7 +135,7 @@ const Health = () => {
                             건강검진이 가능한 병원이 없습니다.
                         </NoListText>
                     )}
-                    <ReservationBtn>더보기</ReservationBtn>
+                    <ReservationBtn onClick={handleLoadMore}>더보기</ReservationBtn>
                     {modal && (
                         <div
                             ref={modalRef}
@@ -121,7 +147,7 @@ const Health = () => {
                                 zIndex: 10,
                             }}
                         >
-                            <SortModal />
+                            <SortModal onSelect={handleSelectOption} />
                         </div>
                     )}
                 </Div>
