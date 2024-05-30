@@ -17,7 +17,7 @@ const geolocationOptions = {
 const Detail = () => {
     const locationState = useLocation();
     const { reservationId } = locationState.state || {};
-    const [reservationDetail, setReservationDetail] = useState(null);
+    const [reservationDetail, setReservationDetail] = useState({});
     const { location, error } = useGeoLocation(geolocationOptions);
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
@@ -31,10 +31,10 @@ const Detail = () => {
     };
 
     const handleConfirmModal = async () => {
-        if (reservationDetail && reservationDetail.id) {
-            console.log("Hospital ID:", reservationDetail.id); // 병원 ID 출력
+        if (reservationDetail && reservationDetail.reservationId) {
+            console.log("Reservation ID:", reservationDetail.id); // 예약 ID 출력
             try {
-                const response = await deleteReservations(reservationDetail.id);
+                const response = await deleteReservations(reservationDetail.reservationId);
                 if (response.isSuccess) {
                     alert("예약이 취소되었습니다.");
                     navigate("/mypage/apointment");
@@ -50,8 +50,6 @@ const Detail = () => {
         }
         setShowModal(false);
     };
-    
-    
 
     useEffect(() => {
         const fetchReservationDetail = async () => {
@@ -59,7 +57,7 @@ const Detail = () => {
                 const res = await getReservations();
                 if (res.isSuccess) {
                     const reservation = res.result.reservations.find(r => r.id === reservationId);
-                    console.log("Fetched Reservation Detail:", reservation); // 예약 세부 정보 출력
+                    console.log("예약 세부 정보:", reservation); // 예약 세부 정보 출력
                     setReservationDetail(reservation);
                 } else {
                     console.log(res.code);
@@ -68,10 +66,9 @@ const Detail = () => {
                 console.error("Failed to fetch reservation detail:", error);
             }
         };
-    
+
         fetchReservationDetail();
     }, [reservationId]);
-    
 
     const formatDateTime = (dateString) => {
         const date = new Date(dateString);
@@ -102,12 +99,15 @@ const Detail = () => {
                         date={formatDateTime(reservationDetail.reservationTime)}
                         sms={reservationDetail.smsId ? "O" : "X"}
                         auto={reservationDetail.autoReservation ? "O" : "X"}
-                        telNum={reservationDetail.hospitalTel}
+                        telNum={reservationDetail.hospitalPhone}
+                        imageUrl={reservationDetail.imageUrl || "defaultImageURL"} // 기본 이미지 URL 설정
                     />
                     <StyledHr />
                     <HospitalMap
                        hospitalAddress={reservationDetail.hospitalAddress}
-                       kakaoUrl={reservationDetail.kakaoUrl} 
+                       kakaoUrl={reservationDetail.kakaoUrl}
+                       hospitalLatitude={reservationDetail.hospitalLatitude}
+                       hospitalLongitude={reservationDetail.hospitalLongitude}
                     />
                     <StyledHr />
                     <MainContainer>

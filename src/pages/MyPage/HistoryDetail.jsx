@@ -33,7 +33,7 @@ const HistoryDetail = () => {
 
     const handleBtn = () => {
         const text = `홈 < 병원 다시 예약하기 < ${consultationDetail.hospitalName}`;
-        navigate("/detail/reservation", { state: { text, hospitalId: consultationDetail.id } });
+        navigate("/detail/reservation", { state: { text, hospitalId: consultationDetail.hospitalId } });
     };
 
     const handleReviewClick = () => {
@@ -42,7 +42,7 @@ const HistoryDetail = () => {
         localStorage.setItem("isReviewClicked", JSON.stringify(newReviewState));
         navigate("/detail/review", {
             state: {
-                hospitalId: consultationDetail.id,
+                hospitalId: consultationDetail.hospitalId,
                 text: " ",
             },
         });
@@ -56,6 +56,7 @@ const HistoryDetail = () => {
                     const consultation = res.result.consultations.find(
                         (c) => c.id === consultationId
                     );
+                    console.log("진료 세부 정보:", consultationDetail); // 진료 세부 정보 출력
                     setConsultationDetail(consultation);
                 } else {
                     console.log(res.code);
@@ -93,6 +94,8 @@ const HistoryDetail = () => {
                     <HospitalMap
                         hospitalAddress={consultationDetail.hospitalAddress}
                         kakaoUrl={consultationDetail.kakaoUrl}
+                        hospitalLatitude={consultationDetail.hospitalLatitude}
+                        hospitalLongitude={consultationDetail.hospitalLongitude}
                     />
                     <StyledHr />
                     <MainContainer>

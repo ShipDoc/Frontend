@@ -14,6 +14,7 @@ const Apointment = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       const data = await getReservations();
+      console.log(data);
       if (data.result === null || data.result.reservations.length === 0) {
         navigate("/mypage/apointmentNull");
       } else {

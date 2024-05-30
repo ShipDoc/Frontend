@@ -3,10 +3,10 @@ import hospitalMarker from "../../assets/icons/hospitalMarker.svg";
 import styled from "styled-components";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-const HospitalMap = ({ hospitalAddress, kakaoUrl }) => {
+const HospitalMap = ({ hospitalAddress, kakaoUrl, hospitalLatitude, hospitalLongitude }) => {
     const [coordinate, setCoordinate] = useState({
-        lat: 37.5665, // 기본 값: 서울의 위도
-        lng: 126.978, // 기본 값: 서울의 경도
+        lat: hospitalLatitude, 
+        lng: hospitalLongitude, 
     });
 
     const handleCopyClipBoard = async () => {
