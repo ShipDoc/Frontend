@@ -39,10 +39,11 @@ const RateText = styled.p`
 `;
 
 const DetailHospitalContainer = styled.div`
+    cursor: pointer;
     margin-top: 1vh;
     width: 40vw;
     height: 18vh;
-    background: url(${props => props.imageUrl}) no-repeat center center;
+    background: url(${(props) => props.imageUrl}) no-repeat center center;
     background-size: cover;
     border-radius: 2.0625rem;
     position: relative;
@@ -133,7 +134,9 @@ export default function HospitalComponent({ data }) {
                     >
                         <img src={placeImg} alt="placeImg" />
                         <HospitalNameText>{data.hospitalName}</HospitalNameText>
-                        <HospitalLocationText>{data.address}</HospitalLocationText>
+                        <HospitalLocationText>
+                            {data.address}
+                        </HospitalLocationText>
                     </div>
                     <div
                         style={{
@@ -146,7 +149,10 @@ export default function HospitalComponent({ data }) {
                         <RateText>{rateNum.toFixed(1)}</RateText>
                     </div>
                 </div>
-                <DetailHospitalContainer imageUrl={data.imageUrl} onClick={handleReservationClick} />
+                <DetailHospitalContainer
+                    imageUrl={data.imageUrl}
+                    onClick={handleReservationClick}
+                />
                 <HospitalTagContainer>
                     {hospitalTags.map((text, index) => (
                         <HospitalTagBox key={index}>

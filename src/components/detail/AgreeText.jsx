@@ -9,8 +9,7 @@ const AgreeText = (props) => {
             <TitleText>약관 동의</TitleText>
             <AgreeContainer>
                 <AgreeDescription>
-                    (필수)
-                    내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                    (필수) 개인정보 수집 및 이용 동의
                 </AgreeDescription>
                 <Checkbox
                     icon={<FaCheck style={FaCheckStyle} />}
@@ -24,8 +23,7 @@ const AgreeText = (props) => {
             </AgreeContainer>
             <AgreeContainer>
                 <AgreeDescription>
-                    (필수)
-                    내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                    (필수) 민감정보 수집 및 이용 동의
                 </AgreeDescription>
                 <Checkbox
                     icon={<FaCheck style={FaCheckStyle} />}
@@ -58,6 +56,7 @@ const TitleText = styled.div`
     font-size: 1.3rem;
     font-style: normal;
     font-weight: 500;
+    margin-bottom: 2rem;
 `;
 
 const AgreeContainer = styled.div`
@@ -89,7 +88,7 @@ const AllAgreeContainer = styled.div`
     display: flex;
     align-items: start;
     justify-content: space-between;
-    margin-top: 1.2rem;
+    margin-top: 3rem;
 `;
 
 export default AgreeText;

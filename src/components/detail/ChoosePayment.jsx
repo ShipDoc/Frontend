@@ -29,7 +29,7 @@ const RadioButton = styled.button`
 `;
 
 const ChoosePayment = () => {
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState("option1");
 
     const handleButtonClick = (value) => {
         setSelectedOption(value);
