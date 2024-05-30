@@ -4,11 +4,9 @@ import basicRateImg from "../../assets/images/basicRate.svg";
 import fillRateImg from "../../assets/images/fillRate.svg";
 import consulationChatImg from "../../assets/images/consulatoinChatImg.svg";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const HospitalContainer = styled.div`
-    // display: flex;
-    // align-items: center;
-    // justify-content: center;
     margin-bottom: 2vh;
 `;
 
@@ -18,7 +16,7 @@ const HospitalNameText = styled.p`
     font-size: 1rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 175%; /* 1.75rem */
+    line-height: 175%;
 `;
 
 const HospitalLocationText = styled.p`
@@ -27,10 +25,8 @@ const HospitalLocationText = styled.p`
     font-size: 0.75rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 175%; /* 1.3125rem */
+    line-height: 175%;
 `;
-
-// const HospitalRateStar = styled.
 
 const RateText = styled.p`
     color: #e7e7e7;
@@ -75,37 +71,8 @@ const HospitalTagText = styled.p`
     font-size: 0.75rem;
     font-style: normal;
     font-weight: 700;
-    line-height: 175%; /* 1.3125rem */
+    line-height: 175%;
 `;
-
-const ConsultationButton = styled.div`
-    border-radius: 1.0625rem;
-    background: var(--Primary-color, #1371ff);
-    width: 5vw;
-    height: 3vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5vw;
-    position: absolute;
-    bottom: 5%;
-    right: 5%;
-    cursor: pointer;
-    // padding: 0 0.2vw;
-`;
-
-const ConsultationText = styled.p`
-    color: #fff;
-    font-family: Pretendard;
-    font-size: 0.625rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-`;
-
-// const DetailHospitaComponenet = styled.div` // 사진 담을 컴포넌트
-
-// `
 
 const RateStar = ({ filled }) => (
     <img src={filled ? fillRateImg : basicRateImg} alt="rateStar" />
@@ -124,29 +91,28 @@ const Rating = ({ rating }) => {
     return <div style={{ display: "flex", alignItems: "center" }}>{stars}</div>;
 };
 
-export default function HospitalComponent({
-    hospitalName,
-    address,
-    totalRate,
-    imageUrl,
-    tags,
-}) {
-    const [rateNum, setRateNum] = useState(Number(totalRate));
+export default function HospitalComponent({ data }) {
+    const [rateNum, setRateNum] = useState(Number(data.totalRate));
     const [hospitalTags, setHospitalTags] = useState([
         "안심 실명제",
         "분야별 협진",
         "전담 회복실",
     ]); // 병원 분류 상태 (백에서 받아오기)
+    const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("Props received:", {
-            hospitalName,
-            address,
-            totalRate,
-            imageUrl,
-            tags
+        console.log("병원 리스트:", data);
+    }, [data]);
+
+    const handleReservationClick = () => {
+        navigate("/detail", {
+            state: {
+                id: data.hospitalId,
+                data: data,
+                pathText: data.hospitalName,
+            },
         });
-    }, [hospitalName, address, totalRate, imageUrl, tags]);
+    };
 
     return (
         <>
@@ -166,10 +132,8 @@ export default function HospitalComponent({
                         }}
                     >
                         <img src={placeImg} alt="placeImg" />
-                        <HospitalNameText>{hospitalName}</HospitalNameText>
-                        <HospitalLocationText>
-                            {address}
-                        </HospitalLocationText>
+                        <HospitalNameText>{data.hospitalName}</HospitalNameText>
+                        <HospitalLocationText>{data.address}</HospitalLocationText>
                     </div>
                     <div
                         style={{
@@ -182,17 +146,16 @@ export default function HospitalComponent({
                         <RateText>{rateNum.toFixed(1)}</RateText>
                     </div>
                 </div>
-                <DetailHospitalContainer imageUrl={imageUrl}/>
+                <DetailHospitalContainer imageUrl={data.imageUrl} onClick={handleReservationClick} />
                 <HospitalTagContainer>
-                    {hospitalTags.map((text, index) => {
-                        return (
-                            <HospitalTagBox key={index}>
-                                <HospitalTagText>{text}</HospitalTagText>
-                            </HospitalTagBox>
-                        );
-                    })}
+                    {hospitalTags.map((text, index) => (
+                        <HospitalTagBox key={index}>
+                            <HospitalTagText>{text}</HospitalTagText>
+                        </HospitalTagBox>
+                    ))}
                 </HospitalTagContainer>
             </HospitalContainer>
         </>
     );
 }
+// HospitalComponent.jsx

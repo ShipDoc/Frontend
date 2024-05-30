@@ -10,6 +10,7 @@ const NavBar = ({ children, activeIndex }) => {
     const [user, setUser] = useState("User");
     const [currentIndex, setCurrentIndex] = useState(activeIndex);
     const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     // `activeIndex` prop이 변경될 때마다 `currentIndex` 업데이트
     useEffect(() => {
@@ -34,30 +35,52 @@ const NavBar = ({ children, activeIndex }) => {
     };
 
     useEffect(() => {
-        setUser(localStorage.getItem("username"));
+        const storedUsername = localStorage.getItem("username");
+        if (storedUsername) {
+            setUser(storedUsername);
+            setIsLoggedIn(true);
+        }
     }, []);
+
+    const handleLoginLogout = () => {
+        if (isLoggedIn) {
+            localStorage.clear(); // 로컬스토리지 비우기
+            setIsLoggedIn(false);
+            navigate("/"); // 로그아웃 후 메인 페이지로 이동
+        } else {
+            navigate("/"); // 로그인 페이지로 이동
+        }
+    };
 
     return (
         <HeaderContainer>
             <MainContainer>
                 <TopContainer>
                     <Auth>
-                        <Link to="/">로그인</Link>
-                        <img src={loginBar} alt="login bar" />
-                        <Link to="/signup">회원가입</Link>
+                        {isLoggedIn ? (
+                            <AuthLink onClick={handleLoginLogout}>로그아웃</AuthLink>
+                        ) : (
+                            <>
+                                <AuthLink to="/">로그인</AuthLink>
+                                <img src={loginBar} alt="login bar" />
+                                <AuthLink to="/signup">회원가입</AuthLink>
+                            </>
+                        )}
                     </Auth>
                     <LogoDiv>
                         <Logo>쉽닥</Logo>
                         <img src={logoImg} alt="logoImg" />
                     </LogoDiv>
-                    <UserDiv>
-                        <User>{user}(님)</User>
-                        <ProfileImage
-                            src={profileWhite}
-                            alt="profile"
-                            onClick={handleProfileClick}
-                        />
-                    </UserDiv>
+                    {isLoggedIn && (
+                        <UserDiv>
+                            <User>{user}(님)</User>
+                            <ProfileImage
+                                src={profileWhite}
+                                alt="profile"
+                                onClick={handleProfileClick}
+                            />
+                        </UserDiv>
+                    )}
                 </TopContainer>
                 <BottomContainer>
                     <Nav>
@@ -291,6 +314,16 @@ const Auth = styled.div`
         flex-shrink: 0;
         z-index: 2;
     }
+`;
+
+const AuthLink = styled(Link)`
+    color: #fff;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration: none;
+    font-family: Pretendard;
 `;
 
 const UserDiv = styled.div`

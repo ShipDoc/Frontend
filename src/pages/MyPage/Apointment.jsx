@@ -17,17 +17,17 @@ const Apointment = () => {
     navigate("/chat");
   };
 
-  useEffect(() => {
-    const fetchReservations = async () => {
-      const data = await getReservations();
-      console.log(data);
-      if (data.result === null || data.result.reservations.length === 0) {
-        navigate("/mypage/apointmentNull");
-      } else {
-        setReservations(data.result.reservations);
-      }
-    };
+  const fetchReservations = async () => {
+    const data = await getReservations();
+    console.log(data);
+    if (data.result === null || data.result.reservations.length === 0) {
+      navigate("/mypage/apointmentNull");
+    } else {
+      setReservations(data.result.reservations);
+    }
+  };
 
+  useEffect(() => {
     fetchReservations();
   }, [navigate]);
 
@@ -69,4 +69,5 @@ const ChatFixed = styled.img`
   cursor: pointer;
   z-index: 1000;
 `;
+
 export default Apointment;

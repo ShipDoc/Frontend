@@ -287,12 +287,7 @@ export default function SearchFooter({ symptom }) {
                         hospitalList.map((data, idx) => (
                             <HospitalComponent
                                 key={idx}
-                                hospitalId={data.hospitalId}
-                                hospitalName={data.hospitalName}
-                                address={data.address}
-                                totalRate={data.totalRate}
-                                imageUrl={data.imageUrl}
-                                tags={data.tags}
+                                data={data}
                             />
                         ))
                     ) : (

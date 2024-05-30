@@ -117,33 +117,32 @@ const Rating = ({ rating }) => {
   return <div style={{ display: "flex", alignItems: "center" }}>{stars}</div>;
 };
 
-export default function HospitalComponent({
-  hospitalId,
-  hospitalName,
-  address,
-  totalRate,
-  imageUrl,
-  tags,
-}) {
+export default function HospitalComponent({data}) {
   const navigate = useNavigate();
-  const [rateNum, setRateNum] = useState(Number(totalRate));
-  const [hospitalTags, setHospitalTags] = useState(tags || ["안심 실명제", "분야별 협진", "전담 회복실",]);
+  const [rateNum, setRateNum] = useState(Number(data.totalRate));
+  const [hospitalTags, setHospitalTags] = useState(data.tags || ["안심 실명제", "분야별 협진", "전담 회복실",]);
 
   useEffect(() => {
-    console.log("Props received:", {
-      hospitalId,
-      hospitalName,
-      address,
-      totalRate,
-      imageUrl,
-      tags,
-    });
-  }, [hospitalId, hospitalName, address, totalRate, imageUrl, tags]);
+    console.log("Props received:", {data});
+  }, [data]);
 
   const handleReservationClick = () => {
-    const text = `홈 > ${hospitalName}`;
-    navigate("/detail/reservation", { state: { text, hospitalId } });
+    const text = `홈 > ${data.hospitalName}`;
+    navigate("/detail/reservation", { 
+      state: {
+        text: text, 
+        hospitalId: data.hospitalId } });
   };
+
+  const handleDetailClick = () => {
+    navigate("/detail", {
+        state: {
+            id: data.hospitalId,
+            data: data,
+            pathText: data.hospitalName,
+        },
+    });
+};
 
   return (
     <>
@@ -151,15 +150,15 @@ export default function HospitalComponent({
         <div style={{ display: "flex", justifyContent: "space-between", marginTop: "2vh" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.2vw" }}>
             <img src={hospitalMarker} alt="hospitalMarker" />
-            <HospitalNameText>{hospitalName}</HospitalNameText>
-            <HospitalLocationText>{address}</HospitalLocationText>
+            <HospitalNameText>{data.hospitalName}</HospitalNameText>
+            <HospitalLocationText>{data.address}</HospitalLocationText>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5vw" }}>
             <Rating rating={rateNum} />
             <RateText>{rateNum.toFixed(1)}</RateText>
           </div>
         </div>
-        <DetailHospitalContainer imageUrl={imageUrl}>
+        <DetailHospitalContainer imageUrl={data.imageUrl} onClick={handleDetailClick}>
           <ConsultationButton onClick={handleReservationClick}>
             <ConsultationText>예약하기</ConsultationText>
           </ConsultationButton>

@@ -43,8 +43,7 @@ const Detail = () => {
                 );
                 if (response.isSuccess) {
                     alert("예약이 취소되었습니다.");
-                    navigate("/mypage/apointment");
-                    //navigate(0); // 페이지 새로고침
+                    navigate("/mypage/apointment", { replace: true }); // 페이지 새로고침
                 } else {
                     alert(`예약 취소 실패: ${response.message}`);
                 }

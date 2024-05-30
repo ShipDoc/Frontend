@@ -60,14 +60,6 @@ const LocationText = styled.p`
     line-height: normal;
 `;
 
-const PartitionComponent = styled.div`
-    height: 0.3vh;
-    stroke-width: 2px;
-    stroke: #fff;
-    width: 100%;
-    background: #fff;
-`;
-
 const NoListText = styled.div`
     margin: 7rem 0;
     font-size: 1rem;
@@ -213,11 +205,7 @@ export default function MainFooter({ checkup }) {
                     {hospitalList.map((data, idx) => (
                         <HospitalComponent 
                             key={idx}
-                            hospitalName={data.hospitalName}
-                            address={data.address}
-                            totalRate={data.totalRate}
-                            imageUrl={data.imageUrl}
-                            tags={data.tags}
+                            data={data}
                         />
                     ))}
                     {hospitalList.length === 0 && (
@@ -238,3 +226,4 @@ export default function MainFooter({ checkup }) {
         </FooterWrapper>
     );
 }
+// MainFooter.jsx
