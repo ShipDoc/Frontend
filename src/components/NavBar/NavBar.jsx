@@ -33,6 +33,10 @@ const NavBar = ({ children, activeIndex }) => {
         }
     };
 
+    useEffect(() => {
+        setUser(localStorage.getItem("username"));
+    }, []);
+
     return (
         <HeaderContainer>
             <MainContainer>

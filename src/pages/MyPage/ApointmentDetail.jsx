@@ -6,7 +6,10 @@ import HospitalMap from "../../components/MyPage/HospitalMap";
 import Modal from "../../components/MyPage/Apointment/Modal";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
-import { getReservations, deleteReservations } from "../../apis/api/reservations";
+import {
+    getReservations,
+    deleteReservations,
+} from "../../apis/api/reservations";
 import chatFixed from "../../assets/images/chat/chatFixed.svg";
 
 const geolocationOptions = {
@@ -35,10 +38,13 @@ const Detail = () => {
         if (reservationDetail && reservationDetail.reservationId) {
             console.log("Reservation ID:", reservationDetail.reservationId); // 예약 ID 출력
             try {
-                const response = await deleteReservations(reservationDetail.reservationId);
+                const response = await deleteReservations(
+                    reservationDetail.reservationId
+                );
                 if (response.isSuccess) {
                     alert("예약이 취소되었습니다.");
-                    navigate(0); // 페이지 새로고침
+                    navigate("/mypage/apointment");
+                    //navigate(0); // 페이지 새로고침
                 } else {
                     alert(`예약 취소 실패: ${response.message}`);
                 }
@@ -56,8 +62,11 @@ const Detail = () => {
         const fetchReservationDetail = async () => {
             try {
                 const res = await getReservations();
+
                 if (res.isSuccess) {
-                    const reservation = res.result.reservations.find(r => r.id === reservationId);
+                    const reservation = res.result.reservations.find(
+                        (r) => r.id === reservationId
+                    );
                     console.log("예약 세부 정보:", reservation); // 예약 세부 정보 출력
                     setReservationDetail(reservation);
                 } else {
@@ -73,13 +82,13 @@ const Detail = () => {
 
     const formatDateTime = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString('ko-KR', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            weekday: 'long',
-            hour: '2-digit',
-            minute: '2-digit'
+        return date.toLocaleDateString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            weekday: "long",
+            hour: "2-digit",
+            minute: "2-digit",
         });
     };
 
@@ -89,30 +98,33 @@ const Detail = () => {
 
     const handleChatClick = () => {
         navigate("/chat");
-      };    
+    };
 
     return (
         <>
             <NavBar>
-                마이페이지 &gt; 병원 예약내역 보기 &gt; {reservationDetail.hospitalName}
+                마이페이지 &gt; 병원 예약내역 보기 &gt;{" "}
+                {reservationDetail.hospitalName}
             </NavBar>
             <Frame>
                 <Div>
-                    <HospitalComponent 
-                        name={reservationDetail.hospitalName} 
+                    <HospitalComponent
+                        name={reservationDetail.hospitalName}
                         user={reservationDetail.name}
                         date={formatDateTime(reservationDetail.reservationTime)}
-                        sms={reservationDetail.smsId ? "O" : "X"}
+                        sms={reservationDetail.patientPhone ? "O" : "X"}
                         auto={reservationDetail.autoReservation ? "O" : "X"}
                         telNum={reservationDetail.hospitalPhone}
-                        imageUrl={reservationDetail.imageUrl || "defaultImageURL"} // 기본 이미지 URL 설정
+                        imageUrl={
+                            reservationDetail.imageUrl || "defaultImageURL"
+                        } // 기본 이미지 URL 설정
                     />
                     <StyledHr />
                     <HospitalMap
-                       hospitalAddress={reservationDetail.hospitalAddress}
-                       kakaoUrl={reservationDetail.kakaoUrl}
-                       hospitalLatitude={reservationDetail.hospitalLatitude}
-                       hospitalLongitude={reservationDetail.hospitalLongitude}
+                        hospitalAddress={reservationDetail.hospitalAddress}
+                        kakaoUrl={reservationDetail.kakaoUrl}
+                        hospitalLatitude={reservationDetail.hospitalLatitude}
+                        hospitalLongitude={reservationDetail.hospitalLongitude}
                     />
                     <StyledHr />
                     <MainContainer>
@@ -123,7 +135,10 @@ const Detail = () => {
                                 <TagBox>
                                     <TagText>
                                         <span style={{ color: "#E22222" }}>
-                                            {reservationDetail.estimatedWaitPatient}명
+                                            {
+                                                reservationDetail.estimatedWaitPatient
+                                            }
+                                            명
                                         </span>{" "}
                                         대기중
                                     </TagText>
@@ -138,12 +153,12 @@ const Detail = () => {
                     </MainContainer>
                 </Div>
             </Frame>
-            <Modal 
-                show={showModal} 
-                handleClose={handleCloseModal} 
-                handleConfirm={handleConfirmModal} 
+            <Modal
+                show={showModal}
+                handleClose={handleCloseModal}
+                handleConfirm={handleConfirmModal}
             />
-        <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
+            <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
         </>
     );
 };
@@ -239,13 +254,13 @@ const ButtonText = styled.div`
 `;
 
 const ChatFixed = styled.img`
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  width: 10rem;
-  height: 10rem;
-  cursor: pointer;
-  z-index: 1000;
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    width: 10rem;
+    height: 10rem;
+    cursor: pointer;
+    z-index: 1000;
 `;
 
 export default Detail;

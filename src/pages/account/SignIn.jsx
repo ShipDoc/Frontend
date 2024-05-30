@@ -5,10 +5,13 @@ import Input from "../../components/account/Input";
 import SignInBtn from "../../components/account/SignInBtn";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import { signin } from "../../apis/api/user";
+import { useAuth } from "../../utils/context/AuthContext";
 
 const SignIn = () => {
+    const { login } = useAuth();
+
     const navigate = useNavigate();
     const [loginVal, setLoginVal] = useState({
         name: null,
@@ -39,9 +42,11 @@ const SignIn = () => {
                 loginId: loginVal.name,
                 password: loginVal.password,
             });
+            console.log(res);
 
             if (res.data.code === "COMMON200") {
-                localStorage.setItem("token", res.headers.authorization);
+                login(res.headers.authorization);
+
                 navigate("/Home");
             } else {
                 console.log(res.data.code);
@@ -49,6 +54,7 @@ const SignIn = () => {
             }
         } catch (e) {
             alert("아이디 또는 비밀번호가 올바르지 않습니다.");
+            console.log(e);
         }
     };
 

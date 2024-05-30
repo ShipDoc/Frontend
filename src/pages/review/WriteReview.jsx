@@ -14,6 +14,7 @@ const WriteReview = () => {
     //     }
     // }
     const { state } = useLocation();
+    const navigate = useNavigate();
 
     const [text, setText] = useState("");
     const [textCount, setTextCount] = useState(0);
@@ -29,14 +30,15 @@ const WriteReview = () => {
     const writeReview = async () => {
         try {
             const res = await postReview({
-                // hospitalId: state.id,
-                hospitalId: 603,
+                hospitalId: state.hospitalId,
+                // hospitalId: 603,
                 score: popularity, // 평점
                 content: text, // 리뷰 내용
             });
 
             if (res.data.code === "COMMON200" || res.data.status === 200) {
-                console.log("리뷰가 등록되었습니다!");
+                alert("리뷰 등록이 완료되었습니다!");
+                navigate("/mypage/history");
             } else {
                 console.log(res.data.code);
             }

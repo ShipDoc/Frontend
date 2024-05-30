@@ -64,11 +64,11 @@ export const signout = async () => {
     }
 };
 
-// 권한 확인
-export const verify = async () => {
+// 사용자 이름 확인
+export const getName = async () => {
     try {
-        const { data, status } = await authInstance.post(`/api/user/verify`);
-        return { data, status };
+        const result = await authInstance.get(`/api/members/user-name`);
+        return result;
     } catch (e) {
         return { message: e.response.data.message, status: e.response.status };
     }

@@ -5,16 +5,35 @@ import chatProfile from "../../assets/images/chat/chatProfile.svg";
 import text from "../../assets/images/chat/text.svg";
 import sendBtn from "../../assets/images/chat/sendBtn.svg";
 import NavBar from "../../components/NavBar/NavBar";
+import { sendChat } from "../../apis/api/chat";
 
 const Chat = () => {
     const [textInput, setTextInput] = useState("");
+
+    const [allText, setAllText] = useState(null);
 
     const changeText = (e) => {
         setTextInput(e.target.value);
     };
 
     const sentMessage = () => {
-        console.log(textInput);
+        const send = async () => {
+            try {
+                const res = await sendChat({ messageSent: textInput });
+                console.log(res);
+
+                if (res.data.code === "COMMON200" || res.data.status === 200) {
+                    const answer = res.data.result;
+                    console.log(answer);
+                } else {
+                    console.log(res.data.code);
+                }
+            } catch (error) {
+                console.error("Failed to fetch hospital detail:", error);
+            }
+        };
+
+        send();
     };
 
     return (
@@ -31,16 +50,8 @@ const Chat = () => {
                         <ProfileImg src={chatProfile}></ProfileImg>
                         <TextContainer src={text}>
                             <TextContent>
-                                여기에 채팅 텍스트를 입력하세요여기에 채팅
-                                텍스트를 입력하세요여기에 채팅 텍스트를
-                                입력하세요여기에 채팅 텍스트를 입력하세요여기에
-                                채팅 텍스트를 입력하세요여기에 채팅 텍스트를
-                                입력하세요여기에 채팅 텍스트를 입력하세요여기에
-                                채팅 텍스트를 입력하세요여기에 채팅 텍스트를
-                                입력하세요여기에 채팅 텍스트를 입력하세요여기에
-                                채팅 텍스트를 입력하세요여기에 채팅 텍스트를
-                                입력하세요여기에 채팅 텍스트를 입력하세요여기에
-                                채팅 텍스트를 입력하세요
+                                안녕하세요! <span>AI 도우미 쉽닥</span>입니다.
+                                어떤 걸 도와드릴까요?
                             </TextContent>
                         </TextContainer>
                     </ChatFrame>

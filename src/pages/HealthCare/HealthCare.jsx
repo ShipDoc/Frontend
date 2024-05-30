@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainHeader from "../../components/Main/MainHeader";
 import Banner from "../../components/Main/Banner";
 import MainSection from "../../components/Main/MainSection";
@@ -6,15 +6,18 @@ import CategoryDetailComponent from "../../components/Main/CategoryDetailCompone
 import MainFooter from "../../components/Main/MainFooter";
 
 export default function HealthCare() {
-  const [user, setUser] = useState("User");
+    const [user, setUser] = useState("User");
+    useEffect(() => {
+        setUser(localStorage.getItem("username"));
+    }, []);
 
-  return (
-    <>
-      <MainHeader user={user} />
-      <Banner />
-      <MainSection checkup="checkup" />
-      <CategoryDetailComponent checkup="checkup" />
-      <MainFooter checkup="checkup" />
-    </>
-  )
+    return (
+        <>
+            <MainHeader user={user} />
+            <Banner />
+            <MainSection checkup="checkup" />
+            <CategoryDetailComponent checkup="checkup" />
+            <MainFooter checkup="checkup" />
+        </>
+    );
 }

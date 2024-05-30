@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MainHeader from "../../components/Main/MainHeader";
 import Banner from "../../components/Main/Banner";
 import MainSection from "../../components/Main/MainSection";
@@ -6,15 +6,19 @@ import CategoryDetailComponent from "../../components/Main/CategoryDetailCompone
 import MainFooter from "../../components/Main/MainFooter";
 
 export default function Home() {
-  const [user, setUser] = useState("User");
+    const [user, setUser] = useState("User");
 
-  return (
-    <>
-      <MainHeader user={user} />
-      <Banner />
-      <MainSection home="home" />
-      <CategoryDetailComponent home="home" />
-      <MainFooter />
-    </>
-  )
+    useEffect(() => {
+        setUser(localStorage.getItem("username"));
+    }, []);
+
+    return (
+        <>
+            <MainHeader user={user} />
+            <Banner />
+            <MainSection home="home" />
+            <CategoryDetailComponent home="home" />
+            <MainFooter />
+        </>
+    );
 }

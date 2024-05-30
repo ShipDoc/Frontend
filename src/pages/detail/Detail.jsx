@@ -9,11 +9,13 @@ import logoImg from "../../assets/images/logoImg.svg";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
 import { getDetail } from "../../apis/api/detail";
-import chatFixed from "../../assets/images/chat/chatFixed.svg";
-
 
 const Detail = () => {
-    // "홈 > 예약하기 와 같은 텍스트 받아오기"
+    // { state : {
+    //     id : 병원 아이디,
+    //     data : 리스트에서 클릭한 병원 데이터,
+    //     pathText : "홈 > 예약하기 와 같은 텍스트 받아오기"
+    // }}
     const { state } = useLocation();
     const [path, setPath] = useState(state ? state.pathText : "");
 
@@ -190,10 +192,6 @@ const Detail = () => {
         setClinic(clinics);
     };
 
-    const handleChatClick = () => {
-        navigate("/chat");
-      };
-
     useEffect(() => {
         const fetchHospitalDetail = async () => {
             try {
@@ -365,7 +363,6 @@ const Detail = () => {
                     </ReservationBtn>
                 </Div>
             </Frame>
-            <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
         </>
     );
 };
@@ -536,16 +533,6 @@ const NoReviewContent = styled.div`
     text-align: center;
     color: #808080;
     font-weight: 400;
-`;
-
-const ChatFixed = styled.img`
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  width: 10rem;
-  height: 10rem;
-  cursor: pointer;
-  z-index: 1000;
 `;
 
 export default Detail;

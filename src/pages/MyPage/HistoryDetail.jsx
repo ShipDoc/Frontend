@@ -10,7 +10,6 @@ import ShipDocAi from "../../assets/images/ShipDocAi.svg";
 import subtract from "../../assets/images/subtract.svg";
 import chatFixed from "../../assets/images/chat/chatFixed.svg";
 
-
 const geolocationOptions = {
     enableHighAccuracy: true,
     timeout: 1000 * 10,
@@ -35,14 +34,16 @@ const HistoryDetail = () => {
 
     const handleBtn = () => {
         const text = `홈 < 병원 다시 예약하기 < ${consultationDetail.hospitalName}`;
-        navigate("/detail/reservation", { state: { text, hospitalId: consultationDetail.hospitalId } });
+        navigate("/detail/reservation", {
+            state: { text, hospitalId: consultationDetail.hospitalId },
+        });
     };
 
     const handleReviewClick = () => {
         const newReviewState = !isReviewClicked;
         setIsReviewClicked(newReviewState);
         localStorage.setItem("isReviewClicked", JSON.stringify(newReviewState));
-        navigate("/detail/review", {
+        navigate("/detail/review/write", {
             state: {
                 hospitalId: consultationDetail.hospitalId,
                 text: " ",
@@ -77,7 +78,7 @@ const HistoryDetail = () => {
 
     const handleChatClick = () => {
         navigate("/chat");
-      };
+    };
 
     return (
         <>
@@ -295,13 +296,13 @@ const ButtonText = styled.div`
 `;
 
 const ChatFixed = styled.img`
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  width: 10rem;
-  height: 10rem;
-  cursor: pointer;
-  z-index: 1000;
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    width: 10rem;
+    height: 10rem;
+    cursor: pointer;
+    z-index: 1000;
 `;
 
 export default HistoryDetail;

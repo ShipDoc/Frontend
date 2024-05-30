@@ -7,8 +7,6 @@ import locationIcon from "../../assets/icons/locationIcon.svg";
 import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
 import { getHealthCareList } from "../../apis/api/healthCare";
 import { useNavigate } from "react-router-dom";
-import chatFixed from "../../assets/images/chat/chatFixed.svg";
-
 
 const geolocationOptions = {
     enableHighAccuracy: true,
@@ -32,11 +30,6 @@ const Health = () => {
     const toggleModal = () => {
         setModal((prev) => !prev);
     };
-
-    const navigate = useNavigate();
-    const handleChatClick = () => {
-        navigate("/chat");
-      };
 
     useEffect(() => {
         if (buttonRef.current) {
@@ -133,7 +126,6 @@ const Health = () => {
                     )}
                 </Div>
             </Frame>
-            <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
         </>
     );
 };
@@ -256,16 +248,6 @@ const ReservationBtn = styled.button`
     width: 100%;
     height: 3rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-`;
-
-const ChatFixed = styled.img`
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  width: 10rem;
-  height: 10rem;
-  cursor: pointer;
-  z-index: 1000;
 `;
 
 export default Health;

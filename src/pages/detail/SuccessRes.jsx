@@ -3,8 +3,6 @@ import NavBar from "../../components/NavBar/NavBar";
 import styled from "styled-components";
 import success from "../../assets/icons/detail/success.svg";
 import { useLocation, useNavigate } from "react-router-dom";
-import chatFixed from "../../assets/images/chat/chatFixed.svg";
-
 
 const SuccessRes = () => {
     const { state } = useLocation();
@@ -13,10 +11,6 @@ const SuccessRes = () => {
     const nextHandle = () => {
         navigate("/mypage/apointment");
     };
-
-    const handleChatClick = () => {
-        navigate("/chat");
-      };
 
     return (
         <>
@@ -36,7 +30,6 @@ const SuccessRes = () => {
                     </Container>
                 </Div>
             </Frame>
-            <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
         </>
     );
 };
@@ -98,13 +91,4 @@ const NextBtn = styled.button`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
-const ChatFixed = styled.img`
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  width: 10rem;
-  height: 10rem;
-  cursor: pointer;
-  z-index: 1000;
-`;
 export default SuccessRes;
