@@ -56,7 +56,7 @@ const HistoryDetail = () => {
                     const consultation = res.result.consultations.find(
                         (c) => c.id === consultationId
                     );
-                    console.log("진료 세부 정보:", consultationDetail); // 진료 세부 정보 출력
+                    console.log("진료 세부 정보:", consultation); // 진료 세부 정보 출력
                     setConsultationDetail(consultation);
                 } else {
                     console.log(res.code);

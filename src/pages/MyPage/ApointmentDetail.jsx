@@ -17,7 +17,7 @@ const geolocationOptions = {
 const Detail = () => {
     const locationState = useLocation();
     const { reservationId } = locationState.state || {};
-    const [reservationDetail, setReservationDetail] = useState({});
+    const [reservationDetail, setReservationDetail] = useState(null);
     const { location, error } = useGeoLocation(geolocationOptions);
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
@@ -32,12 +32,12 @@ const Detail = () => {
 
     const handleConfirmModal = async () => {
         if (reservationDetail && reservationDetail.reservationId) {
-            console.log("Reservation ID:", reservationDetail.id); // 예약 ID 출력
+            console.log("Reservation ID:", reservationDetail.reservationId); // 예약 ID 출력
             try {
                 const response = await deleteReservations(reservationDetail.reservationId);
                 if (response.isSuccess) {
                     alert("예약이 취소되었습니다.");
-                    navigate("/mypage/apointment");
+                    navigate(0); // 페이지 새로고침
                 } else {
                     alert(`예약 취소 실패: ${response.message}`);
                 }
