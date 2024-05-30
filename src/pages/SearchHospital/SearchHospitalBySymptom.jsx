@@ -4,6 +4,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import blueBackImg from "../../assets/images/blueBack.svg";
 import SymptomComponent from "../../components/searchHospital/SymptomComponent";
 import { useNavigate } from "react-router-dom";
+import chatFixed from "../../assets/images/chat/chatFixed.svg";
 
 const PageDetailTextContainer = styled.div`
   display: flex;
@@ -46,6 +47,16 @@ const SearchButton = styled.button`
   cursor: ${({ isSymptomSelected }) => (isSymptomSelected ? "pointer" : "default")};
 `;
 
+const ChatFixed = styled.img`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  z-index: 1000;
+`;
+
 export default function SearchHospitalBySymptom() {
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const navigate = useNavigate();
@@ -58,6 +69,10 @@ export default function SearchHospitalBySymptom() {
 
   const handleGotoHome = () => {
     navigate("/home");
+  };
+
+  const handleChatClick = () => {
+    navigate("/chat");
   };
 
   return (
@@ -74,6 +89,7 @@ export default function SearchHospitalBySymptom() {
           검색
         </SearchButton>
       </WrapperDiv>
+      <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
     </>
   );
 }

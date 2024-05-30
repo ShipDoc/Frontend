@@ -8,6 +8,8 @@ import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
 import { getConsultations } from "../../apis/api/consultations";
 import ShipDocAi from "../../assets/images/ShipDocAi.svg";
 import subtract from "../../assets/images/subtract.svg";
+import chatFixed from "../../assets/images/chat/chatFixed.svg";
+
 
 const geolocationOptions = {
     enableHighAccuracy: true,
@@ -72,6 +74,10 @@ const HistoryDetail = () => {
     if (!consultationDetail) {
         return <div>Loading...</div>;
     }
+
+    const handleChatClick = () => {
+        navigate("/chat");
+      };
 
     return (
         <>
@@ -147,6 +153,7 @@ const HistoryDetail = () => {
                     </MainContainer>
                 </Div>
             </Frame>
+            <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
         </>
     );
 };
@@ -285,6 +292,16 @@ const ButtonText = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+`;
+
+const ChatFixed = styled.img`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  z-index: 1000;
 `;
 
 export default HistoryDetail;

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar';
 import blueBackImg from "../../assets/images/blueBack.svg"
+import chatFixed from "../../assets/images/chat/chatFixed.svg";
+
 
 const HealthCareRecordDetail = () => {
   const location = useLocation();
@@ -13,6 +15,10 @@ const HealthCareRecordDetail = () => {
   const handleGotoHome = () => {
     navigate("/home");
   }
+
+  const handleChatClick = () => {
+    navigate("/chat");
+  };
 
   return (
     <PageContainer>
@@ -37,6 +43,7 @@ const HealthCareRecordDetail = () => {
         </Details>
         <ReservationButton>다시 예약하기</ReservationButton>
       </ContentContainer>
+      <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
     </PageContainer>
   );
 };
@@ -135,6 +142,16 @@ const ReservationButton = styled.button`
   margin-top: 3rem;
   margin-bottom: 5rem;
   cursor: pointer;
+`;
+
+const ChatFixed = styled.img`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  z-index: 1000;
 `;
 
 export default HealthCareRecordDetail;

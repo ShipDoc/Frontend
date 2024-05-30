@@ -7,6 +7,7 @@ import Modal from "../../components/MyPage/Apointment/Modal";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useGeoLocation } from "../../utils/hooks/useGeoLocation";
 import { getReservations, deleteReservations } from "../../apis/api/reservations";
+import chatFixed from "../../assets/images/chat/chatFixed.svg";
 
 const geolocationOptions = {
     enableHighAccuracy: true,
@@ -86,6 +87,10 @@ const Detail = () => {
         return <div>Loading...</div>;
     }
 
+    const handleChatClick = () => {
+        navigate("/chat");
+      };    
+
     return (
         <>
             <NavBar>
@@ -138,6 +143,7 @@ const Detail = () => {
                 handleClose={handleCloseModal} 
                 handleConfirm={handleConfirmModal} 
             />
+        <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
         </>
     );
 };
@@ -230,6 +236,16 @@ const ButtonText = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+`;
+
+const ChatFixed = styled.img`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  z-index: 1000;
 `;
 
 export default Detail;

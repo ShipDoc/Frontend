@@ -6,6 +6,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ReviewStar from "../../components/review/ReviewStar";
 import ReviewContainer from "../../components/review/ReviewContainer";
 import { getReviews } from "../../apis/api/review";
+import chatFixed from "../../assets/images/chat/chatFixed.svg";
+
 
 const Review = () => {
     // {
@@ -20,6 +22,12 @@ const Review = () => {
     const [visitNum, setVistNum] = useState(0);
     const [rateNum, setRateNum] = useState(0);
     const [hospitalName, setHospitalName] = useState("");
+
+    const navigate=useNavigate();
+
+    const handleChatClick = () => {
+        navigate("/chat");
+      };
 
     useEffect(() => {
         const fetchHospitalReview = async () => {
@@ -93,6 +101,7 @@ const Review = () => {
                     </GeneralContainer>
                 </Div>
             </Frame>
+            <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
         </>
     );
 };
@@ -153,6 +162,16 @@ const NoReviewContent = styled.div`
     font-size: 1.2rem;
     color: #808080;
     font-weight: 600;
+`;
+
+const ChatFixed = styled.img`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  z-index: 1000;
 `;
 
 export default Review;

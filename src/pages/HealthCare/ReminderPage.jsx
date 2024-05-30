@@ -8,6 +8,7 @@ import Checkbox from "react-custom-checkbox";
 import { FaCheck } from "react-icons/fa6";
 import Modal from '../../components/HealthCare/Modal';
 import { getNotification, updateNotification, deleteNotification } from '../../apis/api/notification';
+import chatFixed from "../../assets/images/chat/chatFixed.svg";
 
 const ReminderPage = () => {
   const navigate = useNavigate();
@@ -65,6 +66,10 @@ const ReminderPage = () => {
     setShowModal(false);
   };
 
+  const handleChatClick = () => {
+    navigate("/chat");
+  };
+
   return (
     <PageContainer>
       <NavBar activeIndex={1}>
@@ -116,6 +121,7 @@ const ReminderPage = () => {
       </ContentContainer>
 
       <Modal show={showModal} handleClose={closeModal} title={modalTitle} text={modalText} />
+      <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
     </PageContainer>
   );
 };
@@ -313,6 +319,16 @@ const ReminderSub = styled.div`
   line-height: normal;
   letter-spacing: -0.18px;
   text-shadow: 0px 0.789px 3.157px rgba(0, 0, 0, 0.25);
+`;
+
+const ChatFixed = styled.img`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  z-index: 1000;
 `;
 
 export default ReminderPage;

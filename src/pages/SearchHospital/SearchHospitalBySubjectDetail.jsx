@@ -4,6 +4,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import blueBackImg from "../../assets/images/blueBack.svg";
 import { useNavigate, useLocation } from "react-router-dom";
 import SearchFooter from "../../components/searchHospital/SearchFooterSubject";
+import chatFixed from "../../assets/images/chat/chatFixed.svg";
 
 const PageDetailTextContainer = styled.div`
   display: flex;
@@ -20,6 +21,16 @@ const PageDetailText = styled.p`
   line-height: normal;
 `;
 
+const ChatFixed = styled.img`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  z-index: 1000;
+`;
+
 export default function SearchHospitalBySubjectDetail() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,6 +38,10 @@ export default function SearchHospitalBySubjectDetail() {
 
   const handleGotoHome = () => {
     navigate("/home");
+  };
+
+  const handleChatClick = () => {
+    navigate("/chat");
   };
 
   return (
@@ -38,6 +53,7 @@ export default function SearchHospitalBySubjectDetail() {
         </PageDetailTextContainer>
       </NavBar>
       <SearchFooter symptom={selectedSubject} />
+      <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
     </>
   );
 }

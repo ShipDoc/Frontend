@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import HealthCareRecordList from '../../components/HealthCare/HealthCareRecordList';
 import blueBackImg from "../../assets/images/blueBack.svg";
 import { useNavigate } from "react-router-dom";
+import chatFixed from "../../assets/images/chat/chatFixed.svg";
 
 const HealthCareHistory = () => {
   const navigate = useNavigate();
@@ -11,6 +12,10 @@ const HealthCareHistory = () => {
   const handleGotoHome = () => {
     navigate("/home");
   }
+  
+  const handleChatClick = () => {
+    navigate("/chat");
+  };
 
   return (
     <PageContainer>
@@ -24,6 +29,7 @@ const HealthCareHistory = () => {
         <HealthCareRecordList />
         <RegisterButton>가족 등록하기</RegisterButton>
       </ContentContainer>
+      <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
     </PageContainer>
   );
 };
@@ -70,6 +76,16 @@ const RegisterButton = styled.button`
   margin-top: 3rem;
   margin-bottom: 5rem;
   cursor: pointer;
+`;
+
+const ChatFixed = styled.img`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  z-index: 1000;
 `;
 
 export default HealthCareHistory;

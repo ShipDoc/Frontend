@@ -13,6 +13,7 @@ import ButtonRadioGroup from "../../components/detail/ButtonRadioGroup";
 import ReserveTime from "../../components/detail/ReserveTime";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getDetail, getMoreDetail } from "../../apis/api/detail";
+import chatFixed from "../../assets/images/chat/chatFixed.svg";
 
 const Reservation = () => {
     // state: {
@@ -169,6 +170,10 @@ const Reservation = () => {
         fetchMoreDetail();
     }, []);
 
+    const handleChatClick = () => {
+        navigate("/chat");
+      };
+
     return (
         <>
             <NavBar activeIndex={0}>
@@ -294,6 +299,7 @@ const Reservation = () => {
                     </NextBtn>
                 </Div>
             </Frame>
+            <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
         </>
     );
 };
@@ -474,6 +480,16 @@ const NextBtn = styled.button`
     width: 80%;
     height: 3rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+`;
+
+const ChatFixed = styled.img`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  z-index: 1000;
 `;
 
 export default Reservation;

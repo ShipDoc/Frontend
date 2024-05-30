@@ -6,6 +6,7 @@ import ChoosePayment from "../../components/detail/ChoosePayment";
 import Payments from "../../components/detail/Payments";
 import AgreeText from "../../components/detail/AgreeText";
 import { reserveHospital } from "../../apis/api/detail";
+import chatFixed from "../../assets/images/chat/chatFixed.svg";
 
 const formatDate = (date) => {
     const daysOfWeek = [
@@ -88,6 +89,10 @@ const Payment = () => {
 
     const [allRequiredChecked, setAllRequiredChecked] = useState(false);
 
+    const handleChatClick = () => {
+        navigate("/chat");
+      };
+
     useEffect(() => {
         setAllRequiredChecked(requiredChecked1 && requiredChecked2);
 
@@ -151,6 +156,7 @@ const Payment = () => {
                     </NextBtn>
                 </Div>
             </Frame>
+            <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
         </>
     );
 };
@@ -223,6 +229,16 @@ const NextBtn = styled.button`
     width: 80%;
     height: 3rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+`;
+
+const ChatFixed = styled.img`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  z-index: 1000;
 `;
 
 export default Payment;

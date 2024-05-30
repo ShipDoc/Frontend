@@ -5,11 +5,17 @@ import Content from "../../components/MyPage/Apointment/Content";
 import ApointmentCompleteModal from "../../components/MyPage/Apointment/ApointmentCompleteModal";
 import { getReservations } from '../../apis/api/reservations';
 import { useNavigate } from "react-router-dom";
+import chatFixed from "../../assets/images/chat/chatFixed.svg";
+
 
 const Apointment = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [reservations, setReservations] = useState([]);
   const navigate = useNavigate();
+
+  const handleChatClick = () => {
+    navigate("/chat");
+  };
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -41,6 +47,7 @@ const Apointment = () => {
           handleClose={handleCloseModal} 
         />
       )}
+     <ChatFixed src={chatFixed} alt="Chat" onClick={handleChatClick} />
     </PageContainer>
   );
 };
@@ -53,4 +60,13 @@ const PageContainer = styled.div`
   background-color: #fff;
 `;
 
+const ChatFixed = styled.img`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  z-index: 1000;
+`;
 export default Apointment;
