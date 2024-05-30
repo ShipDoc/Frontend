@@ -133,9 +133,9 @@ export default function HospitalComponent({
 }) {
     const [rateNum, setRateNum] = useState(Number(totalRate));
     const [hospitalTags, setHospitalTags] = useState([
-        "Test 1",
-        "Test 2",
-        "Test 3",
+        "안심 실명제",
+        "분야별 협진",
+        "전담 회복실",
     ]); // 병원 분류 상태 (백에서 받아오기)
 
     useEffect(() => {

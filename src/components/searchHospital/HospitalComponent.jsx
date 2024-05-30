@@ -127,7 +127,7 @@ export default function HospitalComponent({
 }) {
   const navigate = useNavigate();
   const [rateNum, setRateNum] = useState(Number(totalRate));
-  const [hospitalTags, setHospitalTags] = useState(tags || ["Test 1", "Test 2", "Test 3"]);
+  const [hospitalTags, setHospitalTags] = useState(tags || ["안심 실명제", "분야별 협진", "전담 회복실",]);
 
   useEffect(() => {
     console.log("Props received:", {
