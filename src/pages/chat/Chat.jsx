@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import chatBanner from "../../assets/images/chat/chatBanner.svg";
 import chatProfile from "../../assets/images/chat/chatProfile.svg";
@@ -45,8 +45,38 @@ const Chat = () => {
             },
         ]);
 
+        console.log(allText.length);
+
         setTextInput("");
     };
+
+    useEffect(() => {
+        if (allText.length === 1) {
+            setTimeout(() => {
+                setAllText([
+                    ...allText,
+                    {
+                        who: false,
+                        content: "어디가 아프신가요?",
+                    },
+                ]);
+            }, 1500);
+        } else if (allText.length === 3) {
+            setTimeout(() => {
+                setAllText([
+                    ...allText,
+                    {
+                        who: false,
+                        content: `목 증상에 맞는 이비인후과를 추천해 드릴게요. (
+                            <a href="https://place.map.kakao.com/m/1603023725">
+                                병원 링크
+                            </a>
+                        )`,
+                    },
+                ]);
+            }, 1500);
+        }
+    }, [allText]);
 
     return (
         <>
@@ -77,17 +107,27 @@ const Chat = () => {
                         </TextContainer>
                     </ChatFrame>
                     {allText.map((data, idx) => {
-                        return (
-                            data.who && (
-                                <ChatFrame key={idx}>
-                                    <MyTextContainer>
-                                        <MyTextContent>
-                                            {data.content}
-                                        </MyTextContent>
-                                        <RightCurve />
-                                    </MyTextContainer>
-                                </ChatFrame>
-                            )
+                        return data.who ? (
+                            <ChatFrame key={idx}>
+                                <MyTextContainer>
+                                    <MyTextContent>
+                                        {data.content}
+                                    </MyTextContent>
+                                    <RightCurve />
+                                </MyTextContainer>
+                            </ChatFrame>
+                        ) : (
+                            <ChatFrame key={idx}>
+                                <ProfileImg src={chatProfile}></ProfileImg>
+                                <TextContainer>
+                                    <TextContent
+                                        dangerouslySetInnerHTML={{
+                                            __html: data.content,
+                                        }}
+                                    ></TextContent>
+                                    <LeftCurve />
+                                </TextContainer>
+                            </ChatFrame>
                         );
                     })}
 
