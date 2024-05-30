@@ -21,9 +21,9 @@ const sortOptionsMap = {
 };
 
 const sortOptionsReverseMap = {
-    "DISTANCE": "가까운 순",
-    "SCORE": "별점 높은 순",
-    "REVIEW": "리뷰 많은 순",
+    DISTANCE: "가까운 순",
+    SCORE: "별점 높은 순",
+    REVIEW: "리뷰 많은 순",
 };
 
 const Health = () => {
@@ -33,8 +33,8 @@ const Health = () => {
     const [myLocationName, setMyLocationName] = useState("성북구");
     const [hospitalList, setHospitalList] = useState([]);
     const [size, setSize] = useState(3);
-    const [sortOption, setSortOption] = useState("REVIEW");
-    const [displaySortOption, setDisplaySortOption] = useState("리뷰 많은 순");
+    const [sortOption, setSortOption] = useState("DISTANCE");
+    const [displaySortOption, setDisplaySortOption] = useState("가까운 순");
 
     const [modal, setModal] = useState(false);
     const modalRef = useRef();
@@ -135,7 +135,9 @@ const Health = () => {
                             건강검진이 가능한 병원이 없습니다.
                         </NoListText>
                     )}
-                    <ReservationBtn onClick={handleLoadMore}>더보기</ReservationBtn>
+                    <ReservationBtn onClick={handleLoadMore}>
+                        더보기
+                    </ReservationBtn>
                     {modal && (
                         <div
                             ref={modalRef}

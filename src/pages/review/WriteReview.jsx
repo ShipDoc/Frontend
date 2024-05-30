@@ -31,7 +31,7 @@ const WriteReview = () => {
         try {
             const res = await postReview({
                 hospitalId: state.hospitalId,
-                // hospitalId: 603,
+                // hospitalId: 604,
                 score: popularity, // 평점
                 content: text, // 리뷰 내용
             });

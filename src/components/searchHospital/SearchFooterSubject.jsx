@@ -155,9 +155,9 @@ const sortOptionsMap = {
 };
 
 const sortOptionsReverseMap = {
-    "DISTANCE": "가까운 순",
-    "SCORE": "별점 높은 순",
-    "REVIEW": "리뷰 많은 순",
+    DISTANCE: "가까운 순",
+    SCORE: "별점 높은 순",
+    REVIEW: "리뷰 많은 순",
 };
 
 const categoryMap = {
@@ -193,8 +193,10 @@ export default function SearchFooter({ symptom }) {
             if (!location.latitude || !location.longitude || !symptom) return;
 
             const requestData = {
-                latitude: 37.589135,
-                longitude: 127.2198911,
+                // latitude: 37.589135,
+                // longitude: 127.2198911,
+                latitude: location.latitude,
+                longitude: location.longitude,
                 size: size,
                 category: [symptom],
                 sort: sortOption,
@@ -301,10 +303,7 @@ export default function SearchFooter({ symptom }) {
                 <HospitalListContainer>
                     {hospitalList.length > 0 ? (
                         hospitalList.map((data, idx) => (
-                            <HospitalComponent
-                                key={idx}
-                                data={data}
-                            />
+                            <HospitalComponent key={idx} data={data} />
                         ))
                     ) : (
                         <NoListText>병원 데이터가 없습니다.</NoListText>

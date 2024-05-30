@@ -52,146 +52,110 @@ function App() {
                 ></Route>
 
                 {/* Main */}
-                <Route path="/Home" element={<PrivateRoute element={Home} />} />
-                <Route
-                    path="/HealthCare"
-                    element={<PrivateRoute element={HealthCare} />}
-                ></Route>
+                <Route path="/Home" element={<Home />}></Route>
+                <Route path="/HealthCare" element={<HealthCare />}></Route>
                 <Route
                     path="/HealthCare/History"
-                    element={<PrivateRoute element={HealthCareHistory} />}
-                />
+                    element={<HealthCareHistory />}
+                ></Route>
                 <Route
                     path="/healthcare/History/detail"
-                    element={<PrivateRoute element={HealthCareHistoryDetail} />}
+                    element={<HealthCareHistoryDetail />}
                 />
                 <Route
                     path="/healthcare/History/reminder"
-                    element={
-                        <PrivateRoute element={HealthCareHistoryReminder} />
-                    }
+                    element={<HealthCareHistoryReminder />}
                 />
 
                 {/* SearchHospital */}
                 <Route
                     path="/SearchHospitalBySymptom"
-                    element={<PrivateRoute element={SearchHospitalBySymptom} />}
+                    element={<SearchHospitalBySymptom />}
                 ></Route>
                 <Route
                     path="/SearchHospitalBySymptom/Detail"
-                    element={
-                        <PrivateRoute element={SearchHospitalBySymptomDetail} />
-                    }
+                    element={<SearchHospitalBySymptomDetail />}
                 ></Route>
                 <Route
                     path="/SearchHospitalBySubject"
-                    element={<PrivateRoute element={SearchHospitalBySubject} />}
+                    element={<SearchHospitalBySubject />}
                 ></Route>
                 <Route
                     path="/SearchHospitalBySubject/Detail"
-                    element={
-                        <PrivateRoute element={SearchHospitalBySubjectDetail} />
-                    }
+                    element={<SearchHospitalBySubjectDetail />}
                 ></Route>
                 <Route
                     path="/SearchHospital"
-                    element={<PrivateRoute element={SearchHospital} />}
+                    element={<SearchHospital />}
                 ></Route>
-                <Route
-                    path="/insurance"
-                    element={<PrivateRoute element={Insurance} />}
-                ></Route>
+                <Route path="/insurance" element={<Insurance />}></Route>
                 <Route
                     path="/insurance/FAQ1"
-                    element={<PrivateRoute element={InsuranceFAQ1} />}
+                    element={<InsuranceFAQ1 />}
                 ></Route>
                 <Route
                     path="/insurance/FAQ2"
-                    element={<PrivateRoute element={InsuranceFAQ2} />}
+                    element={<InsuranceFAQ2 />}
                 ></Route>
                 <Route
                     path="/insurance/FAQ3"
-                    element={<PrivateRoute element={InsuranceFAQ3} />}
+                    element={<InsuranceFAQ3 />}
                 ></Route>
                 <Route
                     path="/insurance/FAQ4"
-                    element={<PrivateRoute element={InsuranceFAQ4} />}
+                    element={<InsuranceFAQ4 />}
                 ></Route>
 
                 {/* Detail */}
-                <Route
-                    path="/detail"
-                    element={<PrivateRoute element={Detail} />}
-                ></Route>
+                <Route path="/detail" element={<Detail />}></Route>
                 <Route
                     path="/detail/reservation"
-                    element={<PrivateRoute element={Reservation} />}
+                    element={<Reservation />}
                 ></Route>
-                <Route
-                    path="/detail/pay"
-                    element={<PrivateRoute element={Payment} />}
-                ></Route>
-                <Route
-                    path="/detail/noPay"
-                    element={<PrivateRoute element={NoPay} />}
-                ></Route>
-                <Route
-                    path="/detail/success"
-                    element={<PrivateRoute element={SuccessRes} />}
-                ></Route>
+                <Route path="/detail/pay" element={<Payment />}></Route>
+                <Route path="/detail/noPay" element={<NoPay />}></Route>
+                <Route path="/detail/success" element={<SuccessRes />}></Route>
 
                 {/* Review */}
-                <Route
-                    path="/detail/review"
-                    element={<PrivateRoute element={Review} />}
-                ></Route>
+                <Route path="/detail/review" element={<Review />}></Route>
                 <Route
                     path="/detail/review/write"
-                    element={<PrivateRoute element={WriteReview} />}
+                    element={<WriteReview />}
                 ></Route>
 
                 {/* MyPage */}
-                <Route
-                    path="/mypage"
-                    element={<PrivateRoute element={MyPage} />}
-                ></Route>
+                <Route path="/mypage" element={<MyPage />}></Route>
                 <Route
                     path="/mypage/apointment"
-                    element={<PrivateRoute element={MyPageApointment} />}
+                    element={<MyPageApointment />}
                 ></Route>
                 <Route
                     path="/mypage/apointmentNull"
-                    element={<PrivateRoute element={MyPageApointmentNull} />}
+                    element={<MyPageApointmentNull />}
                 ></Route>
                 <Route
                     path="/mypage/apointment/detail"
-                    element={<PrivateRoute element={MyPageApointmentDetail} />}
+                    element={<MyPageApointmentDetail />}
                 ></Route>
 
                 <Route
                     path="/mypage/history"
-                    element={<PrivateRoute element={MyPageHistory} />}
+                    element={<MyPageHistory />}
                 ></Route>
                 <Route
                     path="/mypage/historyNull"
-                    element={<PrivateRoute element={MyPageHistoryNull} />}
+                    element={<MyPageHistoryNull />}
                 ></Route>
                 <Route
                     path="/mypage/history/detail"
-                    element={<PrivateRoute element={MyPageHistoryDetail} />}
+                    element={<MyPageHistoryDetail />}
                 ></Route>
 
                 {/* Chat */}
-                <Route
-                    path="/chat"
-                    element={<PrivateRoute element={Chat} />}
-                ></Route>
+                <Route path="/chat" element={<Chat />}></Route>
 
                 {/* Health */}
-                <Route
-                    path="/health"
-                    element={<PrivateRoute element={Health} />}
-                ></Route>
+                <Route path="/health" element={<Health />}></Route>
             </Routes>
         </AuthProvider>
     );
