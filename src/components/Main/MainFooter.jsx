@@ -20,6 +20,7 @@ const FooterWrapper = styled.div`
     );
     margin-top: 7vh;
     margin-bottom: 10vh;
+    padding-top: 1rem;
 `;
 
 const FooterContainer = styled.div`
@@ -99,20 +100,19 @@ export default function MainFooter({ checkup }) {
 
     const fetchHospitalList = async () => {
         try {
-            // console.log("Fetching hospital list with sort option:", sortOption); // 추가된 콘솔 로그
-            const res = checkup 
+            const res = checkup
                 ? await getHealthCareList({
-                    latitude: location.latitude,
-                    longitude: location.longitude,
-                    size: 15,
-                    sort: sortOption,
-                }) 
+                      latitude: location.latitude,
+                      longitude: location.longitude,
+                      size: 2,
+                      sort: "REVIEW",
+                  })
                 : await getHospitalList({
-                    latitude: location.latitude,
-                    longitude: location.longitude,
-                    size: 15,
-                    sort: sortOption,
-                });
+                      latitude: location.latitude,
+                      longitude: location.longitude,
+                      size: 2,
+                      sort: "REVIEW",
+                  });
 
             if (res.data.code === "COMMON200") {
                 setHospitalList(res.data.result.hospitalList);
@@ -135,7 +135,6 @@ export default function MainFooter({ checkup }) {
     return (
         <FooterWrapper>
             <FooterContainer>
-                {checkup && <SearchBar placeholder="건강검진 병원 찾기" />}
                 <div
                     style={{
                         display: "flex",
@@ -210,10 +209,7 @@ export default function MainFooter({ checkup }) {
                 </div>
                 <div>
                     {hospitalList.map((data, idx) => (
-                        <HospitalComponent 
-                            key={idx}
-                            data={data}
-                        />
+                        <HospitalComponent key={idx} data={data} />
                     ))}
                     {hospitalList.length === 0 && (
                         <NoListText>

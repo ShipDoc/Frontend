@@ -94,31 +94,7 @@ export default function HospitalComponent(props) {
                 <DetailHospitalContainer
                     src={props.data.imageUrl}
                     onClick={handlingBtn}
-                >
-                    <img
-                        src={leftImg}
-                        alt="leftImg"
-                        style={{
-                            position: "absolute",
-                            top: "50%",
-                            left: "2vw",
-                            transform: "translate(0, -50%)",
-                            cursor: "pointer",
-                        }}
-                    />
-
-                    <img
-                        src={rightImg}
-                        alt="rightImg"
-                        style={{
-                            position: "absolute",
-                            top: "50%",
-                            right: "2vw",
-                            transform: "translate(0, -50%)",
-                            cursor: "pointer",
-                        }}
-                    />
-                </DetailHospitalContainer>
+                ></DetailHospitalContainer>
                 <HospitalTagContainer>
                     {hospitalTags.map((text, index) => {
                         return (
