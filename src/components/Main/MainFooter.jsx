@@ -73,13 +73,19 @@ const geolocationOptions = {
     maximumAge: 1000 * 3600 * 24,
 };
 
+const sortOptionsMap = {
+    "가까운 순": "DISTANCE",
+    "별점 높은 순": "SCORE",
+    "리뷰 많은 순": "REVIEW",
+};
+
 export default function MainFooter({ checkup }) {
     const { location, error } = useGeoLocation(geolocationOptions);
     const [myLocationName, setMyLocationName] = useState("성북구");
     const [hospitalList, setHospitalList] = useState([]);
 
     const [modal, setModal] = useState(false);
-    const [sortOption, setSortOption] = useState("가까운 순");
+    const [sortOption, setSortOption] = useState("REVIEW");
     const modalRef = useRef();
 
     const toggleModal = () => {
@@ -87,24 +93,25 @@ export default function MainFooter({ checkup }) {
     };
 
     const handleSelectOption = (option) => {
-        setSortOption(option);
+        setSortOption(sortOptionsMap[option]);
         setModal(false);
     };
 
     const fetchHospitalList = async () => {
         try {
+            // console.log("Fetching hospital list with sort option:", sortOption); // 추가된 콘솔 로그
             const res = checkup 
                 ? await getHealthCareList({
                     latitude: location.latitude,
                     longitude: location.longitude,
                     size: 15,
-                    sort: "REVIEW",
+                    sort: sortOption,
                 }) 
                 : await getHospitalList({
                     latitude: location.latitude,
                     longitude: location.longitude,
                     size: 15,
-                    sort: "REVIEW",
+                    sort: sortOption,
                 });
 
             if (res.data.code === "COMMON200") {
@@ -226,4 +233,3 @@ export default function MainFooter({ checkup }) {
         </FooterWrapper>
     );
 }
-// MainFooter.jsx

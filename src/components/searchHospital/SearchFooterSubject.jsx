@@ -148,6 +148,18 @@ const geolocationOptions = {
     maximumAge: 1000 * 3600 * 24,
 };
 
+const sortOptionsMap = {
+    "가까운 순": "DISTANCE",
+    "별점 높은 순": "SCORE",
+    "리뷰 많은 순": "REVIEW",
+};
+
+const sortOptionsReverseMap = {
+    "DISTANCE": "가까운 순",
+    "SCORE": "별점 높은 순",
+    "REVIEW": "리뷰 많은 순",
+};
+
 const categoryMap = {
     SURGERY: "외과",
     INTERNAL_MEDICINE: "내과",
@@ -171,8 +183,9 @@ export default function SearchFooter({ symptom }) {
     const { location, error } = useGeoLocation(geolocationOptions);
     const [hospitalList, setHospitalList] = useState([]);
     const [modal, setModal] = useState(false);
-    const [sortOption, setSortOption] = useState("가까운 순");
-    const [size, setSize] = useState(3); // size 상태 추가
+    const [sortOption, setSortOption] = useState("REVIEW");
+    const [displaySortOption, setDisplaySortOption] = useState("리뷰 많은 순");
+    const [size, setSize] = useState(3);
     const modalRef = useRef();
 
     useEffect(() => {
@@ -184,7 +197,7 @@ export default function SearchFooter({ symptom }) {
                 longitude: 127.2198911,
                 size: size,
                 category: [symptom],
-                sort: "REVIEW",
+                sort: sortOption,
             };
 
             console.log("Request Data:", requestData);
@@ -215,7 +228,10 @@ export default function SearchFooter({ symptom }) {
     };
 
     const handleSelectOption = (option) => {
-        setSortOption(option);
+        const selectedSortOption = sortOptionsMap[option];
+        setSortOption(selectedSortOption);
+        setDisplaySortOption(option);
+        console.log("Selected Sort Option:", selectedSortOption); // 콘솔 로그 추가
         setModal(false);
     };
 
@@ -262,7 +278,7 @@ export default function SearchFooter({ symptom }) {
                         <ToggleDiv>
                             <img src={toggleBoxImage} alt="toggleBoxImg" />
                             <ToggleTextContainer>
-                                <ToggleText>{sortOption}</ToggleText>
+                                <ToggleText>{displaySortOption}</ToggleText>
                                 <ToggleIcon onClick={toggleModal}>▼</ToggleIcon>
                             </ToggleTextContainer>
                         </ToggleDiv>

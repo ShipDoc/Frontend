@@ -168,11 +168,24 @@ const symptomMap = {
   "BODY_ACHE": "몸살",
 };
 
+const sortOptionsMap = {
+  "가까운 순": "DISTANCE",
+  "별점 높은 순": "SCORE",
+  "리뷰 많은 순": "REVIEW",
+};
+
+const sortOptionsReverseMap = {
+  "DISTANCE": "가까운 순",
+  "SCORE": "별점 높은 순",
+  "REVIEW": "리뷰 많은 순",
+};
+
 export default function SearchFooterSymptom({ symptoms }) {
   const { location, error } = useGeoLocation(geolocationOptions);
   const [hospitalList, setHospitalList] = useState([]);
   const [modal, setModal] = useState(false);
-  const [sortOption, setSortOption] = useState("가까운 순");
+  const [sortOption, setSortOption] = useState("REVIEW");
+  const [displaySortOption, setDisplaySortOption] = useState("리뷰 많은 순");
   const [size, setSize] = useState(3); // size 상태 추가
   const modalRef = useRef();
 
@@ -185,7 +198,7 @@ export default function SearchFooterSymptom({ symptoms }) {
         longitude: 127.2198911,
         size: size,
         symptomList: symptoms,
-        sort: "REVIEW",
+        sort: sortOption,
       };
 
       console.log("Request Data:", requestData);
@@ -214,7 +227,10 @@ export default function SearchFooterSymptom({ symptoms }) {
   };
 
   const handleSelectOption = (option) => {
-    setSortOption(option);
+    const selectedSortOption = sortOptionsMap[option];
+    setSortOption(selectedSortOption);
+    setDisplaySortOption(option);
+    console.log("Selected Sort Option:", selectedSortOption); // 콘솔 로그 추가
     setModal(false);
   };
 
@@ -242,7 +258,7 @@ export default function SearchFooterSymptom({ symptoms }) {
             <ToggleDiv>
               <img src={toggleBoxImage} alt="toggleBoxImg" />
               <ToggleTextContainer>
-                <ToggleText>{sortOption}</ToggleText>
+                <ToggleText>{displaySortOption}</ToggleText>
                 <ToggleIcon onClick={toggleModal}>▼</ToggleIcon>
               </ToggleTextContainer>
             </ToggleDiv>
@@ -263,7 +279,7 @@ export default function SearchFooterSymptom({ symptoms }) {
           )}
         </SearchHeader>
         <HospitalListContainer>
-          {hospitalList.length > 0 ? (
+        {hospitalList.length > 0 ? (
             hospitalList.map((data, idx) => (
               <HospitalComponent
                 key={idx}
